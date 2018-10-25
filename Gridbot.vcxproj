@@ -115,11 +115,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\GPIO.cpp" />
-    <ClCompile Include="src\Gridbot.cpp" />
+    <ClCompile Include="src\gpio\GPIO.cpp" />
+    <ClCompile Include="src\gridbot\cpp\gpio\GPIO.cpp" />
+    <ClCompile Include="src\gridbot\cpp\Gridbot.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GPIO.h" />
+    <ClInclude Include="src\gridbot\cpp\headers\GPIO.h" />
+    <ClInclude Include="src\headers\GPIO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

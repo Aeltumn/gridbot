@@ -1,6 +1,7 @@
 /.gradle/
 /gradle/
 /Debug/
+/build/
 
 # Prerequisites
 *.d

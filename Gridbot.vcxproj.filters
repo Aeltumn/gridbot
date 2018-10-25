@@ -15,15 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\GPIO.cpp">
+    <ClCompile Include="src\gpio\GPIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Gridbot.cpp">
+    <ClCompile Include="src\gridbot\cpp\gpio\GPIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gridbot\cpp\Gridbot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GPIO.h">
+    <ClInclude Include="src\headers\GPIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gridbot\cpp\headers\GPIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,4 @@
-#include "GPIO.cpp"
+#include "headers/GPIO.h"
 
 int main() {
 	//Setup thread pool
@@ -19,6 +19,6 @@ int main() {
 				Process incoming commands and camera data from socket connections.
 	*/
 
-	//bool va = GPIO::get(5);
-	//GPIO::set(26, true);
+	bool va = GPIO::get(5);
+	GPIO::set(26, true);
 }
