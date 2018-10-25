@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        build 'gradlew build'
+        sh 'gradlew build'
       }
     }
     stage('Collect Aritfacts') {
