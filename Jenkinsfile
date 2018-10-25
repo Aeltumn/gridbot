@@ -6,7 +6,7 @@ pipeline {
         sh '''
 
 chmod +x ./gradlew
-./gradlew build'''
+./gradlew build --no-daemon'''
       }
     }
     stage('Collect Aritfacts') {
