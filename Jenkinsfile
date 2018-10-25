@@ -5,7 +5,8 @@ pipeline {
       steps {
         sh '''
 
-gradle build'''
+chmod +x ./gradlew
+./gradlew build'''
       }
     }
     stage('Collect Aritfacts') {
