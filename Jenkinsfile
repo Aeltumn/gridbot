@@ -9,7 +9,7 @@ pipeline {
     }
     stage('Collect Aritfacts') {
       steps {
-        archiveArtifacts 'build/exe/main/*.exe'
+        archiveArtifacts 'build/exe/main/*'
       }
     }
   }
