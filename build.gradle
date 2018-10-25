@@ -2,10 +2,6 @@ apply plugin: 'cpp'
 
 model {
 	components {
-		Gridbot(NativeExecutableSpec)
+		main(NativeExecutableSpec)
 	}
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.2'
 }

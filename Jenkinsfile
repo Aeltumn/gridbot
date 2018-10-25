@@ -3,15 +3,13 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''
-
-chmod +x ./gradlew
+        sh '''chmod +x ./gradlew
 ./gradlew build'''
       }
     }
     stage('Collect Aritfacts') {
       steps {
-        archiveArtifacts 'Gridbot'
+        archiveArtifacts 'build/exe/main/*.exe'
       }
     }
   }
