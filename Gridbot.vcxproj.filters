@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Gridbot.cpp">
+    <ClCompile Include="src\GPIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GPIO.cpp">
+    <ClCompile Include="src\Gridbot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GPIO.h">
+    <ClInclude Include="src\GPIO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
