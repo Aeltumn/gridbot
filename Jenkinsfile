@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh '''chmod +x ./gradlew
-./gradlew build'''
+        sh '''sudo ./gradlew build'''
       }
     }
     stage('Collect Aritfacts') {
