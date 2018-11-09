@@ -42,7 +42,7 @@ void Logger::error(const char* str) {
 	char s[512]; //max length: 512
 	strcat(s, "01-01-1970 00:00:00 [ERROR] ");
 	strcat(s, str);
-	wbytes = write(sockfd, s, strlen(wbuff));
+	wbytes = send(sockfd, s, strlen(wbuff), 0);
 }
 
 void Logger::info(const char* str) {
@@ -51,5 +51,5 @@ void Logger::info(const char* str) {
 	char s[512]; //max length: 512
 	strcat(s, "01-01-1970 00:00:00 [INFO] ");
 	strcat(s, str);
-	wbytes = write(sockfd, s, strlen(wbuff));
+	wbytes = send(sockfd, s, strlen(wbuff), 0);
 }
