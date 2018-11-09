@@ -1,4 +1,6 @@
 #include "../headers/Logger.h"
+#include <string>
+#include <ctime>
 #include <iostream>
 
 //Code Credit to https://jindongpu.wordpress.com/2012/02/06/javac-socket-communication/

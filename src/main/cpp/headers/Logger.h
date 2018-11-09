@@ -5,9 +5,6 @@
 #include <netinet/in.h>
 #include <netdb.h>
 
-#include <string>
-#include <ctime>
-
 class Logger {
 	public:
 		static void setup();
