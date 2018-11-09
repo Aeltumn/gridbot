@@ -10,4 +10,9 @@ tasks.build.doFirst {
 	exec {
 		commandLine "perl", "-w", "-e", "s/${BUILD_NUMBER}/"+project.buildnumber+"/g", "/src/main/cpp/Main.cpp"
 	}
+
+	if(targetPlatform.operatingSystem.linux) {
+        cppCompiler.args '-pthread'
+		linker.args '-pthread'
+    }
 }
