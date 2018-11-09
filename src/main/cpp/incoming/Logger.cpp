@@ -1,5 +1,5 @@
 #include "../headers/Logger.h"
-#include <string>
+#include <string.h>
 #include <ctime>
 #include <iostream>
 
