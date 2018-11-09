@@ -1,4 +1,6 @@
 #include "headers/GPIO.h"
+#include "headers/Logger.h"
+#include <thread>
 
 int main() {
 	//Setup thread pool
@@ -16,9 +18,10 @@ int main() {
 				Thread to determine next action in current game.
 				Has purely general overview of current game being played.
 			- Incoming Thread
-				Process incoming commands and camera data from socket connections.
+				Process incoming camera data from socket connection.
 	*/
 
-	bool va = GPIO::get(5);
-	GPIO::set(26, true);
+	std::thread incoming(Logger::setup);
+	Logger::info("Starting up Gridbot v1.0 #${BUILD_NUMBER}");
+	return 0;
 }

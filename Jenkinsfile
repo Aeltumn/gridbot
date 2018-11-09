@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         sh '''chmod +x ./gradlew
-./gradlew build'''
+./gradlew build -Pbuildnumber=${BUILD_NUMBER}""'''
       }
     }
     stage('Collect Aritfacts') {
