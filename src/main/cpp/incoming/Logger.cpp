@@ -2,8 +2,9 @@
 
 //Code Credit to https://jindongpu.wordpress.com/2012/02/06/javac-socket-communication/
 
+int sockfd; // socket file descriptor 
+
 void Logger::setup() {
-	int sockfd; // socket file descriptor 
 	int portno = 4447; // port number
 	struct sockaddr_in serv_addr;
 	struct hostent *server;
@@ -31,7 +32,7 @@ void Logger::setup() {
 		//recv should block until something is received
 		rbytes = recv(sockfd, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
 		rbuff[rbytes] = '\0'; // set null terminal
-		info("Message: %s\n"+rbuff);
+		info(rbuff);
 	}
 }
 
@@ -48,7 +49,7 @@ void Logger::info(const char* str) {
 	int wbytes;
 	char * wbuff;
 	char s[512]; //max length: 512
-	strcat(s, "01-01-1970 00:00:00 [ERROR] ");
+	strcat(s, "01-01-1970 00:00:00 [INFO] ");
 	strcat(s, str);
 	wbytes = write(sockfd, s, strlen(wbuff));
 }
