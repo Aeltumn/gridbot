@@ -1,4 +1,5 @@
 #include "../headers/Logger.h"
+#include <iostream>
 
 //Code Credit to https://jindongpu.wordpress.com/2012/02/06/javac-socket-communication/
 
@@ -40,8 +41,14 @@ void Logger::error(const char* str) {
 	int wbytes;
 	char * wbuff;
 	char s[512]; //max length: 512
-	strcat(s, "01-01-1970 00:00:00 [ERROR] ");
+	time_t rawtime;
+	struct tm * timeinfo;
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
+	strcat(s, " [ERROR] ");
 	strcat(s, str);
+	std::cout << s;
 	wbytes = send(sockfd, s, strlen(wbuff), 0);
 }
 
@@ -49,7 +56,13 @@ void Logger::info(const char* str) {
 	int wbytes;
 	char * wbuff;
 	char s[512]; //max length: 512
-	strcat(s, "01-01-1970 00:00:00 [INFO] ");
+	time_t rawtime;
+	struct tm * timeinfo;
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
+	strcat(s, " [INFO] ");
 	strcat(s, str);
+	std::cout << s;
 	wbytes = send(sockfd, s, strlen(wbuff), 0);
 }
