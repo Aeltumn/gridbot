@@ -12,6 +12,6 @@ model {
 
 tasks.build.doFirst {
 	exec {
-		commandLine "perl", "-w", "-e", "s/${BUILD_NUMBER}/"+project.buildnumber+"/g", "/src/main/cpp/Main.cpp"
+		commandLine "perl", "-w", "-e", "s/[BUILD_NUMBER]/"+project.buildnumber+"/g", "/src/main/cpp/Main.cpp"
 	}
 }

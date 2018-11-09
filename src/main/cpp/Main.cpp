@@ -22,6 +22,6 @@ int main() {
 	*/
 
 	std::thread incoming(Logger::setup);
-	Logger::info("Starting up Gridbot v1.0 #${BUILD_NUMBER}");
+	Logger::info("Starting up Gridbot v1.0 #[BUILD_NUMBER]");
 	return 0;
 }

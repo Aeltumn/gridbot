@@ -15,15 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\gpio\GPIO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gridbot\cpp\gpio\GPIO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\gridbot\cpp\Gridbot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main\cpp\incoming\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -35,16 +26,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\headers\GPIO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gridbot\cpp\headers\GPIO.h">
+    <ClInclude Include="src\main\cpp\headers\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\cpp\headers\GPIO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\cpp\headers\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
