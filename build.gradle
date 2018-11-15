@@ -10,6 +10,11 @@ model {
                 linker.withArguments { args ->
                     args << "-m64"
                 }
+				cCompiler.executable 'arm-unknown-linux-gnueabi-g++'
+				cppCompiler.executable 'arm-unknown-linux-gnueabi-g++'
+				linker.executable 'arm-unknown-linux-gnueabi-g++'
+				assembler.executable 'arm-unknown-linux-gnueabi-as'
+				staticLibArchiver.executable 'arm-unknown-linux-gnueabi-ar'
 		   }
 		}
 	}
@@ -24,11 +29,6 @@ model {
 		   binaries.all {
 		     linker.args '-pthread'
 		   }
-			cCompiler.executable 'arm-unknown-linux-gnueabi-g++'
-			cppCompiler.executable 'arm-unknown-linux-gnueabi-g++'
-			linker.executable 'arm-unknown-linux-gnueabi-g++'
-			assembler.executable 'arm-unknown-linux-gnueabi-as'
-			staticLibArchiver.executable 'arm-unknown-linux-gnueabi-ar'
 		}
 	}
 }
