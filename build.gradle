@@ -15,14 +15,14 @@ model {
 	}
 	platforms {
 	    arm {
-		    architecture "arm"
+		    architecture "armv71"
 		}
 	}
 	components {
 		main(NativeExecutableSpec) {
 		   targetPlatform "arm"
 		   binaries.all {
-		     linker.args '-pthread -pie'
+		     linker.args '-pthread'
 		   }
 		}
 	}
