@@ -2,20 +2,8 @@ apply plugin: 'cpp'
 
 model {
 	toolChains {
-		gcc(Gcc) {
-		   target("arm") {
-				cppCompiler.withArguments { args ->
-                    args << "-m64"
-                }
-                linker.withArguments { args ->
-                    args << "-m64"
-                }
-				cCompiler.executable 'arm-unknown-linux-gnueabi-g++'
-				cppCompiler.executable 'arm-unknown-linux-gnueabi-g++'
-				linker.executable 'arm-unknown-linux-gnueabi-g++'
-				assembler.executable 'arm-unknown-linux-gnueabi-as'
-				staticLibArchiver.executable 'arm-unknown-linux-gnueabi-ar'
-		   }
+		g++(G++) {
+		   target("arm") {}
 		}
 	}
 	platforms {
