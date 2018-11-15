@@ -7,6 +7,7 @@
 bool GPIO::exported[27];
 bool GPIO::directions[27];
 
+#ifdef __linux__
 /* Public Methods */
 
 //Read what a pin is currently set to, or read from an input pin.
@@ -62,3 +63,11 @@ int GPIO::getval(const int &pin) {
 	estream.close();
 	return ret == "0" ? 0 : 1;
 }
+#else
+bool GPIO::get(const int &pin) { return false; }
+void GPIO::set(const int &pin, const bool &value) {}
+void GPIO::setexport(const int &pin, const bool &exp) {}
+void GPIO::setdirection(const int &pin, const char &option) {}
+void GPIO::setval(const int &pin, const bool &on) {}
+int GPIO::getval(const int &pin) { return 0; }
+#endif

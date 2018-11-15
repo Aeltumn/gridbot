@@ -1,36 +1,62 @@
+import org.apache.tools.ant.filters.ReplaceTokens
 apply plugin: 'cpp'
 
 model {
 	toolChains {
 		gcc(Gcc) {
-		   target("arm") {}
+			target("arm") {
+			}
 		}
+		visualCpp(VisualCpp) {}
 	}
 	platforms {
-	    arm {
-		    architecture "armv71"
+	    debian {
+		    architecture "arm"
 		}
-		win {
-			architecture "x64"
-
+		windows {
+			architecture "x86"
 		}
 	}
 	components {
-		main(NativeExecutableSpec) {
-		   targetPlatform "arm"
-		   targetPlatform "win"
-		   binaries.all {
-		    if (targetPlatform.operatingSystem.linux) {
-				linker.args '-pthread'
-				cppCompiler.args '-pthread'
+		gridbot(NativeExecutableSpec) {
+			targetPlatform "debian"
+		    targetPlatform "windows"
+			sources {
+				cpp {
+					source {
+						srcDir "src/main/cpp"
+						include "**/*.cpp"
+						include "**/*.h"
+					}
+				}
 			}
-		   }
+
+			binaries.all {
+				if(targetPlatform.operatingSystem.linux) {
+					linker.args '-pthread'
+					cppCompiler.args '-pthread'
+				}
+			}
 		}
 	}
 }
 
-tasks.build.doFirst {
-	exec {
-		commandLine "perl", "-w", "-e", "s/[BUILD_NUMBER]/"+project.buildnumber+"/g", "/src/main/cpp/Main.cpp"
+task changeVersion {
+	ant.replace(
+		file: './src/main/cpp/Main.cpp',
+		token: '#@BUILD_NUMBER@',
+		value: '#'+project.buildnumber
+	)
+}
+
+build.dependsOn changeVersion
+
+build {
+	doLast  {
+		ant.replace(
+			file: './src/main/cpp/Main.cpp',
+			token: '#'+project.buildnumber,
+			value: "#@BUILD_NUMBER@"
+		)
 	}
 }
