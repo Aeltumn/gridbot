@@ -39,7 +39,7 @@ int main() {
 
 	try {
 		std::thread incoming(Logger::setup);
-		Logger::info("Starting up Gridbot v1.0 #@BUILD_NUMBER@");
+		Logger::info("Starting up Gridbot v1.0 #5");
 
 		using namespace distanceunits;
 		Motor(29, 31, 33, 35).move(1.0cm);
