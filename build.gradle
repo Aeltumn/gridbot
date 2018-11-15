@@ -4,23 +4,25 @@ apply plugin: 'cpp'
 model {
 	toolChains {
 		gcc(Gcc) {
-			target("arm") {
+			target("debian") {
 			}
 		}
 		visualCpp(VisualCpp) {}
 	}
 	platforms {
 	    debian {
-		    architecture "arm"
+		    architecture "arm-v8"
+            operatingSystem "linux"
 		}
 		windows {
 			architecture "x86"
+            operatingSystem "windows"
 		}
 	}
 	components {
 		gridbot(NativeExecutableSpec) {
 			if(project.findProperty("debian")) targetPlatform "debian"
-		    if(project.findProperty("windows")) targetPlatform "windows"
+		    else targetPlatform "windows"
 			sources {
 				cpp {
 					source {

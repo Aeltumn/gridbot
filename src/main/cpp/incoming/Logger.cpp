@@ -113,7 +113,7 @@ void Logger::setup() {
 			return;
 		}
 
-		char rbuff[2048];
+		char rbuff[512];
 		int rbytes;
 
 		info("Started logger system.");
@@ -121,7 +121,7 @@ void Logger::setup() {
 		while (true) {
 			//recv should block until something is received
 			rbytes = recv(sock, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
-			//rbuff[rbytes] = '\0'; // set null terminal
+			rbuff[rbytes] = '\0'; // set null terminal
 			info(rbuff);
 		}
 	} catch (const std::exception& e) {
@@ -132,7 +132,7 @@ void Logger::setup() {
 
 void Logger::error(const char* str) {
 	int wbytes;
-	char s[2048]; //max length: 2048
+	char s[512]; //max length: 512
 	struct tm buf;
 	time_t t = time(NULL);
 	localtime_s(&buf, &t);
@@ -146,7 +146,7 @@ void Logger::error(const char* str) {
 
 void Logger::info(const char* str) {
 	int wbytes;
-	char s[2048]; //max length: 2048
+	char s[512]; //max length: 512
 	struct tm buf;
 	time_t t = time(NULL);
 	localtime_s(&buf, &t);
