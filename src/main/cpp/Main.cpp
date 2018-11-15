@@ -41,6 +41,6 @@ int main() {
 	Logger::info("Starting up Gridbot v1.0 #[BUILD_NUMBER]");
 
 	using namespace distanceunits;
-	Motor(29, 31, 33, 35).move(X, 1.0cm);
+	Motor(29, 31, 33, 35).move(1.0cm);
 	return 0;
 }

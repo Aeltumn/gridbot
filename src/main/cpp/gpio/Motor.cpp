@@ -6,7 +6,7 @@
 /* Public Methods */
 Motor::Motor(const int &port1, const int &port2, const int &port3, const int &port4) { p1 = port1; p2 = port2; p3 = port3; p4 = port4; }
 
-void Motor::move(const Axis &ax, const long double &millimeters) {
+void Motor::move(const long double &millimeters) {
 	for (long long ind = (long long) std::round(millimeters); ind > 0; --ind) {
 		using namespace std::chrono_literals;
 		///Steps 1 and 3 are the same for (counter)clockwise.
