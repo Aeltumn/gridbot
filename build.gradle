@@ -22,7 +22,7 @@ model {
 		main(NativeExecutableSpec) {
 		   targetPlatform "arm"
 		   binaries.all {
-		     linker.args '-pthread'
+		     linker.args '-pthread -pie'
 		   }
 		}
 	}
