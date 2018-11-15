@@ -10,7 +10,7 @@ bool GPIO::directions[27];
 /* Public Methods */
 
 //Read what a pin is currently set to, or read from an input pin.
-bool GPIO::get(int pin) {
+bool GPIO::get(const int &pin) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
 	if (!GPIO::exported[pin]) GPIO::setexport(pin, true);
 	if (GPIO::directions[pin]) GPIO::setdirection(pin, 'I');
@@ -18,7 +18,7 @@ bool GPIO::get(int pin) {
 }
 
 //Set the value of an output pin, must be an output pin!
-void GPIO::set(int pin, bool value) {
+void GPIO::set(const int &pin, const bool &value) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
 	if (!GPIO::exported[pin]) GPIO::setexport(pin, true);
 	if (!GPIO::directions[pin]) GPIO::setdirection(pin, 'O');
@@ -28,7 +28,7 @@ void GPIO::set(int pin, bool value) {
 
 /* Private Methods */
 
-void GPIO::setexport(int pin, bool exp) {
+void GPIO::setexport(const int &pin, const bool &exp) {
 	std::string s = exp ? "/sys/class/gpio/export" : "/sys/class/gpio/unexport";
 	std::ofstream estream(s.c_str());
 	estream << pin;
@@ -36,7 +36,7 @@ void GPIO::setexport(int pin, bool exp) {
 	exported[pin] = exp;
 }
 
-void GPIO::setdirection(int pin, char option) {
+void GPIO::setdirection(const int &pin, const char &option) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/direction");
 	std::ofstream estream(s.c_str());
@@ -45,7 +45,7 @@ void GPIO::setdirection(int pin, char option) {
 	directions[pin] = (option == 'I' ? false : true);
 }
 
-void GPIO::setval(int pin, bool on) {
+void GPIO::setval(const int &pin, const bool &on) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/value");
 	std::ofstream estream(s.c_str());
@@ -53,7 +53,7 @@ void GPIO::setval(int pin, bool on) {
 	estream.close();
 }
 
-int GPIO::getval(int pin) {
+int GPIO::getval(const int &pin) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/value");
 	std::ifstream estream(s.c_str());

@@ -24,12 +24,18 @@
     <ClCompile Include="src\main\cpp\gpio\GPIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\gpio\Motor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\cpp\headers\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\cpp\headers\GPIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\headers\Motor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -116,12 +116,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main\cpp\gpio\GPIO.cpp" />
+    <ClCompile Include="src\main\cpp\gpio\Motor.cpp" />
     <ClCompile Include="src\main\cpp\incoming\Logger.cpp" />
     <ClCompile Include="src\main\cpp\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\cpp\headers\GPIO.h" />
     <ClInclude Include="src\main\cpp\headers\Logger.h" />
+    <ClInclude Include="src\main\cpp\headers\Motor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
