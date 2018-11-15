@@ -19,8 +19,8 @@ model {
 	}
 	components {
 		gridbot(NativeExecutableSpec) {
-			targetPlatform "debian"
-		    targetPlatform "windows"
+			if(project.findProperty("debian")) targetPlatform "debian"
+		    if(project.findProperty("windows")) targetPlatform "windows"
 			sources {
 				cpp {
 					source {
