@@ -1,14 +1,31 @@
 apply plugin: 'cpp'
 
 model {
+	toolChains {
+		gcc(Gcc) {
+		   target("arm") {
+				cppCompiler.withArguments { args ->
+                    args << "-m32"
+                }
+                linker.withArguments { args ->
+                    args << "-m32"
+                }
+		   }
+		   target("sparc")
+		}
+	}
 	platforms {
 	    arm {
 		    architecture "arm"
+		}
+		sparc {
+			architecture "sparc"
 		}
 	}
 	components {
 		main(NativeExecutableSpec) {
 		   targetPlatform "arm"
+		   targetPlatform "sparc"
 		   binaries.all {
 		     linker.args '-pthread'
 		   }
