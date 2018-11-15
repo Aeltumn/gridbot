@@ -7,7 +7,7 @@
 bool GPIO::exported[27];
 bool GPIO::directions[27];
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__CYGWIN__)
 /* Public Methods */
 
 //Read what a pin is currently set to, or read from an input pin.

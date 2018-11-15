@@ -3,7 +3,7 @@
 #include <ctime>
 #include <iostream>
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__CYGWIN__)
 //Linux
 #include <sys/types.h>
 #include <sys/socket.h>
