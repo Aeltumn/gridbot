@@ -1,8 +1,14 @@
 apply plugin: 'cpp'
 
 model {
+	platforms {
+	    x86 {
+		    architecture "x86"
+		}
+	}
 	components {
 		main(NativeExecutableSpec) {
+		   targetPlatform "x86"
 		   binaries.all {
 		     linker.args '-pthread'
 		   }
