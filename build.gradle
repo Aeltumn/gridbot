@@ -2,7 +2,7 @@ apply plugin: 'cpp'
 
 model {
 	toolChains {
-		g++(G++) {
+		gcc(Gcc) {
 		   target("arm") {}
 		}
 	}
@@ -10,12 +10,20 @@ model {
 	    arm {
 		    architecture "armv71"
 		}
+		win {
+			architecture "x64"
+
+		}
 	}
 	components {
 		main(NativeExecutableSpec) {
 		   targetPlatform "arm"
+		   targetPlatform "win"
 		   binaries.all {
-		     linker.args '-pthread'
+		    if (targetPlatform.operatingSystem.linux) {
+				linker.args '-pthread'
+				cppCompiler.args '-pthread'
+			}
 		   }
 		}
 	}
