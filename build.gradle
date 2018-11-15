@@ -5,27 +5,22 @@ model {
 		gcc(Gcc) {
 		   target("arm") {
 				cppCompiler.withArguments { args ->
-                    args << "-m32"
+                    args << "-m64"
                 }
                 linker.withArguments { args ->
-                    args << "-m32"
+                    args << "-m64"
                 }
 		   }
-		   target("sparc")
 		}
 	}
 	platforms {
 	    arm {
 		    architecture "arm"
 		}
-		sparc {
-			architecture "sparc"
-		}
 	}
 	components {
 		main(NativeExecutableSpec) {
 		   targetPlatform "arm"
-		   targetPlatform "sparc"
 		   binaries.all {
 		     linker.args '-pthread'
 		   }
