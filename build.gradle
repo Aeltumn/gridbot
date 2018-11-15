@@ -1,18 +1,6 @@
 apply plugin: 'cpp'
 
 model {
-	toolChains {
-		gcc(Gcc) {
-		   target("arm") {
-				cppCompiler.withArguments { args ->
-                    args << "-m64"
-                }
-                linker.withArguments { args ->
-                    args << "-m64"
-                }
-		   }
-		}
-	}
 	platforms {
 	    arm {
 		    architecture "armv71"
