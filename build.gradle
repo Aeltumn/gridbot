@@ -2,13 +2,13 @@ apply plugin: 'cpp'
 
 model {
 	platforms {
-	    x86 {
-		    architecture "x86"
+	    arm {
+		    architecture "arm"
 		}
 	}
 	components {
 		main(NativeExecutableSpec) {
-		   targetPlatform "x86"
+		   targetPlatform "arm"
 		   binaries.all {
 		     linker.args '-pthread'
 		   }
