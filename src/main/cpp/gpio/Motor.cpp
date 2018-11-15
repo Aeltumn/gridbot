@@ -45,7 +45,3 @@ void Motor::move(const long double &millimeters) {
 	//Cleaup after ourselves
 	GPIO::set(p1, false); GPIO::set(p2, false); GPIO::set(p3, false); GPIO::set(p4, false);
 }
-
-constexpr long double distanceunits::operator""dm(long double dm) { return dm * 100; }
-constexpr long double distanceunits::operator""cm(long double cm) { return cm * 10; }
-constexpr long double distanceunits::operator""mm(long double mm) { return mm;  }
