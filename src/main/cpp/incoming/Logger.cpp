@@ -50,27 +50,29 @@ void Logger::setup() {
 void Logger::error(const char* str) {
 	int wbytes;
 	char s[512]; //max length: 512
-	struct tm buf;
-	time_t t = time(NULL);
-	localtime_s(&buf, &t);
-	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", &buf);
-	strcat_s(s, " [ERROR] ");
-	strcat_s(s, str);
+	time_t rawtime;
+	struct tm * timeinfo;
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
+	strcat(s, " [ERROR] ");
+	strcat(s, str);
 	std::cout << s;
-	wbytes = send(sock, s, (int)strlen(s), 0);
+	wbytes = send(sockfd, s, (int)strlen(s), 0);
 }
 
 void Logger::info(const char* str) {
 	int wbytes;
 	char s[512]; //max length: 512
-	struct tm buf;
-	time_t t = time(NULL);
-	localtime_s(&buf, &t);
-	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", &buf);
-	strcat_s(s, " [INFO] ");
-	strcat_s(s, str);
+	time_t rawtime;
+	struct tm * timeinfo;
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
+	strcat(s, " [INFO] ");
+	strcat(s, str);
 	std::cout << s;
-	wbytes = send(sock, s, (int)strlen(s), 0);
+	wbytes = send(sockfd, s, (int)strlen(s), 0);
 }
 #else
 //Windows
