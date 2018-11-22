@@ -3,6 +3,8 @@
 #include <ctime>
 #include <iostream>
 
+bool connected = false;
+
 #if defined(__linux__) || defined(__CYGWIN__)
 //Linux
 #include <sys/types.h>
@@ -49,6 +51,7 @@ void Logger::setup() {
 		int rbytes;
 
 		info("Succesfully started and connected logger system.");
+		connected = true;
 		//rbytes = read(sockfd, rbuff, sizeof(rbuff)); // read from socket and store the msg into buffer
 		while (true) {
 			strcat(rbuff, "Received: ");
@@ -56,15 +59,14 @@ void Logger::setup() {
 			rbytes = recv(sockfd, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
 			rbuff[rbytes] = '\0'; // set null terminal
 			info(rbuff);
-	}
+		}
 	} catch (const std::exception& e) {
-		Logger::info(e.what());
+		info(e.what());
 		return;
 	}
 }
 
 void Logger::error(const char* str) {
-	int wbytes;
 	char s[512]; //max length: 512
 	time_t rawtime;
 	struct tm * timeinfo;
@@ -75,11 +77,10 @@ void Logger::error(const char* str) {
 	strcat(s, str);
 	strcat(s, "\n");
 	std::cout << s;
-	wbytes = send(sockfd, s, (int)strlen(s), 0);
+	if(connected) send(sockfd, s, (int)strlen(s), 0);
 }
 
 void Logger::info(const char* str) {
-	int wbytes;
 	char s[512]; //max length: 512
 	time_t rawtime;
 	struct tm * timeinfo;
@@ -90,7 +91,7 @@ void Logger::info(const char* str) {
 	strcat(s, str);
 	strcat(s, "\n");
 	std::cout << s;
-	wbytes = send(sockfd, s, (int)strlen(s), 0);
+	if(connected) send(sockfd, s, (int)strlen(s), 0);
 }
 #else
 //Windows
@@ -135,6 +136,7 @@ void Logger::setup() {
 		int rbytes;
 
 		info("Started logger system.");
+		connected = true;
 		//rbytes = read(sockfd, rbuff, sizeof(rbuff)); // read from socket and store the msg into buffer
 		while (true) {
 			//recv should block until something is received
@@ -149,7 +151,6 @@ void Logger::setup() {
 }
 
 void Logger::error(const char* str) {
-	int wbytes;
 	char s[512]; //max length: 512
 	struct tm buf;
 	time_t t = time(NULL);
@@ -159,11 +160,10 @@ void Logger::error(const char* str) {
 	strcat_s(s, str);
 	strcat_s(s, "\n");
 	std::cout << s;
-	wbytes = send(sock, s, (int)strlen(s), 0);
+	if(connected) send(sock, s, (int)strlen(s), 0);
 }
 
 void Logger::info(const char* str) {
-	int wbytes;
 	char s[512]; //max length: 512
 	struct tm buf;
 	time_t t = time(NULL);
@@ -173,6 +173,6 @@ void Logger::info(const char* str) {
 	strcat_s(s, str);
 	strcat_s(s, "\n");
 	std::cout << s;
-	wbytes = send(sock, s, (int)strlen(s), 0);
+	if(connected) send(sock, s, (int)strlen(s), 0);
 }
 #endif

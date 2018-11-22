@@ -39,6 +39,7 @@ int main() {
 
 	try {
 		std::thread incoming(Logger::setup);
+		while (!Logger::isConnected()) {} //Block until logger has connected
 		Logger::info("Starting up Gridbot v1.0 #@BUILD_NUMBER@");
 
 		using namespace distanceunits;
