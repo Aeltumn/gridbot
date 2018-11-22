@@ -39,8 +39,13 @@ void Logger::setup() {
 	serv_addr.sin_port = htons(portno);
 	info("Initialised socket connection target and descriptor, attempting to connect...");
 
-	if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-		error("Error with connecting to socket.");
+	try {
+		if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
+			error("Error with connecting to socket.");
+			return;
+		}
+	} catch (const std::exception& e) {
+		Logger::info(e.what());
 		return;
 	}
 
