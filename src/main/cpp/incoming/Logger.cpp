@@ -20,23 +20,32 @@ void Logger::setup() {
 	struct hostent *server;
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0); // generate file descriptor 
-	if (sockfd < 0) return;
+	if (sockfd < 0) {
+		error("Error with setting up socket file descriptor.");
+		return;
+	}
 
 	server = gethostbyname("206.189.111.28"); //the ip address (or server name) of the listening server.
-	if (server == NULL) return;
+	if (server == NULL) {
+		error("Error with getting hostname for listening server.");
+		return;
+	}
 
 	bzero((char *)&serv_addr, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
 	bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
 	serv_addr.sin_port = htons(portno);
+	info("Initialised socket connection target and descriptor, attempting to connect...");
 
-	if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+	if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
+		error("Error with connecting to socket.");
 		return;
+	}
 
 	char rbuff[256];
 	int rbytes;
 
-	info("Started logger system.");
+	info("Succesfully started and connected logger system.");
 	//rbytes = read(sockfd, rbuff, sizeof(rbuff)); // read from socket and store the msg into buffer
 	while (true) {
 		strcat(rbuff, "Received: ");
@@ -90,14 +99,14 @@ void Logger::setup() {
 		//activate ws2_32.lib
 		int res = WSAStartup(MAKEWORD(2, 0), &wsaData);
 		if (res != 0) {
-			info("Error with WSAStartup");
+			error("Error with WSAStartup");
 			return;
 		}
 
 		//Create Client Socket
 		sock = socket(AF_UNSPEC, SOCK_STREAM, IPPROTO_TCP); // generate file descriptor 
 		if (sock == INVALID_SOCKET) {
-			info("Socket failed to start up!");
+			error("Socket failed to start up!");
 			return;
 		}
 
@@ -109,7 +118,7 @@ void Logger::setup() {
 		addr.sin_addr.S_un.S_un_b.s_b4 = 28;
 
 		if (connect(sock, (SOCKADDR*)(&addr), sizeof(addr)) == SOCKET_ERROR) {
-			info("Error while trying to establish socket connection.");
+			error("Error while trying to establish socket connection.");
 			return;
 		}
 
