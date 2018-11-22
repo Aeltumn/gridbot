@@ -19,6 +19,8 @@ void Logger::setup() {
 	struct sockaddr_in serv_addr;
 	struct hostent *server;
 
+	info("Starting logger setup...");
+
 	sockfd = socket(AF_INET, SOCK_STREAM, 0); // generate file descriptor 
 	if (sockfd < 0) {
 		error("Error with setting up socket file descriptor.");
@@ -66,6 +68,7 @@ void Logger::error(const char* str) {
 	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
 	strcat(s, " [ERROR] ");
 	strcat(s, str);
+	strcat(s, "\n");
 	std::cout << s;
 	wbytes = send(sockfd, s, (int)strlen(s), 0);
 }
@@ -80,6 +83,7 @@ void Logger::info(const char* str) {
 	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
 	strcat(s, " [INFO] ");
 	strcat(s, str);
+	strcat(s, "\n");
 	std::cout << s;
 	wbytes = send(sockfd, s, (int)strlen(s), 0);
 }
