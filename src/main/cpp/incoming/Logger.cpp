@@ -4,6 +4,7 @@
 #include <iostream>
 
 bool connected = false;
+bool Logger::isConnected() { return connected; }
 
 #if defined(__linux__) || defined(__CYGWIN__)
 //Linux
