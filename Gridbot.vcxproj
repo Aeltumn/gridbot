@@ -141,10 +141,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\cpp\action\tictactoe.h" />
+    <ClInclude Include="src\main\cpp\action\beta.h" />
+    <ClInclude Include="src\main\cpp\gpio\gpio.h" />
     <ClInclude Include="src\main\cpp\headers\Beta.h" />
     <ClInclude Include="src\main\cpp\headers\GPIO.h" />
     <ClInclude Include="src\main\cpp\headers\Logger.h" />
     <ClInclude Include="src\main\cpp\headers\Motor.h" />
+    <ClInclude Include="src\main\cpp\incoming\logger.h" />
+    <ClInclude Include="src\main\cpp\gpio\motor.h" />
     <ClInclude Include="src\main\cpp\pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

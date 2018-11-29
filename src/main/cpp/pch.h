@@ -1,9 +1,9 @@
 #pragma once
 
-#include "headers/beta.h"
-#include "headers/motor.h"
-#include "headers/logger.h"
-#include "headers/gpio.h"
+#include "action/beta.h"
+#include "gpio/motor.h"
+#include "incoming/logger.h"
+#include "gpio/gpio.h"
 
 #include <string>
 #include <cmath>

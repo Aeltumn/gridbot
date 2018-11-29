@@ -56,5 +56,17 @@
     <ClInclude Include="src\main\cpp\action\tictactoe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\main\cpp\action\beta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\gpio\gpio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\gpio\motor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\incoming\logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
