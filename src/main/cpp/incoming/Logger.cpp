@@ -1,8 +1,6 @@
-#include "../headers/Logger.h"
+#include "../pch.h"
 #include <string.h>
-#include <string>
 #include <ctime>
-#include <iostream>
 
 #define PORT 123
 
@@ -46,6 +44,7 @@ void Logger::setup() {
 		serv_addr.sin_port = htons(portno);
 		info("Initialised socket connection target and descriptor, attempting to connect...");
 		char buf[256];
+		buf[0] = 0;
 		strcat(buf, "Using port: ");
 		strcat(buf, std::to_string(PORT).c_str());
 		strcat(buf, ".");
@@ -57,6 +56,7 @@ void Logger::setup() {
 		}
 
 		char rbuff[256];
+		rbuff[0] = 0;
 		int rbytes;
 
 		info("Succesfully started and connected logger system.");
@@ -77,6 +77,7 @@ void Logger::setup() {
 
 void Logger::error(const char* str) {
 	char s[512]; //max length: 512
+	s[0] = 0;
 	time_t rawtime;
 	struct tm * timeinfo;
 	time(&rawtime);
@@ -85,12 +86,14 @@ void Logger::error(const char* str) {
 	strcat(s, " [ERROR] ");
 	strcat(s, str);
 	strcat(s, "\n");
+	strcat(s, "\0");
 	std::cout << s;
 	if(connected) send(sockfd, s, (int)strlen(s), 0);
 }
 
 void Logger::info(const char* str) {
 	char s[512]; //max length: 512
+	s[0] = 0;
 	time_t rawtime;
 	struct tm * timeinfo;
 	time(&rawtime);
@@ -99,6 +102,7 @@ void Logger::info(const char* str) {
 	strcat(s, " [INFO] ");
 	strcat(s, str);
 	strcat(s, "\n");
+	strcat(s, "\0");
 	std::cout << s;
 	if(connected) send(sockfd, s, (int)strlen(s), 0);
 }
@@ -115,12 +119,16 @@ void Logger::setup() {
 		//Start winsock
 		WSADATA wsaData;
 
+		info("Initialising WSAData...");
+
 		//activate ws2_32.lib
 		int res = WSAStartup(MAKEWORD(2, 0), &wsaData);
 		if (res != 0) {
 			error("Error with WSAStartup");
 			return;
 		}
+
+		info("Starting logger setup...");
 
 		//Create Client Socket
 		sock = socket(AF_UNSPEC, SOCK_STREAM, IPPROTO_TCP); // generate file descriptor 
@@ -136,12 +144,21 @@ void Logger::setup() {
 		addr.sin_addr.S_un.S_un_b.s_b3 = 111;
 		addr.sin_addr.S_un.S_un_b.s_b4 = 28;
 
+		info("Initialised socket connection target and descriptor, attempting to connect...");
+		char buf[256];
+		buf[0] = 0;
+		strcat_s(buf, "Using port: ");
+		strcat_s(buf, std::to_string(PORT).c_str());
+		strcat_s(buf, ".");
+		info(buf);
+
 		if (connect(sock, (SOCKADDR*)(&addr), sizeof(addr)) == SOCKET_ERROR) {
 			error("Error while trying to establish socket connection.");
 			return;
 		}
 
 		char rbuff[512];
+		rbuff[0] = 0;
 		int rbytes;
 
 		info("Started logger system.");
@@ -161,6 +178,7 @@ void Logger::setup() {
 
 void Logger::error(const char* str) {
 	char s[512]; //max length: 512
+	s[0] = 0;
 	struct tm buf;
 	time_t t = time(NULL);
 	localtime_s(&buf, &t);
@@ -168,12 +186,14 @@ void Logger::error(const char* str) {
 	strcat_s(s, " [ERROR] ");
 	strcat_s(s, str);
 	strcat_s(s, "\n");
+	strcat_s(s, "\0");
 	std::cout << s;
 	if(connected) send(sock, s, (int)strlen(s), 0);
 }
 
 void Logger::info(const char* str) {
 	char s[512]; //max length: 512
+	s[0] = 0;
 	struct tm buf;
 	time_t t = time(NULL);
 	localtime_s(&buf, &t);
@@ -181,6 +201,7 @@ void Logger::info(const char* str) {
 	strcat_s(s, " [INFO] ");
 	strcat_s(s, str);
 	strcat_s(s, "\n");
+	strcat_s(s, "\0");
 	std::cout << s;
 	if(connected) send(sock, s, (int)strlen(s), 0);
 }

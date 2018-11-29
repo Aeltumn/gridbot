@@ -1,9 +1,5 @@
-#include "headers/GPIO.h"
-#include "headers/Logger.h"
-#include "headers/Motor.h"
-#include "headers/Beta.h"
-#include "action/TicTacToe.cpp"
-#include <thread>
+#include "pch.h"
+#include "action/tictactoe.h"
 
 int main() {
 	//Setup thread pool

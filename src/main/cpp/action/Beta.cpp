@@ -1,7 +1,6 @@
-#include "../headers/Beta.h"
-#include "../headers/Motor.h"
+#include "../pch.h"
 
-Game Beta::*game;
+Game* Beta::game;
 bool Beta::isRunning;
 
 void Beta::startup() {

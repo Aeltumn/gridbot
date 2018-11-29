@@ -1,10 +1,8 @@
-#ifndef MOTOR_H_
-#define MOTOR_H_
+#pragma once
 
 namespace distanceunits {
-	constexpr long double operator "" dm(long double dm) { return dm * 100; }
-	constexpr long double operator "" cm(long double cm) { return cm * 10; }
-	constexpr long double operator "" mm(long double mm) { return mm; }
+	constexpr long double operator "" dm(long double dm) { return dm * 10; }
+	constexpr long double operator "" cm(long double cm) { return cm; }
 }
 class Motor {
 private:
@@ -16,4 +14,3 @@ public:
 	void move(const long double &millimeters);
 	void setmimic(Motor *mimi);
 };
-#endif

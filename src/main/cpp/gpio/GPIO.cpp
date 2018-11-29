@@ -1,8 +1,5 @@
-#include <string>
+#include "../pch.h"
 #include <fstream> //File IO
-#include <iostream>
-
-#include "../headers/GPIO.h"
 
 bool GPIO::exported[27];
 bool GPIO::directions[27];

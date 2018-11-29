@@ -1,6 +1,4 @@
-#ifndef GPIO_H_
-#define GPIO_H_
-#include <string>
+#pragma once
 
 class GPIO {
 	public:
@@ -17,4 +15,3 @@ class GPIO {
 		static void setval(const int &pin, const bool &on); //true = high, false = low
 		static int getval(const int &pin);
 };
-#endif

@@ -1,16 +1,13 @@
-#include "../headers/Motor.h"
-#include "../headers/GPIO.h"
-#include <thread>
-#include <cmath>
+#include "../pch.h"
 #include <chrono>
 
 /* Public Methods */
 Motor::Motor(const int &port1, const int &port2, const int &port3, const int &port4) { p1 = port1; p2 = port2; p3 = port3; p4 = port4; }
 
 void Motor::setmimic(Motor *mimi) { mimic = mimi; }
-void Motor::move(const long double &millimeters) {
-	mimic->move(millimeters);
-	for (long long ind = (long long) std::round(millimeters); ind > 0; --ind) {
+void Motor::move(const long double &centimeters) {
+	if(mimic) mimic->move(centimeters); //null pointers become FALSE automatically
+	for (long long ind = (long long) std::round(centimeters); ind > 0; --ind) {
 		using namespace std::literals::chrono_literals;
 		///Steps 1 and 3 are the same for (counter)clockwise.
 		///Steps 2 and 4 are reversed, so step 2 for clockwise is step 4 for counterclockwise and visa versa.
@@ -19,7 +16,7 @@ void Motor::move(const long double &millimeters) {
 		std::this_thread::sleep_for(20ms);
 		
 		//Step 2
-		if (millimeters > 0) {
+		if (centimeters > 0) {
 			//Positive = Clockwise
 			GPIO::set(p1, true); GPIO::set(p2, true); GPIO::set(p3, false); GPIO::set(p4, false);
 			std::this_thread::sleep_for(20ms);
@@ -34,7 +31,7 @@ void Motor::move(const long double &millimeters) {
 		std::this_thread::sleep_for(20ms);
 
 		//Step 4
-		if (millimeters <= 0) {
+		if (centimeters <= 0) {
 			//Negative = Counter-Clockwise
 			GPIO::set(p1, true); GPIO::set(p2, true); GPIO::set(p3, false); GPIO::set(p4, false);
 			std::this_thread::sleep_for(20ms);

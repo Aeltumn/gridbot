@@ -1,5 +1,4 @@
-#ifndef LOGGER_H_
-#define LOGGER_H_
+#pragma once
 
 class Logger {
 	public:
@@ -8,4 +7,3 @@ class Logger {
 		static void error(const char* txt);
 		static bool isConnected();
 };
-#endif

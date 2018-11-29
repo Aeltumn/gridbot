@@ -11,7 +11,7 @@ model {
 	}
 	platforms {
 	    debian {
-		    architecture "arm-v8"
+		    architecture "armv7"
             operatingSystem "linux"
 		}
 		windows {
