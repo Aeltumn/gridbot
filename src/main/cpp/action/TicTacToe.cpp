@@ -15,6 +15,8 @@ class TicTacToe : public Game {
 		bool first;
 		Suggestion sug = Suggestion(-10, -10);
 
+		void handleint(int *b, int *tarx, int* x, int* y, const bool &d);
+
 	public:
 		TicTacToe(bool first_);
 		Suggestion getfinisher();
@@ -84,7 +86,7 @@ void TicTacToe::tick() {
 
 void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	if (sug.x == -10 || sug.y == -10) return;
-	
+	turn++;
 
 	sug = Suggestion(-10, -10);
 }
@@ -93,31 +95,19 @@ Suggestion TicTacToe::getfinisher() {
 	for (int xrow = 1; xrow >= -1; --xrow) {
 		int b = 0;
 		int tarx = -10;
-		for (int x = 1; x >= -1; --x) {
-			if (board[x][xrow] == 1) b++;
-			if (board[x][xrow] == 2) break;
-			if (board[x][xrow] == 0) tarx = x;
-		}
+		for (int x = 1; x >= -1; --x) handleint(&b, &tarx, &x, &xrow, true);
 		if (tarx != -10 && b == 2) return Suggestion(tarx, xrow);
 	}
 	for (int yrow = 1; yrow >= -1; --yrow) {
 		int b = 0;
 		int tary = -10;
-		for (int y = 1; y >= -1; --y) {
-			if (board[yrow][y] == 1) b++;
-			if (board[yrow][y] == 2) break;
-			if (board[yrow][y] == 0) tary = y;
-		}
+		for (int y = 1; y >= -1; --y) handleint(&b, &tary, &yrow, &y, true);
 		if (tary != -10 && b == 2) return Suggestion(yrow, tary);
 	}
 	for (int across = 1; across >= -1; across -= 2) { //Once for 1, once for -1
 		int b = 0;
 		int tarx = -10;
-		for (int x = 1; x >= -1; --x) {
-			if (board[x][x] == 1) b++;
-			if (board[x][x] == 2) break;
-			if (board[x][x] == 0) tarx = x;
-		}
+		for (int x = 1; x >= -1; --x) handleint(&b, &tarx, &x, &x, true);
 		if (tarx != -10 && b == 2) return Suggestion(tarx*across, tarx*across);
 	}
 	return Suggestion(-10, -10);
@@ -127,32 +117,26 @@ Suggestion TicTacToe::getblock() {
 	for (int xrow = 1; xrow >= -1; --xrow) {
 		int b = 0;
 		int tarx = -10;
-		for (int x = 1; x >= -1; --x) {
-			if (board[x][xrow] == 2) b++;
-			if (board[x][xrow] == 1) break;
-			if (board[x][xrow] == 0) tarx = x;
-		}
+		for (int x = 1; x >= -1; --x) handleint(&b, &tarx, &x, &xrow, false);
 		if (tarx != -10 && b == 2) return Suggestion(tarx, xrow);
 	}
 	for (int yrow = 1; yrow >= -1; --yrow) {
 		int b = 0;
 		int tary = -10;
-		for (int y = 1; y >= -1; --y) {
-			if (board[yrow][y] == 2) b++;
-			if (board[yrow][y] == 1) break;
-			if (board[yrow][y] == 0) tary = y;
-		}
+		for (int y = 1; y >= -1; --y) handleint(&b, &tary, &yrow, &y, false);
 		if (tary != -10 && b == 2) return Suggestion(yrow, tary);
 	}
 	for (int across = 1; across >= -1; across -= 2) { //Once for 1, once for -1
 		int b = 0;
 		int tarx = -10;
-		for (int x = 1; x >= -1; --x) {
-			if (board[x][x] == 2) b++;
-			if (board[x][x] == 1) break;
-			if (board[x][x] == 0) tarx = x;
-		}
+		for (int x = 1; x >= -1; --x) handleint(&b, &tarx, &x, &x, false);
 		if (tarx != -10 && b == 2) return Suggestion(tarx*across, tarx*across);
 	}
 	return Suggestion(-10, -10);
+}
+
+void TicTacToe::handleint(int *b, int *tarx, int* x, int* y, const bool &d) {
+	if (board[*x][*y] == d ? 1 : 2) *b =+ 1;
+	if (board[*x][*y] == d ? 2 : 1) return;
+	if (board[*x][*y] == 0) *tarx = *x;
 }
