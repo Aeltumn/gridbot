@@ -1,6 +1,6 @@
 #include "../headers/Logger.h"
 #include <string.h>
-#include <stdio.h>
+#include <string>
 #include <ctime>
 #include <iostream>
 
@@ -47,7 +47,7 @@ void Logger::setup() {
 		info("Initialised socket connection target and descriptor, attempting to connect...");
 		char buf[256];
 		strcat(buf, "Using port: ");
-		strcat(buf, PORT);
+		strcat(buf, std::to_string(PORT).c_str());
 		strcat(buf, ".");
 		info(buf);
 
