@@ -1,5 +1,6 @@
 #include "../headers/Logger.h"
 #include <string.h>
+#include <stdio.h>
 #include <ctime>
 #include <iostream>
 
@@ -44,7 +45,11 @@ void Logger::setup() {
 		bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
 		serv_addr.sin_port = htons(portno);
 		info("Initialised socket connection target and descriptor, attempting to connect...");
-		info("Using port: "+PORT);
+		char buf[256];
+		strcat(buf, "Using port: ");
+		strcat(buf, snprintf(PORT));
+		strcat(buf, ".");
+		info(buf);
 
 		if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
 			error("Error with connecting to socket.");
