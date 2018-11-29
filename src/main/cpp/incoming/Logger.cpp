@@ -4,7 +4,7 @@
 #include <ctime>
 #include <iostream>
 
-#define PORT 447;
+#define PORT 447
 
 bool connected = false;
 bool Logger::isConnected() { return connected; }
@@ -47,7 +47,7 @@ void Logger::setup() {
 		info("Initialised socket connection target and descriptor, attempting to connect...");
 		char buf[256];
 		strcat(buf, "Using port: ");
-		strcat(buf, snprintf(PORT));
+		strcat(buf, PORT);
 		strcat(buf, ".");
 		info(buf);
 
