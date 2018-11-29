@@ -3,6 +3,8 @@
 #include <ctime>
 #include <iostream>
 
+#define PORT 447;
+
 bool connected = false;
 bool Logger::isConnected() { return connected; }
 
@@ -19,7 +21,7 @@ int sockfd; // socket file descriptor
 
 void Logger::setup() {
 	try {
-		int portno = 4447; // port number
+		int portno = PORT; // port number
 		struct sockaddr_in serv_addr;
 		struct hostent *server;
 
@@ -121,7 +123,7 @@ void Logger::setup() {
 			return;
 		}
 
-		addr.sin_port = 4447; // port number
+		addr.sin_port = PORT; // port number
 		addr.sin_family = AF_INET;
 		addr.sin_addr.S_un.S_un_b.s_b1 = 206;
 		addr.sin_addr.S_un.S_un_b.s_b2 = 189;
