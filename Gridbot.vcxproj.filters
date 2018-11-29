@@ -27,6 +27,12 @@
     <ClCompile Include="src\main\cpp\gpio\Motor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\action\Beta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\cpp\action\TicTacToe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\cpp\headers\Logger.h">
@@ -36,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\cpp\headers\Motor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\headers\Beta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
