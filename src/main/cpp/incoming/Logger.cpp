@@ -4,7 +4,7 @@
 #include <ctime>
 #include <iostream>
 
-#define PORT 447
+#define PORT 123
 
 bool connected = false;
 bool Logger::isConnected() { return connected; }
