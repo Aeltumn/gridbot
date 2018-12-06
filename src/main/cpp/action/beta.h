@@ -20,7 +20,9 @@ class Beta {
 private:
 	static Game* game;
 	static bool isRunning;
-	static Motor *x, *y, *z;
+	static Motor* x;
+	static Motor* y;
+	static Motor* z;
 
 public:
 	static void startup();

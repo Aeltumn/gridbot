@@ -2,7 +2,9 @@
 
 Game* Beta::game;
 bool Beta::isRunning;
-Motor Beta::*x, Beta::*y, Beta::*z;
+Motor* Beta::x;
+Motor* Beta::y;
+Motor* Beta::z;
 
 void Beta::startup() {
 	try {
