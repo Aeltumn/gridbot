@@ -1,38 +1,48 @@
 #include "../pch.h"
 #include "tictactoe.h"
 
+#define FIRST_PLAYER 'X'
+#define SECOND_PLAYER 'O'
+
+#define SQUARE_HALF_LENGTH 2
+#define LOWER_HEIGHT 4
+
 TicTacToe::TicTacToe(bool first_, Difficulty diff) {
-	first = first_; difficult = diff;
-	if (first) { me = 'X'; opp = 'O'; }
-	else { me = 'O'; opp = 'X'; }
+	FIRST = first_; DIFFICULTY = diff;
+	COMPUTER = FIRST ? FIRST_PLAYER : SECOND_PLAYER;
+	HUMAN = FIRST ? SECOND_PLAYER : FIRST_PLAYER;
 }
+
+//Updates the board and increased the turn counter.
+void TicTacToe::updateBoard(const Suggestion &suggestion_, const char &who) {
+	board[suggestion_.x][suggestion_.y] = who;
+	if (who == COMPUTER) {
+		computer_turn++;
+		suggestion = Suggestion();
+	}
+	if (who == HUMAN) { human_turn++; }
+}
+
+//Handles the incoming move, template for TicTacToe: int x: 0x16 - y: 0x16
+void TicTacToe::handleMove(const int &move) { updateBoard(Suggestion(move >> 16, (move << 16 >> 16)), HUMAN); }
+
+//The normal tick which tries to figure out what the next move should be.
 void TicTacToe::tick() {
 	
 }
 
+//Executes the suggestion by sending cm-based commands to the motors.
+//It is assumed we are hovering over the bottom left corner of the bottom left square, x0, y0 and at z100%, magnet off
+//It is also assumed that there is a disc or object for it to move at x-1, y0
 void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
-	if (sug.x == -1 || sug.y == -1) return;
-	turn++;
+	//Move to pickup stone.
+	x->move(-SQUARE_HALF_LENGTH);
+	y->move(SQUARE_HALF_LENGTH);
+	z->move(-LOWER_HEIGHT);
+	//Enable magnet
 
-	sug = Suggestion(-1, -1);
-}
-
-Suggestion TicTacToe::gettiar(char* board, const char &c_, const char &o) {
-	for (int N = 2; N >= 0; --N) {
-		Suggestion ret = gettiarrow(board, c_, o, N, 3);
-		if (ret.x == -1 && ret.y == -1) ret = gettiarrow(board, c_, o, N * 3, 1);
-		if (ret.x == -1 && ret.y == -1 && N != 0) ret = gettiarrow(board, c_, o, N-10, -1);
-	}
-}
-
-Suggestion TicTacToe::gettiarrow(char* board, const char &c_, const char &o, const int &N, const int &t) {
-	int tarJ = -1;
-	int b = 0;
-	for (int J = 2; J >= 0; --J) {
-		if (*(board + (t != -1 ? (N + t * J) : (N == -8 && J == 0 ? 0 : J) + (N == -8 && J == 2 ? 0 : J) * 3)) == c_) b++;
-		if (*(board + (t != -1 ? (N + t * J) : (J + (N == -8 ? 0 : J) * 3))) != o) tarJ = J - 1;
-	}
-
-	if (b == 2 && tarJ != -1) return Suggestion(N, tarJ);
-	return Suggestion(-1, -1);
+	//Move to square
+	x->move(SQUARE_HALF_LENGTH*2); //We're at x0.5, y0.5
+	
+	updateBoard(suggestion, COMPUTER);
 }

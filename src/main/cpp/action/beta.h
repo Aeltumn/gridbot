@@ -5,7 +5,12 @@ class Game {
 public:
 	Game() {}
 	virtual void tick() = 0;
+	virtual void handleMove(const int &move) = 0;
 	virtual void execute(Motor *x, Motor *y, Motor *z) = 0;
+};
+
+enum Difficulty {
+	EASY, NORMAL, HARD
 };
 
 class Beta {

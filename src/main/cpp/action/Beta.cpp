@@ -4,9 +4,14 @@ Game* Beta::game;
 bool Beta::isRunning;
 
 void Beta::startup() {
-	isRunning = true;
-	while (isRunning) {
-		if(game!=0) game->tick();
+	try {
+		isRunning = true;
+		while (isRunning) {
+			if (game != 0) game->tick();
+		}
+	} catch (const std::exception& e) {
+		Logger::info(e.what());
+		return;
 	}
 }
 
