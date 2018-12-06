@@ -46,7 +46,7 @@ int main() {
 
 		x.setmimic(&xmimic);
 		x.move(1.0cm);
-		Beta::runGame(new TicTacToe(true));
+		Beta::runGame(new TicTacToe(true, EASY));
 		Beta::execute(&x, &y, &z);
 
 		incoming.join(); //We need to join a thread when the main thread has nothing else to do.
