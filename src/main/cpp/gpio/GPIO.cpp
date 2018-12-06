@@ -7,6 +7,10 @@ bool GPIO::directions[27];
 #if defined(__linux__) || defined(__CYGWIN__)
 /* Public Methods */
 
+void GPIO::initialise() {
+	exported[0] = false; directions[0] = false; //Initialise empty arrays.
+}
+
 //Read what a pin is currently set to, or read from an input pin.
 bool GPIO::get(const int &pin) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
@@ -61,6 +65,7 @@ int GPIO::getval(const int &pin) {
 	return ret == "0" ? 0 : 1;
 }
 #else
+void GPIO::initialise() {}
 bool GPIO::get(const int &pin) { return false; }
 void GPIO::set(const int &pin, const bool &value) {}
 void GPIO::setexport(const int &pin, const bool &exp) {}
