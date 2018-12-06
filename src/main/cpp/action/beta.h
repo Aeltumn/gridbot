@@ -1,5 +1,6 @@
 #pragma once
 #include "../gpio/motor.h"
+#include <string>
 
 class Game {
 public:
