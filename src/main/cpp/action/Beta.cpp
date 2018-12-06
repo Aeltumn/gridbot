@@ -8,7 +8,7 @@ Motor* Beta::z;
 
 void Beta::startup() {
 	try {
-		Logger::info("Starting Beta thread.");
+		Logger::info("[BETA] Starting Beta thread.");
 		isRunning = true;
 		while (isRunning) {
 			if (game != 0) game->tick();

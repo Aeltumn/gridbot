@@ -23,17 +23,17 @@ void Logger::setup() {
 		struct sockaddr_in serv_addr;
 		struct hostent *server;
 
-		info("Starting logger setup...");
+		info("[LOGGER] Starting logger setup...");
 
 		sockfd = socket(AF_INET, SOCK_STREAM, 0); // generate file descriptor 
 		if (sockfd < 0) {
-			error("Error with setting up socket file descriptor.");
+			error("[LOGGER] Error with setting up socket file descriptor.");
 			return;
 		}
 
 		server = gethostbyname("206.189.111.28"); //the ip address (or server name) of the listening server.
 		if (server == NULL) {
-			error("Error with getting hostname for listening server.");
+			error("[LOGGER] Error with getting hostname for listening server.");
 			return;
 		}
 
@@ -41,16 +41,16 @@ void Logger::setup() {
 		serv_addr.sin_family = AF_INET;
 		bcopy((char *)server->h_addr, (char *)&serv_addr.sin_addr.s_addr, server->h_length);
 		serv_addr.sin_port = htons(portno);
-		info("Initialised socket connection target and descriptor, attempting to connect...");
+		info("[LOGGER] Initialised socket connection target and descriptor, attempting to connect...");
 		char buf[256];
 		buf[0] = 0;
-		strcat(buf, "Using port: ");
+		strcat(buf, "[LOGGER] Using port: ");
 		strcat(buf, std::to_string(PORT).c_str());
 		strcat(buf, ".");
 		info(buf);
 
 		if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0) {
-			error("Error with connecting to socket.");
+			error("[LOGGER] Error with connecting to socket.");
 			return;
 		}
 
@@ -58,7 +58,7 @@ void Logger::setup() {
 		rbuff[0] = 0;
 		int rbytes;
 
-		info("Succesfully started and connected logger system.");
+		info("[LOGGER] Succesfully started and connected logger system.");
 		connected = true;
 		//rbytes = read(sockfd, rbuff, sizeof(rbuff)); // read from socket and store the msg into buffer
 		while (true) {
@@ -118,21 +118,21 @@ void Logger::setup() {
 		//Start winsock
 		WSADATA wsaData;
 
-		info("Initialising WSAData...");
+		info("[LOGGER] Initialising WSAData...");
 
 		//activate ws2_32.lib
 		int res = WSAStartup(MAKEWORD(2, 0), &wsaData);
 		if (res != 0) {
-			error("Error with WSAStartup");
+			error("[LOGGER] Error with WSAStartup");
 			return;
 		}
 
-		info("Starting logger setup...");
+		info("[LOGGER] Starting logger setup...");
 
 		//Create Client Socket
 		sock = socket(AF_UNSPEC, SOCK_STREAM, IPPROTO_TCP); // generate file descriptor 
 		if (sock == INVALID_SOCKET) {
-			error("Socket failed to start up!");
+			error("[LOGGER] Socket failed to start up!");
 			return;
 		}
 
@@ -143,16 +143,16 @@ void Logger::setup() {
 		addr.sin_addr.S_un.S_un_b.s_b3 = 111;
 		addr.sin_addr.S_un.S_un_b.s_b4 = 28;
 
-		info("Initialised socket connection target and descriptor, attempting to connect...");
+		info("[LOGGER] Initialised socket connection target and descriptor, attempting to connect...");
 		char buf[256];
 		buf[0] = 0;
-		strcat_s(buf, "Using port: ");
+		strcat_s(buf, "[LOGGER] Using port: ");
 		strcat_s(buf, std::to_string(PORT).c_str());
 		strcat_s(buf, ".");
 		info(buf);
 
 		if (connect(sock, (SOCKADDR*)(&addr), sizeof(addr)) == SOCKET_ERROR) {
-			error("Error while trying to establish socket connection.");
+			error("[LOGGER] Error while trying to establish socket connection.");
 			return;
 		}
 
@@ -160,7 +160,7 @@ void Logger::setup() {
 		rbuff[0] = 0;
 		int rbytes;
 
-		info("Started logger system.");
+		info("[LOGGER] Started logger system.");
 		connected = true;
 		//rbytes = read(sockfd, rbuff, sizeof(rbuff)); // read from socket and store the msg into buffer
 		while (true) {

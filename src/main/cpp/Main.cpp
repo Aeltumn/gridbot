@@ -39,9 +39,9 @@ int main() {
 	try {
 		std::thread incoming(Logger::setup);
 		while (!Logger::isConnected()) {} //Block until logger has connected
+		Logger::info("Starting up Gridbot v1.0");// #@BUILD_NUMBER@");
 		std::thread action(Beta::startup);
 		std::thread gpio(Biker::setup);
-		Logger::info("Starting up Gridbot v1.0 #-");//@BUILD_NUMBER@");
 
 		using namespace distanceunits;
 		Motor x = Motor(7, 11, 13, 15);
