@@ -17,15 +17,15 @@ enum Difficulty {
 };
 
 class Beta {
-public:
-	static void startup();
-	static void shutdown();
-	static void runGame(Game* g);
-	static void setmotors(Motor *x_, Motor *y_, Motor *z_);
-	static void execute();
-
 private:
 	static Game* game;
 	static bool isRunning;
 	static Motor *x, *y, *z;
+
+public:
+	static void startup();
+	static void shutdown();
+	static void runGame(Game* g);
+	static void setmotors(Motor *x_, Motor *y, Motor *z);
+	static void execute();
 };
