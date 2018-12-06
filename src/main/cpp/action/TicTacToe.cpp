@@ -36,13 +36,13 @@ void TicTacToe::tick() {
 //It is also assumed that there is a disc or object for it to move at x-1, y0
 void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	//Move to pickup stone.
-	x->move(-SQUARE_HALF_LENGTH);
-	y->move(SQUARE_HALF_LENGTH);
-	z->move(-LOWER_HEIGHT);
+	x->queue(-SQUARE_HALF_LENGTH);
+	y->queue(SQUARE_HALF_LENGTH);
+	z->queue(-LOWER_HEIGHT);
 	//Enable magnet
 
 	//Move to square
-	x->move(SQUARE_HALF_LENGTH*2); //We're at x0.5, y0.5
+	x->queue(SQUARE_HALF_LENGTH*2); //We're at x0.5, y0.5
 	
 	updateBoard(suggestion, COMPUTER);
 }

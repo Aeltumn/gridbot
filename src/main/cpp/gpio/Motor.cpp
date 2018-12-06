@@ -4,20 +4,20 @@
 /* Public Methods */
 Motor::Motor(const int &port1, const int &port2, const int &port3, const int &port4) { p1 = port1; p2 = port2; p3 = port3; p4 = port4; }
 
-void Motor::setup() {
+void Biker::setup() {
 	while (true) { //I'm too lazy to make this secure, safe, efficient or anything, don't judge.
 		if (!actions.empty()) {
 			QueuedAction qa = actions.front();
-			qa.m->move(qa.centimeters);
+			qa.m->moveint(qa.centimeters);
 			actions.pop();
 		}
 	}
 }
 
 void Motor::setmimic(Motor *mimi) { mimic = mimi; }
-void Motor::queue(const long double &centimeters) { actions.push(QueuedAction(centimeters, this)); }
-void Motor::move(const long double &centimeters) {
-	if(mimic) mimic->move(centimeters); //null pointers become FALSE automatically
+void Motor::queue(const long double &centimeters) { Biker::getactions().push(QueuedAction(centimeters, this)); }
+void Motor::moveint(const long double &centimeters) {
+	if(mimic) mimic->moveint(centimeters); //null pointers become FALSE automatically
 	for (long long ind = (long long) std::round(centimeters); ind > 0; --ind) {
 		using namespace std::literals::chrono_literals;
 		///Steps 1 and 3 are the same for (counter)clockwise.
