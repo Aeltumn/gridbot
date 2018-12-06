@@ -1,31 +1,25 @@
 #include "../pch.h"
 #include <fstream> //File IO
 
-bool GPIO::exported[27];
-bool GPIO::directions[27];
-
 #if defined(__linux__)
 /* Public Methods */
 
 void GPIO::initialise() {
-	exported[0] = false; directions[0] = false; //Initialise empty arrays.
+	for (int i = 0; i <= 26) {
+		setexport(i);
+		setdirection(i, true);
+	}
 }
 
 //Read what a pin is currently set to, or read from an input pin.
-bool GPIO::get(const int &pin) {
+/*bool GPIO::get(const int &pin) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
-	if (!GPIO::exported[pin]) GPIO::setexport(pin, true);
-	if (GPIO::directions[pin]) GPIO::setdirection(pin, false);
 	return GPIO::getval(pin);
-}
+}*/
 
 //Set the value of an output pin, must be an output pin!
 void GPIO::set(const int &pin, const bool &value) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
-	if (!GPIO::exported[pin]) GPIO::setexport(pin, true);
-	Logger::info(std::to_string(GPIO::directions[pin]).c_str());
-	if (!GPIO::directions[pin]) GPIO::setdirection(pin, true);
-	Logger::info(std::to_string(GPIO::directions[pin]).c_str());
 	GPIO::setval(pin, value);
 	//if(!value) GPIO::setexport(pin, false); //If we set the output to off, also unexport.
 }
@@ -44,7 +38,7 @@ void GPIO::setdirection(const int &pin, const bool &out) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/direction");
 	std::ofstream estream(s.c_str());
-	estream << std::string(out ? "out" : "in");
+	estream << out ? "out" : "in";
 	estream.close();
 	directions[pin] = out;
 }
