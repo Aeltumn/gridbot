@@ -6,6 +6,7 @@
 #include "gpio/gpio.h"
 
 #include <string>
+#include <string.h>
 #include <cmath>
 #include <iostream>
 #include <thread>

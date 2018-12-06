@@ -1,5 +1,4 @@
 #include "../pch.h"
-#include <string.h>
 #include <ctime>
 
 #define PORT 447
@@ -7,7 +6,7 @@
 bool connected = false;
 bool Logger::isConnected() { return connected; }
 
-#if defined(__linux__) || defined(__CYGWIN__)
+#if defined(__linux__)
 //Linux
 #include <sys/types.h>
 #include <sys/socket.h>
