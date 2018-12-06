@@ -28,6 +28,11 @@ void Motor::moveint(const long double &centimeters) {
 		GPIO::set(p1, true); GPIO::set(p2, false); GPIO::set(p3, false); GPIO::set(p4, true);
 		std::this_thread::sleep_for(20ms);
 		
+		//IOOI
+		//IIOO
+		//OIIO
+		//OOII
+
 		//Step 2
 		if (centimeters > 0) {
 			//Positive = Clockwise
