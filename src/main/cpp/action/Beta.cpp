@@ -17,9 +17,22 @@ void Beta::startup() {
 }
 
 void Beta::execute(Motor *x, Motor *y, Motor *z) { if (game != 0) game->execute(x, y, z); }
-void Beta::runGame(Game* g) { game = g;Logger::info("[BETA] Starting new game."); }
+void Beta::runGame(Game* g) {
+	game = g;
+	char buf[256];
+	buf[0] = 0;
+	strcat(buf, "[BETA] Starting new '");
+	strcat(buf, game->getname().c_str());
+	strcat(buf, "' game.");
+	Logger::info(buf);
+}
 void Beta::shutdown() {
+	char buf[256];
+	buf[0] = 0;
+	strcat(buf, "[BETA] Shut down '");
+	strcat(buf, game->getname().c_str());
+	strcat(buf, "' game.");
+	Logger::info(buf);
 	isRunning = false;
 	delete game;
-	Logger::info("[BETA] Shut down current game.");
 }

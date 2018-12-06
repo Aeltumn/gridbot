@@ -26,4 +26,5 @@ public:
 	void tick();
 	void handleMove(const int &move);
 	void execute(Motor *x, Motor *y, Motor *z);
+	std::string getname() { return std::string("Tic Tac Toe"); }
 };

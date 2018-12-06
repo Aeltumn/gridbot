@@ -7,6 +7,7 @@ public:
 	virtual void tick() = 0;
 	virtual void handleMove(const int &move) = 0;
 	virtual void execute(Motor *x, Motor *y, Motor *z) = 0;
+	virtual std::string getname() = 0;
 };
 
 enum Difficulty {
