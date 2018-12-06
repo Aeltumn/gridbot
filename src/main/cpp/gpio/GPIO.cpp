@@ -4,7 +4,7 @@
 bool GPIO::exported[27];
 bool GPIO::directions[27];
 
-#if defined(__linux__) || defined(__CYGWIN__)
+#if defined(__linux__)
 /* Public Methods */
 
 void GPIO::initialise() {
@@ -15,7 +15,7 @@ void GPIO::initialise() {
 bool GPIO::get(const int &pin) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
 	if (!GPIO::exported[pin]) GPIO::setexport(pin, true);
-	if (GPIO::directions[pin]) GPIO::setdirection(pin, 'I');
+	if (GPIO::directions[pin]) GPIO::setdirection(pin, false);
 	return GPIO::getval(pin);
 }
 
@@ -24,7 +24,8 @@ void GPIO::set(const int &pin, const bool &value) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
 	if (!GPIO::exported[pin]) GPIO::setexport(pin, true);
 	Logger::info(std::to_string(GPIO::directions[pin]).c_str());
-	if (!GPIO::directions[pin]) GPIO::setdirection(pin, 'O');
+	if (!GPIO::directions[pin]) GPIO::setdirection(pin, true);
+	Logger::info(std::to_string(GPIO::directions[pin]).c_str());
 	GPIO::setval(pin, value);
 	//if(!value) GPIO::setexport(pin, false); //If we set the output to off, also unexport.
 }
@@ -39,13 +40,13 @@ void GPIO::setexport(const int &pin, const bool &exp) {
 	exported[pin] = exp;
 }
 
-void GPIO::setdirection(const int &pin, const char &option) {
+void GPIO::setdirection(const int &pin, const bool &out) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/direction");
 	std::ofstream estream(s.c_str());
-	estream << (option == 'I' ? "in" : option == 'O' ? "out" : option == 'H' ? "high" : "low");
+	estream << (out ? "out" : "in");
 	estream.close();
-	directions[pin] = (option == 'I' ? false : true);
+	directions[pin] = out;
 }
 
 void GPIO::setval(const int &pin, const bool &on) {
