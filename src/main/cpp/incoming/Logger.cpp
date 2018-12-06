@@ -2,7 +2,7 @@
 #include <string.h>
 #include <ctime>
 
-#define PORT 123
+#define PORT 447
 
 bool connected = false;
 bool Logger::isConnected() { return connected; }
