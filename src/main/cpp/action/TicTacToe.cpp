@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "tictactoe.h"
 
 TicTacToe::TicTacToe(bool first_, Difficulty diff) {
