@@ -23,6 +23,7 @@ bool GPIO::get(const int &pin) {
 void GPIO::set(const int &pin, const bool &value) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
 	if (!GPIO::exported[pin]) GPIO::setexport(pin, true);
+	Logger::log(std::to_string(GPIO::directions[pin]).c_str());
 	if (!GPIO::directions[pin]) GPIO::setdirection(pin, 'O');
 	GPIO::setval(pin, value);
 	//if(!value) GPIO::setexport(pin, false); //If we set the output to off, also unexport.
