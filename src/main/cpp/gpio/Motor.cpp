@@ -1,6 +1,8 @@
 #include "../pch.h"
 #include <chrono>
 
+std::queue<QueuedAction> Biker::actions;
+
 /* Public Methods */
 Motor::Motor(const int &port1, const int &port2, const int &port3, const int &port4) { p1 = port1; p2 = port2; p3 = port3; p4 = port4; }
 
