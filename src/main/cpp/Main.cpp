@@ -43,6 +43,8 @@ int main() {
 		std::thread action(Beta::startup);
 		std::thread gpio(Biker::setup);
 
+		GPIO::set(3, true);
+
 		using namespace distanceunits;
 		Motor x = Motor(7, 11, 13, 15);
 		Motor xmimic = Motor(12, 16, 18, 22);
