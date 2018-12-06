@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "../pch.h"
 
 Game* Beta::game;
 bool Beta::isRunning;

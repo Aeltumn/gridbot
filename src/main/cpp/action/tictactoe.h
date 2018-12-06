@@ -1,5 +1,5 @@
 #pragma once
-#include "pch.h"
+#include "../pch.h"
 
 struct Suggestion { //-10, -10 means NULL
 	int x, y;
