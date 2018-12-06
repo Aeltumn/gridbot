@@ -5,6 +5,7 @@ bool Beta::isRunning;
 
 void Beta::startup() {
 	try {
+		Logger::info("Starting Beta thread.");
 		isRunning = true;
 		while (isRunning) {
 			if (game != 0) game->tick();
@@ -16,8 +17,9 @@ void Beta::startup() {
 }
 
 void Beta::execute(Motor *x, Motor *y, Motor *z) { if (game != 0) game->execute(x, y, z); }
-void Beta::runGame(Game* g) { game = g; }
+void Beta::runGame(Game* g) { game = g;Logger::info("[BETA] Starting new game."); }
 void Beta::shutdown() {
 	isRunning = false;
 	delete game;
+	Logger::info("[BETA] Shut down current game.");
 }

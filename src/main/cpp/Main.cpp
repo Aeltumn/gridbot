@@ -34,8 +34,8 @@ int main() {
 
 	try {
 		std::thread incoming(Logger::setup);
-		std::thread action(Beta::startup);
 		while (!Logger::isConnected()) {} //Block until logger has connected
+		std::thread action(Beta::startup);
 		Logger::info("Starting up Gridbot v1.0 #@BUILD_NUMBER@");
 
 		using namespace distanceunits;
@@ -45,11 +45,11 @@ int main() {
 		Motor z = Motor(32, 36, 38, 40);
 
 		x.setmimic(&xmimic);
-		x.move(1.0cm);
+		//x.move(1.0cm);
 		Beta::runGame(new TicTacToe(true, EASY));
-		Beta::execute(&x, &y, &z);
+		//Beta::execute(&x, &y, &z);
 
-		incoming.join(); //We need to join a thread when the main thread has nothing else to do.
+		action.join(); //We need to join a thread when the main thread has nothing else to do.
 	} catch (const std::exception& e) {
 		Logger::info(e.what());
 		return 0;
