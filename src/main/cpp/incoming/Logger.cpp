@@ -62,10 +62,9 @@ void Logger::setup() {
 		connected = true;
 		//rbytes = read(sockfd, rbuff, sizeof(rbuff)); // read from socket and store the msg into buffer
 		while (true) {
-			strcat(rbuff, "Received: ");
 			//recv should block until something is received
 			rbytes = recv(sockfd, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
-			rbuff[rbytes] = '\0'; // set null terminal
+			Captain::handleCommand(rbuff);
 			info(rbuff);
 		}
 	} catch (const std::exception& e) {
@@ -166,7 +165,7 @@ void Logger::setup() {
 		while (true) {
 			//recv should block until something is received
 			rbytes = recv(sock, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
-			rbuff[rbytes] = '\0'; // set null terminal
+			Captain::handleCommand(rbuff);
 			info(rbuff);
 		}
 	} catch (const std::exception& e) {

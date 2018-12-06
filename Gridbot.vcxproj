@@ -131,6 +131,7 @@
     <ClCompile Include="src\main\cpp\gpio\Motor.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\incoming\Captain.cpp" />
     <ClCompile Include="src\main\cpp\incoming\Logger.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -150,6 +151,7 @@
     <ClInclude Include="src\main\cpp\headers\GPIO.h" />
     <ClInclude Include="src\main\cpp\headers\Logger.h" />
     <ClInclude Include="src\main\cpp\headers\Motor.h" />
+    <ClInclude Include="src\main\cpp\incoming\captain.h" />
     <ClInclude Include="src\main\cpp\incoming\logger.h" />
     <ClInclude Include="src\main\cpp\gpio\motor.h" />
     <ClInclude Include="src\main\cpp\pch.h" />

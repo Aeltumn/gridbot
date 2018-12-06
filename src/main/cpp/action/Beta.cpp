@@ -16,7 +16,8 @@ void Beta::startup() {
 	}
 }
 
-void Beta::execute(Motor *x, Motor *y, Motor *z) { if (game != 0) game->execute(x, y, z); }
+void Beta::setmotors(Motor *x_, Motor *y_, Motor *z_) { x = x_; y = y_; z = z_; }
+void Beta::execute() { if (game != 0) game->execute(x, y, z); }
 
 #if defined(__linux__)
 void Beta::runGame(Game* g) {

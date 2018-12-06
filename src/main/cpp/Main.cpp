@@ -13,6 +13,10 @@ int main() {
 				Has purely general overview of current game being played.
 			- Incoming Thread
 				Process incoming camera data from socket connection.
+
+			Support Threads:
+			- GPIO Thread
+				Constantly scans for queued movements and executes them in a fifo manner.
 	
 			In General:
 				 Generally a cycle of commands should go as follows:
@@ -25,7 +29,7 @@ int main() {
 				 of reactions in particular to recent changes.
 				 The action thread has a queue ready of the moves it sees as best at this time.
 				 
-				 Whenever the 1ncoming Thread gets notified it may take a turn it instructs the GPIO thread to
+				 Whenever the Incoming Thread gets notified it may take a turn it instructs the GPIO thread to
 				 take the next move from the queue and execute that. There should be a between thread bridge
 				 for this that changes gameplan A1->G8 to cm.
 	
@@ -36,7 +40,8 @@ int main() {
 		std::thread incoming(Logger::setup);
 		while (!Logger::isConnected()) {} //Block until logger has connected
 		std::thread action(Beta::startup);
-		Logger::info("Starting up Gridbot v1.0 #@BUILD_NUMBER@");
+		std::thread gpio(Motor::setup);
+		Logger::info("Starting up Gridbot v1.0 #-");//@BUILD_NUMBER@");
 
 		using namespace distanceunits;
 		Motor x = Motor(7, 11, 13, 15);
@@ -45,9 +50,8 @@ int main() {
 		Motor z = Motor(32, 36, 38, 40);
 
 		x.setmimic(&xmimic);
-		//x.move(1.0cm);
+		Beta::setmotors(&x, &y, &z);
 		Beta::runGame(new TicTacToe(true, EASY));
-		//Beta::execute(&x, &y, &z);
 
 		action.join(); //We need to join a thread when the main thread has nothing else to do.
 	} catch (const std::exception& e) {
