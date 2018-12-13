@@ -1,5 +1,4 @@
 #pragma once
-#include <queue>
 
 namespace distanceunits {
 	constexpr long double operator "" dm(long double dm) { return dm * 10; }
@@ -23,13 +22,4 @@ struct QueuedAction {
 	Motor *m;
 
 	QueuedAction(const long double &centi, Motor *m_) { centimeters = centi; m_ = m; }
-};
-
-class Biker {
-private:
-	static std::queue<QueuedAction> actions;
-
-public:
-	static void setup();
-	static std::queue<QueuedAction> getactions() { return actions; }
 };

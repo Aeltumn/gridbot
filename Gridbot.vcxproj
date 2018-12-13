@@ -125,6 +125,7 @@
     <ClCompile Include="src\main\cpp\action\TicTacToe.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\gpio\Biker.cpp" />
     <ClCompile Include="src\main\cpp\gpio\GPIO.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
@@ -146,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="src\main\cpp\action\tictactoe.h" />
     <ClInclude Include="src\main\cpp\action\beta.h" />
+    <ClInclude Include="src\main\cpp\gpio\biker.h" />
     <ClInclude Include="src\main\cpp\gpio\gpio.h" />
     <ClInclude Include="src\main\cpp\headers\Beta.h" />
     <ClInclude Include="src\main\cpp\headers\GPIO.h" />

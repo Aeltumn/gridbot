@@ -1,22 +1,8 @@
 #include "../pch.h"
 #include <chrono>
 
-std::queue<QueuedAction> Biker::actions;
-
 /* Public Methods */
 Motor::Motor(const int &port1, const int &port2, const int &port3, const int &port4) { p1 = port1; p2 = port2; p3 = port3; p4 = port4; }
-
-void Biker::setup() {
-	Logger::info("[BIKER] Starting Biker thread.");
-	while (true) { //I'm too lazy to make this secure, safe, efficient or anything, don't judge.
-		if (!actions.empty()) {
-			Logger::info("[BIKER] Executing action..");
-			QueuedAction qa = actions.front();
-			qa.m->moveint(qa.centimeters);
-			actions.pop();
-		}
-	}
-}
 
 void Motor::setmimic(Motor *mimi) { mimic = mimi; }
 void Motor::queue(const long double &centimeters) { Biker::getactions().push(QueuedAction(centimeters, this)); }

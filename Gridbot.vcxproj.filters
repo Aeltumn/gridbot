@@ -39,6 +39,9 @@
     <ClCompile Include="src\main\cpp\incoming\Captain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\gpio\Biker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\cpp\headers\Logger.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\cpp\incoming\captain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\gpio\biker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
