@@ -8,5 +8,5 @@ private:
 
 public:
 	static void setup();
-	static void push(const QueuedAction &ac);
+	static void push(QueuedAction ac);
 };
