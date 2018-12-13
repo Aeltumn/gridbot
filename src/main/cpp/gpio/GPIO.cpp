@@ -5,7 +5,7 @@
 /* Public Methods */
 
 void GPIO::initialise() {
-	for (int i = 0; i <= 26) {
+	for (int i = 0; i <= 26; i++) {
 		setexport(i, true);
 		setdirection(i, true);
 	}
@@ -31,16 +31,16 @@ void GPIO::setexport(const int &pin, const bool &exp) {
 	std::ofstream estream(s.c_str());
 	estream << pin;
 	estream.close();
-	exported[pin] = exp;
+	//exported[pin] = exp;
 }
 
 void GPIO::setdirection(const int &pin, const bool &out) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/direction");
 	std::ofstream estream(s.c_str());
-	estream << out ? "out" : "in";
+	estream << "out";//out ? "out" : "in";
 	estream.close();
-	directions[pin] = out;
+	//directions[pin] = out;
 }
 
 void GPIO::setval(const int &pin, const bool &on) {
