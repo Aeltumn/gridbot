@@ -47,7 +47,7 @@ void GPIO::setval(const int &pin, const bool &on) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/value");
 	std::ofstream estream(s.c_str());
-	estream << on ? "1" : "0" << std::endl;
+	estream << (on ? "1" : "0") << std::endl;
 	estream.close();
 }
 
