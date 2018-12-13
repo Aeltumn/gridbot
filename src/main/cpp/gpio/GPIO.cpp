@@ -12,10 +12,10 @@ void GPIO::initialise() {
 }
 
 //Read what a pin is currently set to, or read from an input pin.
-/*bool GPIO::get(const int &pin) {
+bool GPIO::get(const int &pin) {
 	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
 	return GPIO::getval(pin);
-}*/
+}
 
 //Set the value of an output pin, must be an output pin!
 void GPIO::set(const int &pin, const bool &value) {
