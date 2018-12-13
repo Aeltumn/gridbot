@@ -46,7 +46,7 @@ void GPIO::setdirection(const int &pin, const bool &out) {
 	std::string ret;
 	e2stream >> ret;
 	e2stream.close();
-	Logger::info(ret);
+	Logger::info(ret.c_str());
 	//directions[pin] = out;
 }
 
