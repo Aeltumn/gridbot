@@ -53,6 +53,7 @@ int main() {
 		Motor z = Motor(32, 36, 38, 40);
 
 		x.setmimic(&xmimic);
+		x.queue(20);
 		Beta::setmotors(&x, &y, &z);
 		Beta::runGame(new TicTacToe(true, EASY));
 
