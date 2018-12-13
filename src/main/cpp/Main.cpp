@@ -44,7 +44,10 @@ int main() {
 		std::thread gpio(Biker::setup);
 
 		//Clear GPIO
-		GPIO::initialise();
+		GPIO::initialise(7, 11, 13, 15);
+		GPIO::initialise(12, 16, 18, 22);
+		GPIO::initialise(31, 33, 35, 37);
+		GPIO::initialise(32, 36, 38, 40);
 
 		using namespace distanceunits;
 		Motor x = Motor(7, 11, 13, 15);

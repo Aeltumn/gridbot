@@ -4,11 +4,18 @@
 #if defined(__linux__)
 /* Public Methods */
 
-void GPIO::initialise() {
-	for (int i = 0; i <= 26; i++) {
-		setexport(i, true);
-		setdirection(i, true);
-	}
+void GPIO::initialise(const int &port1, const int &port2, const int &port3, const int &port4) {
+	setexport(port1, true);
+	setdirection(port1, true);
+
+	setexport(port2, true);
+	setdirection(port2, true);
+
+	setexport(port3, true);
+	setdirection(port3, true);
+
+	setexport(port4, true);
+	setdirection(port4, true);
 }
 
 //Read what a pin is currently set to, or read from an input pin.
