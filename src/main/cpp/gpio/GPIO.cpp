@@ -38,7 +38,7 @@ void GPIO::setdirection(const int &pin, const bool &out) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/direction");
 	std::ofstream estream(s.c_str());
-	estream << "out";//out ? "out" : "in";
+	estream << std::string("out");//out ? "out" : "in";
 	estream.close();
 	//directions[pin] = out;
 }
