@@ -6,7 +6,7 @@
 
 void GPIO::initialise() {
 	for (int i = 0; i <= 26) {
-		setexport(i);
+		setexport(i, true);
 		setdirection(i, true);
 	}
 }
