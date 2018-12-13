@@ -14,7 +14,7 @@ void Motor::moveint(const long double &centimeters) {
 		///Steps 2 and 4 are reversed, so step 2 for clockwise is step 4 for counterclockwise and visa versa.
 		//Step 1
 		GPIO::set(p1, true); GPIO::set(p2, false); GPIO::set(p3, false); GPIO::set(p4, true);
-		std::this_thread::sleep_for(20ms);
+		std::this_thread::sleep_for(200ms);
 		
 		//IOOI
 		//IIOO
@@ -25,26 +25,26 @@ void Motor::moveint(const long double &centimeters) {
 		if (centimeters > 0) {
 			//Positive = Clockwise
 			GPIO::set(p1, true); GPIO::set(p2, true); GPIO::set(p3, false); GPIO::set(p4, false);
-			std::this_thread::sleep_for(20ms);
+			std::this_thread::sleep_for(200ms);
 		} else {
 			//Negative = Counter-Clockwise
 			GPIO::set(p1, false); GPIO::set(p2, false); GPIO::set(p3, true); GPIO::set(p4, true);
-			std::this_thread::sleep_for(20ms);
+			std::this_thread::sleep_for(200ms);
 		}
 
 		//Step 3
 		GPIO::set(p1, false); GPIO::set(p2, true); GPIO::set(p3, true); GPIO::set(p4, false);
-		std::this_thread::sleep_for(20ms);
+		std::this_thread::sleep_for(200ms);
 
 		//Step 4
 		if (centimeters <= 0) {
 			//Negative = Counter-Clockwise
 			GPIO::set(p1, true); GPIO::set(p2, true); GPIO::set(p3, false); GPIO::set(p4, false);
-			std::this_thread::sleep_for(20ms);
+			std::this_thread::sleep_for(200ms);
 		} else {
 			//Positive = Clockwise
 			GPIO::set(p1, false); GPIO::set(p2, false); GPIO::set(p3, true); GPIO::set(p4, true);
-			std::this_thread::sleep_for(20ms);
+			std::this_thread::sleep_for(200ms);
 		}
 	}
 

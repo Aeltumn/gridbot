@@ -29,5 +29,6 @@ public:
 	static void shutdown();
 	static void runGame(Game* g);
 	static void setmotors(Motor *x_, Motor *y, Motor *z);
+	static Motor* getmotor(const int &c);
 	static void execute();
 };

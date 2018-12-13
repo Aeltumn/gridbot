@@ -19,6 +19,12 @@ void Beta::startup() {
 	}
 }
 
+Motor* Beta::getmotor(const int &c) {
+	if(c==0) return x;
+	if(c==1) return y;
+	if(c==2) return z;
+	return nullptr;
+}
 void Beta::setmotors(Motor *x_, Motor *y_, Motor *z_) { x = x_; y = y_; z = z_; }
 void Beta::execute() { 
 	Logger::info("[BETA] Executing game step.");

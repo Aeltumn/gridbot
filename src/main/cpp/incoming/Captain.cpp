@@ -26,5 +26,7 @@ void Captain::handleCommand(const char* txt) {
 	std::string command = args.at(0);
 	if (command.compare("execute") == 0) {
 		Beta::execute();
+	} else if (command.compare("testrotate") == 0) {
+		Beta::getmotor(0)->queue(20);
 	}
 }

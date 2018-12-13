@@ -54,7 +54,6 @@ int main() {
 
 		x.setmimic(&xmimic);
 		Beta::setmotors(&x, &y, &z);
-		x.queue(20);
 		Beta::runGame(new TicTacToe(true, EASY));
 
 		action.join(); //We need to join a thread when the main thread has nothing else to do.
