@@ -45,8 +45,6 @@ int main() {
 
 		//Clear GPIO
 		GPIO::initialise();
-		GPIO::set(3, true);
-		Logger::info(std::to_string(GPIO::get(3)).c_str());
 
 		using namespace distanceunits;
 		Motor x = Motor(7, 11, 13, 15);

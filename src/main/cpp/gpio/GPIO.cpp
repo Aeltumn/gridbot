@@ -35,19 +35,17 @@ void GPIO::setexport(const int &pin, const bool &exp) {
 }
 
 void GPIO::setdirection(const int &pin, const bool &out) {
+	//May we never forgot the original line of code blow
+	//which caused 5 hours of debugging, originally, this stood below:
+	//  std::string s = "/sys/class/gpio/gpio" + pin;
+	//Thanks to this great language that bugged out and never added the pin.
+
 	std::string s = "/sys/class/gpio/gpio";
 	s.append(std::to_string(pin));
 	s.append("/direction");
 	std::ofstream estream(s.c_str());
-	Logger::info(s.c_str());
-	estream << std::string("out") << std::endl;//out ? "out" : "in";
+	estream << std::string(out ? "out" : "in") << std::endl;
 	estream.close();
-
-	std::ifstream e2stream(s.c_str());
-	std::string ret;
-	e2stream >> ret;
-	e2stream.close();
-	Logger::info(ret.c_str());
 	//directions[pin] = out;
 }
 
