@@ -21,5 +21,5 @@ struct QueuedAction {
 	long double centimeters;
 	Motor *m;
 
-	QueuedAction(const long double &centi, Motor *m_) { centimeters = centi; m_ = m; }
+	QueuedAction(const long double &centi, Motor *m_) { centimeters = centi; m = m_; }
 };
