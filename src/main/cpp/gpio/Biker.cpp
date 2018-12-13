@@ -16,7 +16,7 @@ void Biker::setup() {
 
 void Biker::push(QueuedAction qa) {
 	Logger::info("[BIKER] Executing action..");
-	QueuedAction qa = actions.front();
+	//QueuedAction qa = actions.front();
 	qa.m->moveint(qa.centimeters);
-	actions.pop();
+	//actions.pop();
 }
