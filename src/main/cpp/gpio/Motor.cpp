@@ -7,7 +7,7 @@ Motor::Motor(const int &port1, const int &port2, const int &port3, const int &po
 void Motor::setmimic(Motor *mimi) { mimic = mimi; }
 void Motor::queue(const long double &centimeters) { Biker::push(QueuedAction(centimeters, this)); }
 void Motor::moveint(const long double &centimeters) {
-	for (long long ind = (long long) std::round(centimeters); ind > 0; --ind) {
+	for (long long ind = (long long) std::round(centimeters*8); ind > 0; --ind) {
 		using namespace std::literals::chrono_literals;
 		moveone();
 		if (mimic) mimic->moveone(); //null pointers become FALSE automatically
