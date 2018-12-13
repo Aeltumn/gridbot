@@ -29,7 +29,7 @@ void GPIO::set(const int &pin, const bool &value) {
 void GPIO::setexport(const int &pin, const bool &exp) {
 	std::string s = exp ? "/sys/class/gpio/export" : "/sys/class/gpio/unexport";
 	std::ofstream estream(s.c_str());
-	estream << pin;
+	estream << pin << std::endl;
 	estream.close();
 	//exported[pin] = exp;
 }
@@ -38,7 +38,7 @@ void GPIO::setdirection(const int &pin, const bool &out) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/direction");
 	std::ofstream estream(s.c_str());
-	estream << std::string("out");//out ? "out" : "in";
+	estream << std::string("out") << std::endl;//out ? "out" : "in";
 	estream.close();
 	//directions[pin] = out;
 }
@@ -47,7 +47,7 @@ void GPIO::setval(const int &pin, const bool &on) {
 	std::string s = "/sys/class/gpio/gpio" + pin;
 	s.append("/value");
 	std::ofstream estream(s.c_str());
-	estream << on ? "1" : "0";
+	estream << on ? "1" : "0" << std::endl;
 	estream.close();
 }
 
