@@ -13,3 +13,5 @@ void Biker::setup() {
 		}
 	}
 }
+
+void Biker::push(const QueuedAction &qa) { actions.push(qa); }

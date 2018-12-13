@@ -8,5 +8,5 @@ private:
 
 public:
 	static void setup();
-	static std::queue<QueuedAction> getactions() { return actions; }
+	static void push(const QueuedAction &ac);
 };

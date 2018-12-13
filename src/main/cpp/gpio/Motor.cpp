@@ -5,7 +5,7 @@
 Motor::Motor(const int &port1, const int &port2, const int &port3, const int &port4) { p1 = port1; p2 = port2; p3 = port3; p4 = port4; }
 
 void Motor::setmimic(Motor *mimi) { mimic = mimi; }
-void Motor::queue(const long double &centimeters) { Biker::getactions().push(QueuedAction(centimeters, this)); }
+void Motor::queue(const long double &centimeters) { Biker::push(QueuedAction(centimeters, this)); }
 void Motor::moveint(const long double &centimeters) {
 	if(mimic) mimic->moveint(centimeters); //null pointers become FALSE automatically
 	for (long long ind = (long long) std::round(centimeters); ind > 0; --ind) {
