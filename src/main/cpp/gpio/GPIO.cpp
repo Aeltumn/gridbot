@@ -20,13 +20,13 @@ void GPIO::initialise(const int &port1, const int &port2, const int &port3, cons
 
 //Read what a pin is currently set to, or read from an input pin.
 bool GPIO::get(const int &pin) {
-	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
+	if (pin < 0 || pin>40) throw "Pin must be between 0 and 26! (inclusive)";
 	return GPIO::getval(pin);
 }
 
 //Set the value of an output pin, must be an output pin!
 void GPIO::set(const int &pin, const bool &value) {
-	if (pin < 0 || pin>26) throw "Pin must be between 0 and 26! (inclusive)";
+	if (pin < 0 || pin>40) throw "Pin must be between 0 and 26! (inclusive)";
 	char buf[256];
 	buf[0] = 0;
 	strcat(buf, "[GPIO] Setting ");

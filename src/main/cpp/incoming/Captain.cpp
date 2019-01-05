@@ -9,20 +9,12 @@ void Captain::handleCommand(const char* txt) {
 	while ((in = *(txt + i)) != 0) {
 		//Keep reading until we find a null terminator
 		if (in == ' ') {
-			Logger::info("Detected space, splitting args. Argument: ");
 			std::string str = stream.str();
 			stream.str(std::string());
-			Logger::info(str.c_str());
 			args.push_back(str);
 		} else {
 			stream << in;
 		}
-		char buf[256];
-		buf[0] = 0;
-		strcat(buf, "[CAPTAIN] Read at i =  ");
-		strcat(buf, std::to_string(i).c_str());
-		strcat(buf, ".");
-		Logger::info(buf);
 		i++;
 		if (i >= 512) break; // txt can't be larger than 512
 	}
@@ -41,7 +33,7 @@ void Captain::handleCommand(const char* txt) {
 			buf[0] = 0;
 			strcat(buf, "[CAPTAIN] Moving ");
 			strcat(buf, std::to_string(i).c_str());
-			strcat(buf, " centimetres .");
+			strcat(buf, " centimetres.");
 			Logger::info(buf);
 			Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2)->queue(i);
 			Logger::info("[CAPTAIN] Moved target axis target distance.");
