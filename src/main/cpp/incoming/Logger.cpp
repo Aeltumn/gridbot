@@ -54,7 +54,7 @@ void Logger::setup() {
 			return;
 		}
 
-		char rbuff[256];
+		char rbuff[512];
 		rbuff[0] = 0;
 		int rbytes;
 
@@ -66,7 +66,7 @@ void Logger::setup() {
 			rbytes = recv(sockfd, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
 			rbuff[rbytes] = 0;
 			info(rbuff);
-			//Captain::handleCommand(rbuff);
+			Captain::handleCommand(rbuff);
 		}
 	} catch (const std::exception& e) {
 		info(e.what());

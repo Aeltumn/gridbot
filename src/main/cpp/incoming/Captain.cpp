@@ -16,6 +16,7 @@ void Captain::handleCommand(const char* txt) {
 			stream << in;
 		}
 		i++;
+		if (i >= 512) break; // txt can't be larger than 512
 	}
 	char* j;
 	stream >> j;
