@@ -27,13 +27,13 @@ bool GPIO::get(const int &pin) {
 //Set the value of an output pin, must be an output pin!
 void GPIO::set(const int &pin, const bool &value) {
 	if (pin < 0 || pin>40) throw "Pin must be between 0 and 26! (inclusive)";
-	char buf[256];
+	/*char buf[256];
 	buf[0] = 0;
 	strcat(buf, "[GPIO] Setting ");
 	strcat(buf, std::to_string(pin).c_str());
 	strcat(buf, " to ");
 	strcat(buf, std::to_string(value).c_str());
-	strcat(buf, ".");
+	strcat(buf, ".");*/
 	Logger::info(buf);
 	GPIO::setval(pin, value);
 	//if(!value) GPIO::setexport(pin, false); //If we set the output to off, also unexport.
