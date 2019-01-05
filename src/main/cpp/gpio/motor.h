@@ -10,6 +10,7 @@ private:
 	int p1, p2, p3, p4; //The 4 ports to which the motor is attached
 	Motor *mimic; // Same direction
 	Motor *mirror; // Opposite direction
+	bool hasMimic, hasMirror;
 	int step = 0;
 
 public:

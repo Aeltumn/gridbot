@@ -4,16 +4,16 @@
 /* Public Methods */
 Motor::Motor(const int &port1, const int &port2, const int &port3, const int &port4) { p1 = port1; p2 = port2; p3 = port3; p4 = port4; }
 
-void Motor::setmimic(Motor *mimi) { mimic = mimi; }
-void Motor::setmirror(Motor *mirr) { mirror = mirr; }
+void Motor::setmimic(Motor *mimi) { mimic = mimi; hasMimic = true; }
+void Motor::setmirror(Motor *mirr) { mirror = mirr; hasMirror = true; }
 
 void Motor::queue(const long double &centimeters) { Biker::push(QueuedAction(centimeters, this)); }
 void Motor::moveint(const long double &centimeters) {
 	for (long long ind = (long long) std::round(std::abs(centimeters)*100); ind > 0; --ind) {
 		using namespace std::literals::chrono_literals;
 		moveone(centimeters < 0 ? true : false);
-		//if (mimic) mimic->moveone(centimeters < 0 ? true : false); //null pointers become FALSE automatically
-		if (mirror) mirror->moveone(centimeters < 0 ? false : true);
+		if (hasMimic) mimic->moveone(centimeters < 0 ? true : false); //null pointers become FALSE automatically
+		if (hasMirror) mirror->moveone(centimeters < 0 ? false : true);
 		std::this_thread::sleep_for(1ms);
 	}
 
