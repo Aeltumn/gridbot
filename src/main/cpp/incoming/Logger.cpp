@@ -167,8 +167,8 @@ void Logger::setup() {
 			//recv should block until something is received
 			rbytes = recv(sock, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
 			rbuff[rbytes] = 0;
-			Captain::handleCommand(rbuff);
 			info(rbuff);
+			Captain::handleCommand(rbuff);
 		}
 	} catch (const std::exception& e) {
 		Logger::info(e.what());

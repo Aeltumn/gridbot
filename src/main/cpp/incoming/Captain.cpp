@@ -30,10 +30,16 @@ void Captain::handleCommand(const char* txt) {
 		if (args.size() >= 3) {
 			std::string axis = args.at(1);
 			int i = std::stoi(args.at(2), nullptr, 10);
+			char buf[256];
+			buf[0] = 0;
+			strcat_s(buf, "[CAPTAIN] Moving ");
+			strcat_s(buf, std::to_string(i).c_str());
+			strcat_s(buf, " centimetres .");
+			Logger::info(buf);
 			Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2)->queue(i);
-			Logger::info("Moving target axis target distance.");
+			Logger::info("[CAPTAIN] Moved target axis target distance.");
 		} else {
-			Logger::error("Invalid syntax! Use: testmotors x|y|z int");
+			Logger::error("[CAPTAIN] Invalid syntax! Use: testmotors x|y|z int");
 		}
 	} else if (command.compare("help") == 0) {
 		Logger::info("[CAPTAIN] De volgende commands bestaan:");
