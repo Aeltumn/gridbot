@@ -55,7 +55,7 @@ int main() {
 		Motor y = Motor(6, 13, 19, 26);
 		Motor z = Motor(12, 16, 20, 21);
 
-		x.setmimic(&xmirror);
+		x.setmirror(&xmirror);
 		Beta::setmotors(&x, &y, &z);
 		Beta::runGame(new TicTacToe(true, EASY));
 

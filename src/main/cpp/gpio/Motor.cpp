@@ -12,9 +12,8 @@ void Motor::moveint(const long double &centimeters) {
 	for (long long ind = (long long) std::round(std::abs(centimeters)*100); ind > 0; --ind) {
 		using namespace std::literals::chrono_literals;
 		moveone(centimeters < 0 ? true : false);
-		//if (hasMimic) mimic->moveone(centimeters < 0 ? true : false); //null pointers become FALSE automatically
-		//if (hasMirror) 
-		mirror->moveone(centimeters < 0 ? false : true);
+		if (hasMimic) { mimic->moveone(centimeters < 0 ? true : false); }
+		if (hasMirror) { mirror->moveone(centimeters < 0 ? false : true); }
 		std::this_thread::sleep_for(1ms);
 	}
 
