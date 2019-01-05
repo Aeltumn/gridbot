@@ -11,7 +11,7 @@ void Motor::moveint(const long double &centimeters) {
 		using namespace std::literals::chrono_literals;
 		moveone();
 		if (mimic) mimic->moveone(); //null pointers become FALSE automatically
-		std::this_thread::sleep_for(2ms);
+		std::this_thread::sleep_for(1ms);
 	}
 
 	//Cleaup after ourselves
