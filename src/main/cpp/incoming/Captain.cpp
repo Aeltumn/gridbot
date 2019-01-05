@@ -15,6 +15,12 @@ void Captain::handleCommand(const char* txt) {
 		} else {
 			stream << in;
 		}
+		char buf[256];
+		buf[0] = 0;
+		strcat(buf, "[CAPTAIN] Read at i =  ");
+		strcat(buf, std::to_string(i).c_str());
+		strcat(buf, ".");
+		Logger::info(buf);
 		i++;
 		if (i >= 512) break; // txt can't be larger than 512
 	}
