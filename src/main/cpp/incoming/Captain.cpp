@@ -24,10 +24,21 @@ void Captain::handleCommand(const char* txt) {
 	//Args are now all of our arguments
 	if (args.size() == 0) return;
 	std::string command = args.at(0);
-	if (command.compare("execute") == 0) {
+	if (command.compare("execute") == 0) { // Executes the next move.
 		Beta::execute();
-	} else if (command.compare("testrotate") == 0) {
-		Motor *x = Beta::getmotor(0);
-		x->queue(20);
+	} else if (command.compare("testmotors") == 0) {
+		if (args.size >= 3) {
+			Motor *motor;
+			std::string axis = args.at(1);
+			motor = Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2);
+			motor->queue(stoi(args.at(2)));
+			Logger::info("Moving target axis target distance.");
+		} else {
+			Logger::error("Invalid syntax! Use: testmotors <x|y|z> <int>");
+		}
+	} else if (command.compare("help") == 0) {
+		Logger::info("[CAPTAIN] De volgende commands bestaan:");
+		Logger::info("execute - Speelt de volgende beurt van het huidige spel.");
+		Logger::info("testmotors <x|y|z> <int> - Beweeg de x, y of z as met int centimeter.");
 	}
 }

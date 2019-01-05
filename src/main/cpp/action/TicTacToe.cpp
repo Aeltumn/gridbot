@@ -7,6 +7,7 @@
 #define SQUARE_HALF_LENGTH 1.375
 #define LOWER_HEIGHT 2
 
+
 TicTacToe::TicTacToe(bool first_, Difficulty diff) {
 	FIRST = first_; DIFFICULTY = diff;
 	COMPUTER = FIRST ? FIRST_PLAYER : SECOND_PLAYER;
@@ -40,9 +41,11 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	y->queue(SQUARE_HALF_LENGTH);
 	z->queue(-LOWER_HEIGHT);
 	//Enable magnet
+	
+	z->queue(LOWER_HEIGHT);
 
 	//Move to square
-	x->queue(SQUARE_HALF_LENGTH*2); //We're at x0.5, y0.5
+	x->queue(SQUARE_HALF_LENGTH*2); //We're at x0.5, y0.5 or above square 0,0
 	
 	updateBoard(suggestion, COMPUTER);
 }

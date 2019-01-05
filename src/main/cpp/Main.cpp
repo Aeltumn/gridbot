@@ -44,19 +44,18 @@ int main() {
 		std::thread gpio(Biker::setup);
 
 		//Clear GPIO
-		GPIO::initialise(7, 11, 13, 15);
-		GPIO::initialise(12, 16, 18, 22);
-		GPIO::initialise(31, 33, 35, 37);
-		GPIO::initialise(32, 36, 38, 40);
+		GPIO::initialise(4, 17, 27, 22); //7, 11, 13, 15
+		GPIO::initialise(18, 23, 24, 25); //12, 16, 18, 22
+		GPIO::initialise(6, 13, 19, 26); //31, 33, 35, 37
+		GPIO::initialise(12, 16, 20, 21); //32, 36, 38, 40
 
 		using namespace distanceunits;
-		Motor x = Motor(7, 11, 13, 15);
-		Motor xmimic = Motor(12, 16, 18, 22);
-		Motor y = Motor(31, 33, 35, 37);
-		Motor z = Motor(32, 36, 38, 40);
+		Motor x = Motor(4, 17, 27, 22);
+		Motor xmimic = Motor(18, 23, 24, 25);
+		Motor y = Motor(6, 13, 19, 26);
+		Motor z = Motor(12, 16, 20, 21);
 
 		x.setmimic(&xmimic);
-		x.queue(20);
 		Beta::setmotors(&x, &y, &z);
 		Beta::runGame(new TicTacToe(true, EASY));
 
