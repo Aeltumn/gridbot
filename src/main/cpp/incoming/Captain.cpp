@@ -1,5 +1,6 @@
 #include "../pch.h"
 #include <sstream>
+#include <string.h>
 
 void Captain::handleCommand(const char* txt) {
 	std::vector<std::string> args;
