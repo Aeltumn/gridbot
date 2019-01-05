@@ -28,9 +28,8 @@ void Captain::handleCommand(const char* txt) {
 		Beta::execute();
 	} else if (command.compare("testmotors") == 0) {
 		if (args.size() >= 3) {
-			Motor *motor;
 			std::string axis = args.at(1);
-			motor = Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2);
+			Motor *motor = Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2);
 			motor->queue(stoi(args.at(2)));
 			Logger::info("Moving target axis target distance.");
 		} else {
