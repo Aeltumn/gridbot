@@ -6,10 +6,11 @@ void Captain::handleCommand(const char* txt) {
 	std::stringstream stream;
 	int i = 0;
 	char in;
+	char* j;
 	while ((in = *(txt + i)) != 0) {
 		//Keep reading until we find a null terminator
-		if (in == 'E') {
-			char* j;
+		if (in == ' ') {
+			Logger::info("Detected space, splitting args.");
 			stream >> j;
 			args.push_back(std::string(j));
 		} else {
@@ -24,7 +25,6 @@ void Captain::handleCommand(const char* txt) {
 		i++;
 		if (i >= 512) break; // txt can't be larger than 512
 	}
-	char* j;
 	stream >> j;
 	args.push_back(std::string(j));
 
