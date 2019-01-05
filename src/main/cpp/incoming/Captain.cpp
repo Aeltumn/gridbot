@@ -1,6 +1,5 @@
 #include "../pch.h"
 #include <sstream>
-#include <string.h>
 
 void Captain::handleCommand(const char* txt) {
 	std::vector<std::string> args;
@@ -33,9 +32,9 @@ void Captain::handleCommand(const char* txt) {
 			int i = std::stoi(args.at(2), nullptr, 10);
 			char buf[256];
 			buf[0] = 0;
-			strcat_s(buf, "[CAPTAIN] Moving ");
-			strcat_s(buf, std::to_string(i).c_str());
-			strcat_s(buf, " centimetres .");
+			strcat(buf, "[CAPTAIN] Moving ");
+			strcat(buf, std::to_string(i).c_str());
+			strcat(buf, " centimetres .");
 			Logger::info(buf);
 			Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2)->queue(i);
 			Logger::info("[CAPTAIN] Moved target axis target distance.");
