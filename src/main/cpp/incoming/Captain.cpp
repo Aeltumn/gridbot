@@ -34,11 +34,11 @@ void Captain::handleCommand(const char* txt) {
 			motor->queue(stoi(args.at(2)));
 			Logger::info("Moving target axis target distance.");
 		} else {
-			Logger::error("Invalid syntax! Use: testmotors <x|y|z> <int>");
+			Logger::error("Invalid syntax! Use: testmotors x|y|z int");
 		}
 	} else if (command.compare("help") == 0) {
 		Logger::info("[CAPTAIN] De volgende commands bestaan:");
 		Logger::info("execute - Speelt de volgende beurt van het huidige spel.");
-		Logger::info("testmotors <x|y|z> <int> - Beweeg de x, y of z as met int centimeter.");
+		Logger::info("testmotors x|y|z int - Beweeg de x, y of z as met int centimeter.");
 	}
 }
