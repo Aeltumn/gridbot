@@ -8,7 +8,7 @@ void Captain::handleCommand(const char* txt) {
 	char in;
 	while ((in = *(txt + i)) != 0) {
 		//Keep reading until we find a null terminator
-		if (in == '_') {
+		if (in == 'E') {
 			char* j;
 			stream >> j;
 			args.push_back(std::string(j));
