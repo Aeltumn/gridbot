@@ -10,8 +10,9 @@ void Captain::handleCommand(const char* txt) {
 	while ((in = *(txt + i)) != 0) {
 		//Keep reading until we find a null terminator
 		if (in == ' ') {
-			Logger::info("Detected space, splitting args.");
+			Logger::info("Detected space, splitting args. Argument: ");
 			stream >> j;
+			Logger::info(j);
 			args.push_back(std::string(j));
 		} else {
 			stream << in;
