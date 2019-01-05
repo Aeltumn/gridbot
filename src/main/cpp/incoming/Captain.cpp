@@ -29,8 +29,9 @@ void Captain::handleCommand(const char* txt) {
 	} else if (command.compare("testmotors") == 0) {
 		if (args.size() >= 3) {
 			std::string axis = args.at(1);
-			Motor *motor = Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2);
-			motor->queue(stoi(args.at(2)));
+			std::string::size_type sz; // alias of size_t, see http://www.cplusplus.com/reference/string/stoi/
+			int i = std::stoi(args.at(2), &sz);
+			Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2)->queue(i);
 			Logger::info("Moving target axis target distance.");
 		} else {
 			Logger::error("Invalid syntax! Use: testmotors x|y|z int");
