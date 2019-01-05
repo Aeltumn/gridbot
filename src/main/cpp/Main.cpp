@@ -51,11 +51,11 @@ int main() {
 
 		using namespace distanceunits;
 		Motor x = Motor(4, 17, 27, 22);
-		Motor xmimic = Motor(18, 23, 24, 25);
+		Motor xmirror = Motor(18, 23, 24, 25);
 		Motor y = Motor(6, 13, 19, 26);
 		Motor z = Motor(12, 16, 20, 21);
 
-		x.setmimic(&xmimic);
+		x.setmirror(&xmirror);
 		Beta::setmotors(&x, &y, &z);
 		Beta::runGame(new TicTacToe(true, EASY));
 

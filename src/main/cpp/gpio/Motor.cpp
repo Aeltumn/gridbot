@@ -5,12 +5,15 @@
 Motor::Motor(const int &port1, const int &port2, const int &port3, const int &port4) { p1 = port1; p2 = port2; p3 = port3; p4 = port4; }
 
 void Motor::setmimic(Motor *mimi) { mimic = mimi; }
+void Motor::setmirror(Motor *mirr) { mirror = mirr; }
+
 void Motor::queue(const long double &centimeters) { Biker::push(QueuedAction(centimeters, this)); }
 void Motor::moveint(const long double &centimeters) {
-	for (long long ind = (long long) std::round(centimeters*100); ind > 0; --ind) {
+	for (long long ind = (long long) std::round(std::abs(centimeters)*100); ind > 0; --ind) {
 		using namespace std::literals::chrono_literals;
-		moveone();
-		if (mimic) mimic->moveone(); //null pointers become FALSE automatically
+		moveone(centimeters < 0 ? true : false);
+		if (mimic) mimic->moveone(centimeters < 0 ? true : false); //null pointers become FALSE automatically
+		if (mirror) mirror->moveone(centimeters < 0 ? false : true);
 		std::this_thread::sleep_for(1ms);
 	}
 
@@ -18,7 +21,7 @@ void Motor::moveint(const long double &centimeters) {
 	GPIO::set(p1, false); GPIO::set(p2, false); GPIO::set(p3, false); GPIO::set(p4, false);
 }
 
-void Motor::moveone() {
+void Motor::moveone(const bool &reversed) {
 	if (step == 0) {
 		//1 0 0 0
 		GPIO::set(p1, true); GPIO::set(p2, false); GPIO::set(p3, false); GPIO::set(p4, false);
@@ -44,6 +47,9 @@ void Motor::moveone() {
 		//1 0 0 1
 		GPIO::set(p1, true); GPIO::set(p2, false); GPIO::set(p3, false); GPIO::set(p4, true);
 	}
-	step++;
+	if(reversed) step--;
+	else step++;
+
 	if (step >= 8) step = 0;
+	if (step < 0) step = 7;
 }

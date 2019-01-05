@@ -8,15 +8,17 @@ namespace distanceunits {
 class Motor {
 private:
 	int p1, p2, p3, p4; //The 4 ports to which the motor is attached
-	Motor *mimic;
+	Motor *mimic; // Same direction
+	Motor *mirror; // Opposite direction
 	int step = 0;
 
 public:
 	Motor(const int &port1, const int &port2, const int &port3, const int &port4);
 	void queue(const long double &centimeters);
 	void setmimic(Motor *mimi);
+	void setmirror(Motor *mirror);
 	void moveint(const long double &centimeters);
-	void moveone();
+	void moveone(const bool &reversed);
 };
 
 struct QueuedAction {
