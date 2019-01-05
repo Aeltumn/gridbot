@@ -33,8 +33,8 @@ void GPIO::set(const int &pin, const bool &value) {
 	strcat(buf, std::to_string(pin).c_str());
 	strcat(buf, " to ");
 	strcat(buf, std::to_string(value).c_str());
-	strcat(buf, ".");*/
-	Logger::info(buf);
+	strcat(buf, ".");
+	Logger::info(buf);*/
 	GPIO::setval(pin, value);
 	//if(!value) GPIO::setexport(pin, false); //If we set the output to off, also unexport.
 }
