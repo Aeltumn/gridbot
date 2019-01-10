@@ -65,7 +65,7 @@ int main() {
 		while (true) {
 			//Just keep spamming 'em
 			Logger::info("ping");
-			std::this_thread::sleep_for(1500ms);
+			std::this_thread::sleep_for(100s);
 		}
 		//action.join(); //We need to join a thread when the main thread has nothing else to do.
 	} catch (const std::exception& e) {
