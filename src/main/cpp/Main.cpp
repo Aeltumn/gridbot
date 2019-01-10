@@ -48,6 +48,7 @@ int main() {
 		GPIO::initialise(18, 23, 24, 25); //12, 16, 18, 22
 		GPIO::initialise(6, 13, 19, 26); //31, 33, 35, 37
 		GPIO::initialise(12, 16, 20, 21); //32, 36, 38, 40
+		GPIO::initialise(10); //19
 
 		using namespace distanceunits;
 		Motor x = Motor(4, 17, 27, 22);

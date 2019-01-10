@@ -41,11 +41,19 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	y->queue(SQUARE_HALF_LENGTH);
 	z->queue(-LOWER_HEIGHT);
 	//Enable magnet
-	
+	GPIO::set(10, true);
+
 	z->queue(LOWER_HEIGHT);
 
 	//Move to square
 	x->queue(SQUARE_HALF_LENGTH*2); //We're at x0.5, y0.5 or above square 0,0
 	
+	//Place here
+	z->queue(-LOWER_HEIGHT);
+	GPIO::set(10, false);
+	z->queue(LOWER_HEIGHT);
+
+	//Move back to base?
+
 	updateBoard(suggestion, COMPUTER);
 }

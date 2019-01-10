@@ -1,9 +1,12 @@
 #include "../pch.h"
 #include <fstream> //File IO
 
-#if defined(__linux__)
 /* Public Methods */
 
+void GPIO::initialise(const int &port1) {
+	setexport(port1, true);
+	setdirection(port1, true);
+}
 void GPIO::initialise(const int &port1, const int &port2, const int &port3, const int &port4) {
 	setexport(port1, true);
 	setdirection(port1, true);
@@ -82,12 +85,3 @@ int GPIO::getval(const int &pin) {
 	estream.close();
 	return ret == "0" ? 0 : 1;
 }
-#else
-void GPIO::initialise() {}
-bool GPIO::get(const int &pin) { return false; }
-void GPIO::set(const int &pin, const bool &value) {}
-void GPIO::setexport(const int &pin, const bool &exp) {}
-void GPIO::setdirection(const int &pin, const bool &out) {}
-void GPIO::setval(const int &pin, const bool &on) {}
-int GPIO::getval(const int &pin) { return 0; }
-#endif
