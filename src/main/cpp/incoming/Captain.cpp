@@ -25,6 +25,18 @@ void Captain::handleCommand(const char* txt) {
 	std::string command = args.at(0);
 	if (command.compare("execute") == 0) { // Executes the next move.
 		Beta::execute();
+	} else if(command.compare("magnet") == 0) {
+		if (args.size() >= 2) {
+			if (args.at(1).compare("on") == 0) {
+				GPIO::set(10, true);
+				Logger::info("[CAPTAIN] Turned on magnet.");
+			} else {
+				GPIO::set(10, false);
+				Logger::info("[CAPTAIN] Turned off magnet.");
+			}
+		} else {
+			Logger::error("[CAPTAIN] Invalid syntax! Use: magnet on|off");
+		}
 	} else if (command.compare("testmotors") == 0) {
 		if (args.size() >= 3) {
 			std::string axis = args.at(1);
