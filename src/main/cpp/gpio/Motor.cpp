@@ -9,7 +9,7 @@ void Motor::setmirror(Motor *mirr) { mirror = mirr; hasMirror = true; }
 
 void Motor::queue(const long double &centimeters) { Biker::push(QueuedAction(centimeters, this)); }
 void Motor::moveint(const long double &centimeters) {
-	for (long long ind = (long long) std::round(std::abs(centimeters)*235); ind > 0; --ind) {
+	for (long long ind = (long long) std::round(std::abs(centimeters)*234); ind > 0; --ind) {
 		using namespace std::literals::chrono_literals;
 		moveone(centimeters < 0 ? true : false);
 		if (hasMimic) { mimic->moveone(centimeters < 0 ? true : false); }

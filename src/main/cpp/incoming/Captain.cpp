@@ -37,7 +37,7 @@ void Captain::handleCommand(const char* txt) {
 		} else {
 			Logger::error("[CAPTAIN] Invalid syntax! Use: magnet on|off");
 		}
-	} else if (command.compare("testmotors") == 0) {
+	} else if (command.compare("testmotors") == 0 || command.compare("m") == 0) {
 		if (args.size() >= 3) {
 			std::string axis = args.at(1);
 			int i = std::stoi(args.at(2), nullptr, 10);
