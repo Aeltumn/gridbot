@@ -105,10 +105,6 @@ void Logger::info(const char* str) {
 	std::cout << s;
 	if(connected) send(sockfd, s, (int)strlen(s), 0);
 }
-void Logger::ping() {
-	std::cout << "PING";
-	if (connected) send(sockfd, "PING", (int)strlen("PING"), 0);
-}
 #else
 //Windows
 #include <winsock2.h>

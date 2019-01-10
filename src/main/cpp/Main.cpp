@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "action/tictactoe.h"
-#include <chrono>
 
 int main() {
 	//Setup thread pool
@@ -61,13 +60,7 @@ int main() {
 		Beta::setmotors(&x, &y, &z);
 		Beta::runGame(new TicTacToe(true, EASY));
 
-		using namespace std::literals::chrono_literals;
-		while (true) {
-			//Just keep spamming 'em
-			Logger::ping();
-			std::this_thread::sleep_for(90s);
-		}
-		//action.join(); //We need to join a thread when the main thread has nothing else to do.
+		action.join(); //We need to join a thread when the main thread has nothing else to do.
 	} catch (const std::exception& e) {
 		Logger::info(e.what());
 		return 0;
