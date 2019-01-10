@@ -64,7 +64,7 @@ int main() {
 		using namespace std::literals::chrono_literals;
 		while (true) {
 			//Just keep spamming 'em
-			Logger::info("ping");
+			Logger::info("PING");
 			std::this_thread::sleep_for(100s);
 		}
 		//action.join(); //We need to join a thread when the main thread has nothing else to do.
