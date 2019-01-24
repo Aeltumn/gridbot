@@ -4,8 +4,9 @@
 #define FIRST_PLAYER 'X'
 #define SECOND_PLAYER 'O'
 
-#define SQUARE_HALF_LENGTH 1.375
+#define SQUARE_HALF_LENGTH 30
 #define LOWER_HEIGHT 2
+#define ENTRY_LENGTH 10
 
 
 TicTacToe::TicTacToe(bool first_, Difficulty diff) {
@@ -36,24 +37,35 @@ void TicTacToe::tick() {
 //It is assumed we are hovering over the bottom left corner of the bottom left square, x0, y0 and at z100%, magnet off
 //It is also assumed that there is a disc or object for it to move at x-1, y0
 void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
+	x->queue(ENTRY_LENGTH);
+
 	//Move to pickup stone.
 	x->queue(-SQUARE_HALF_LENGTH);
 	y->queue(SQUARE_HALF_LENGTH);
-	z->queue(-LOWER_HEIGHT);
+	z->queue(LOWER_HEIGHT);
 	//Enable magnet
 	GPIO::set(10, true);
-
-	z->queue(LOWER_HEIGHT);
+	z->queue(-LOWER_HEIGHT);
 
 	//Move to square
 	x->queue(SQUARE_HALF_LENGTH*2); //We're at x0.5, y0.5 or above square 0,0
 	
+	x->queue(SQUARE_HALF_LENGTH*8);
+	y->queue(SQUARE_HALF_LENGTH*8);
+
 	//Place here
-	z->queue(-LOWER_HEIGHT);
-	GPIO::set(10, false);
 	z->queue(LOWER_HEIGHT);
+	GPIO::set(10, false);
+	z->queue(-LOWER_HEIGHT);
+
+	//Move back
+	x->queue(-SQUARE_HALF_LENGTH*8);
+	y->queue(-SQUARE_HALF_LENGTH*8);
 
 	//Move back to base?
+	x->queue(SQUARE_HALF_LENGTH);
+	y->queue(-SQUARE_HALF_LENGTH);
+	x->queue(-ENTRY_LENGTH);
 
 	updateBoard(suggestion, COMPUTER);
 }
