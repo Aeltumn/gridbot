@@ -1,7 +1,6 @@
 #pragma once
 
 #include "beta.h"
-#include "motor.h"
 #include "gpio.h"
 #include "biker.h"
 #include "captain.h"
