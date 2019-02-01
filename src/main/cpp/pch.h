@@ -1,11 +1,11 @@
 #pragma once
 
-#include "action/beta.h"
-#include "gpio/motor.h"
-#include "gpio/gpio.h"
-#include "gpio/biker.h"
-#include "incoming/captain.h"
-#include "incoming/logger.h"
+#include "beta.h"
+#include "motor.h"
+#include "gpio.h"
+#include "biker.h"
+#include "captain.h"
+#include "logger.h"
 
 #include <string>
 #include <string.h>

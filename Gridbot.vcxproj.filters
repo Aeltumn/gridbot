@@ -42,6 +42,27 @@
     <ClCompile Include="src\main\cpp\gpio\Biker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\Beta.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\cpp\Biker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\cpp\Captain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\cpp\GPIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\cpp\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\cpp\Motor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main\cpp\TicTacToe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\cpp\headers\Logger.h">
@@ -78,6 +99,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\cpp\gpio\biker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\beta.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\biker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\captain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\gpio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\motor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\main\cpp\tictactoe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

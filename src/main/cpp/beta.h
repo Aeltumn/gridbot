@@ -1,5 +1,5 @@
 #pragma once
-#include "../gpio/motor.h"
+#include "motor.h"
 #include <string>
 #include <string.h>
 

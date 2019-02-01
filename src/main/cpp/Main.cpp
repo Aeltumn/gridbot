@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "action/tictactoe.h"
+#include "tictactoe.h"
 
 int main() {
 	//Setup thread pool

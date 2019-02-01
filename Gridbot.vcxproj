@@ -126,6 +126,10 @@
     <ClCompile Include="src\main\cpp\action\TicTacToe.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\Beta.cpp" />
+    <ClCompile Include="src\main\cpp\Biker.cpp" />
+    <ClCompile Include="src\main\cpp\Captain.cpp" />
+    <ClCompile Include="src\main\cpp\GPIO.cpp" />
     <ClCompile Include="src\main\cpp\gpio\Biker.cpp" />
     <ClCompile Include="src\main\cpp\gpio\GPIO.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
@@ -137,17 +141,24 @@
     <ClCompile Include="src\main\cpp\incoming\Logger.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../pch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\Logger.cpp" />
     <ClCompile Include="src\main\cpp\Main.cpp" />
+    <ClCompile Include="src\main\cpp\Motor.cpp" />
     <ClCompile Include="src\main\cpp\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeaderFile>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\main\cpp\TicTacToe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\main\cpp\action\tictactoe.h" />
     <ClInclude Include="src\main\cpp\action\beta.h" />
+    <ClInclude Include="src\main\cpp\beta.h" />
+    <ClInclude Include="src\main\cpp\biker.h" />
+    <ClInclude Include="src\main\cpp\captain.h" />
+    <ClInclude Include="src\main\cpp\gpio.h" />
     <ClInclude Include="src\main\cpp\gpio\biker.h" />
     <ClInclude Include="src\main\cpp\gpio\gpio.h" />
     <ClInclude Include="src\main\cpp\headers\Beta.h" />
@@ -157,7 +168,10 @@
     <ClInclude Include="src\main\cpp\incoming\captain.h" />
     <ClInclude Include="src\main\cpp\incoming\logger.h" />
     <ClInclude Include="src\main\cpp\gpio\motor.h" />
+    <ClInclude Include="src\main\cpp\logger.h" />
+    <ClInclude Include="src\main\cpp\motor.h" />
     <ClInclude Include="src\main\cpp\pch.h" />
+    <ClInclude Include="src\main\cpp\tictactoe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
