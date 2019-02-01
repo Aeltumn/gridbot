@@ -8,8 +8,13 @@ void Biker::setup() {
 		bool isRunning = true;
 		while (isRunning) { //I'm too lazy to make this secure, safe, efficient or anything, don't judge.
 			if (!actions.empty()) {
-				Logger::info("[BIKER] Executing action..");
 				QueuedAction qa = actions.front();
+				char buf[256];
+				buf[0] = 0;
+				strcat(buf, "[BIKER] Executing action, moving ");
+				strcat(buf, std::to_string(qa.centimeters).c_str());
+				strcat(buf, " centimetres...");
+				Logger::info(buf);
 				qa.m->moveint(qa.centimeters);
 				actions.pop();
 			}

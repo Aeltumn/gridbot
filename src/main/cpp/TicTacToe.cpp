@@ -39,7 +39,6 @@ void TicTacToe::tick() {
 void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	x->queue(ENTRY_LENGTH);
 
-
 	//Move to pickup stone.
 	x->queue(-3*SQUARE_HALF_LENGTH);
 	z->queue(-LOWER_HEIGHT);
