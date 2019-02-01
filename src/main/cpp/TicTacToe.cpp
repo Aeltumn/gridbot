@@ -4,10 +4,10 @@
 #define FIRST_PLAYER 'X'
 #define SECOND_PLAYER 'O'
 
-#define SQUARE_HALF_LENGTH 1.37
 #define LOWER_HEIGHT 25
 #define ENTRY_LENGTH 20
 
+static const double SQUARE_HALF_LENGTH = 1.37;
 
 TicTacToe::TicTacToe(bool first_, Difficulty diff) {
 	FIRST = first_; DIFFICULTY = diff;
