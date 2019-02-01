@@ -4,9 +4,9 @@
 #define FIRST_PLAYER 'X'
 #define SECOND_PLAYER 'O'
 
-#define SQUARE_HALF_LENGTH 30
-#define LOWER_HEIGHT 2
-#define ENTRY_LENGTH 10
+#define SQUARE_HALF_LENGTH 1.37
+#define LOWER_HEIGHT 25
+#define ENTRY_LENGTH 20
 
 
 TicTacToe::TicTacToe(bool first_, Difficulty diff) {
@@ -39,16 +39,16 @@ void TicTacToe::tick() {
 void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	x->queue(ENTRY_LENGTH);
 
+
 	//Move to pickup stone.
-	x->queue(-SQUARE_HALF_LENGTH);
-	y->queue(SQUARE_HALF_LENGTH);
+	x->queue(-3*SQUARE_HALF_LENGTH);
 	z->queue(-LOWER_HEIGHT);
 	//Enable magnet
 	GPIO::set(10, true);
 	z->queue(LOWER_HEIGHT);
 
 	//Move to square
-	x->queue(SQUARE_HALF_LENGTH*2); //We're at x0.5, y0.5 or above square 0,0
+	x->queue(SQUARE_HALF_LENGTH*4); //We're at x0.5, y0.5 or above square 0,0
 	
 	x->queue(SQUARE_HALF_LENGTH*8);
 	y->queue(SQUARE_HALF_LENGTH*8);
@@ -63,8 +63,7 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	y->queue(-SQUARE_HALF_LENGTH*8);
 
 	//Move back to base?
-	x->queue(SQUARE_HALF_LENGTH);
-	y->queue(-SQUARE_HALF_LENGTH);
+	x->queue(-SQUARE_HALF_LENGTH);
 	x->queue(-ENTRY_LENGTH);
 
 	updateBoard(suggestion, COMPUTER);
