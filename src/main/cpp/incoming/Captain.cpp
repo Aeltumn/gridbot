@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include <sstream>
 
 void Captain::handleCommand(const char* txt) {

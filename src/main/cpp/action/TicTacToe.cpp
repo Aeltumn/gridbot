@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "tictactoe.h"
 
 #define FIRST_PLAYER 'X'
