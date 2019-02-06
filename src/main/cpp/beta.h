@@ -31,4 +31,5 @@ public:
 	static void setmotors(Motor *x_, Motor *y, Motor *z);
 	static Motor* getmotor(const int &c);
 	static void execute();
+	static void handleMove(const int &move);
 };

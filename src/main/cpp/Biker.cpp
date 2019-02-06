@@ -5,8 +5,7 @@ std::queue<QueuedAction> Biker::actions;
 void Biker::setup() {
 	try {
 		Logger::info("[BIKER] Starting Biker thread.");
-		bool isRunning = true;
-		while (isRunning) { //I'm too lazy to make this secure, safe, efficient or anything, don't judge.
+		while (true) {
 			if (!actions.empty()) {
 				QueuedAction qa = actions.front();
 				char buf[256];

@@ -9,8 +9,7 @@ Motor* Beta::z;
 void Beta::startup() {
 	try {
 		Logger::info("[BETA] Starting Beta thread.");
-		isRunning = true;
-		while (isRunning) {
+		while (true) {
 			if (game != 0) game->tick();
 		}
 	} catch (const std::exception& e) {
@@ -26,8 +25,16 @@ Motor* Beta::getmotor(const int &c) {
 }
 void Beta::setmotors(Motor *x_, Motor *y_, Motor *z_) { x = x_; y = y_; z = z_; }
 void Beta::execute() { 
-	Logger::info("[BETA] Executing game step.");
-	if (game != 0) game->execute(x, y, z);
+	if (game != 0) {
+		game->execute(x, y, z);
+		Logger::info("[BETA] Executing game step.");
+	}
+}
+void Beta::handleMove(const int &move) {
+	if (game != 0) {
+		Logger::info("[BETA] Registered opponent move.");
+		game->handleMove(move);
+	}
 }
 
 #if defined(__linux__)

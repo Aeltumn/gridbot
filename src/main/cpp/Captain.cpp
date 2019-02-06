@@ -20,10 +20,9 @@ void Captain::handleCommand(const char* txt) {
 	}
 	args.push_back(stream.str());
 
-	//Args are now all of our arguments
 	if (args.size() == 0) return;
 	std::string command = args.at(0);
-	if (command.compare("execute") == 0) { // Executes the next move.
+	if (command.compare("execute") == 0 || command.compare("e") == 0) { // Executes the next move.
 		Beta::execute();
 	} else if(command.compare("magnet") == 0) {
 		if (args.size() >= 2) {
@@ -36,6 +35,19 @@ void Captain::handleCommand(const char* txt) {
 			}
 		} else {
 			Logger::error("[CAPTAIN] Invalid syntax! Use: magnet on|off");
+		}
+	} else if (command.compare("tictactoe") == 0 || command.compare("t") == 0) {
+		if (args.size() >= 1) {
+			int i = std::stoi(args.at(1), nullptr, 10);
+			char buf[256];
+			buf[0] = 0;
+			strcat(buf, "[CAPTAIN] Registered opponent move of ");
+			strcat(buf, std::to_string(i).c_str());
+			strcat(buf, ".");
+			Logger::info(buf);
+			Beta::handleMove(i);
+		} else {
+			Logger::error("[CAPTAIN] Invalid syntax! Use: tictactoe int");
 		}
 	} else if (command.compare("testmotors") == 0 || command.compare("m") == 0) {
 		if (args.size() >= 3) {
@@ -56,5 +68,12 @@ void Captain::handleCommand(const char* txt) {
 		Logger::info("[CAPTAIN] De volgende commands bestaan:");
 		Logger::info("execute - Speelt de volgende beurt van het huidige spel.");
 		Logger::info("testmotors x|y|z int - Beweeg de x, y of z as met int centimeter.");
+		Logger::info("magnet on|off - Zet de magneet aan of uit.");
+		Logger::info("tictactoe int - Registreer de zet van de tegenstander naar index int.");
+		Logger::info("");
+		Logger::info("[CAPTAIN] De volgende aliases bestaan:");
+		Logger::info("m - testmotors");
+		Logger::info("ttt - tictactoe");
+		Logger::info("e - execute");
 	}
 }

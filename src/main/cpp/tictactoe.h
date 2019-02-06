@@ -1,12 +1,6 @@
 #pragma once
 #include "pch.h"
 
-struct Suggestion { //-10, -10 means NULL
-	int x, y;
-	Suggestion() {}
-	Suggestion(const int &x_, const int &y_) { x = x_; y = y_; }
-};
-
 class TicTacToe : public Game {
 private:
 	char COMPUTER;
@@ -14,12 +8,13 @@ private:
 	bool FIRST;
 	Difficulty DIFFICULTY;
 
-	char board[3][3];
+	char board[3][3]; //0, 1 or 2
 	int computer_turn = 0;
 	int human_turn = 0;
-	Suggestion suggestion = Suggestion();
+	int suggestion = -1; //1-9, -1 is undefined
 
-	void updateBoard(const Suggestion &suggestion_, const char &who);
+	void updateBoard(const int &suggestion_, const char &who);
+	int getIndex(const int &x_, const int &z_);
 
 public:
 	TicTacToe(bool first_, Difficulty diff);

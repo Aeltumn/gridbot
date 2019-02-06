@@ -16,17 +16,20 @@ TicTacToe::TicTacToe(bool first_, Difficulty diff) {
 }
 
 //Updates the board and increased the turn counter.
-void TicTacToe::updateBoard(const Suggestion &suggestion_, const char &who) {
-	board[suggestion_.x][suggestion_.y] = who;
+void TicTacToe::updateBoard(const int &move, const char &who) {
+	board[move / 3][move % 3] = who;
 	if (who == COMPUTER) {
 		computer_turn++;
-		suggestion = Suggestion();
+		suggestion = -1;
 	}
 	if (who == HUMAN) { human_turn++; }
 }
 
 //Handles the incoming move, template for TicTacToe: int x: 0x16 - y: 0x16
-void TicTacToe::handleMove(const int &move) { updateBoard(Suggestion(move >> 16, (move << 16 >> 16)), HUMAN); }
+void TicTacToe::handleMove(const int &move) { updateBoard(move, HUMAN); }
+int TicTacToe::getIndex(const int &x_, const int &z_) {
+	return x_ * 3 + z_;
+}
 
 //The normal tick which tries to figure out what the next move should be.
 void TicTacToe::tick() {
@@ -48,9 +51,11 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 
 	//Move to square
 	x->queue(SQUARE_HALF_LENGTH*4); //We're at x0.5, y0.5 or above square 0,0
+	// The tic tac toe board is on x2 y2
 	
-	x->queue(SQUARE_HALF_LENGTH*8);
-	y->queue(SQUARE_HALF_LENGTH*8);
+	int moveX = suggestion / 3, moveZ = suggestion % 3;
+	x->queue(SQUARE_HALF_LENGTH*(2*(moveZ+2)));
+	y->queue(SQUARE_HALF_LENGTH*(2*(moveX+2)));
 
 	//Place here
 	z->queue(-LOWER_HEIGHT);
@@ -58,8 +63,8 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	z->queue(LOWER_HEIGHT);
 
 	//Move back
-	x->queue(-SQUARE_HALF_LENGTH*8);
-	y->queue(-SQUARE_HALF_LENGTH*8);
+	x->queue(-SQUARE_HALF_LENGTH*(2 * (moveZ + 2)));
+	y->queue(-SQUARE_HALF_LENGTH*(2 * (moveX + 2)));
 
 	//Move back to base?
 	x->queue(-SQUARE_HALF_LENGTH);
