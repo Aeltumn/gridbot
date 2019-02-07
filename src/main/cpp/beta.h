@@ -3,17 +3,43 @@
 #include <string>
 #include <string.h>
 
+enum Figure { EMPTY = 0, HUMAN = 1, AI = 2 };
+
+class Board {
+private:
+	int width, height;
+	int *board; //2d array of integers
+	
+public:
+	//width = x, height = y
+	Board(const int &width_, const int &height_) {
+		width = width_; height = height_;
+	}
+	int at(const int &x, const int &y) {
+		return *(board + getIndex(x, y));
+	}
+	int getIndex(const int &x, const int &y) {
+		return x + y * width;
+	}
+	int getXFromIndex(const int &index) {
+		return (index % width);
+	}
+	int getYFromIndex(const int &index) {
+		return (index / width);
+	}
+	void destroy() {
+
+	}
+};
+
 class Game {
 public:
 	Game() {}
+	virtual Board createBoard();
 	virtual void tick() = 0;
 	virtual void handleMove(const int &move) = 0;
 	virtual void execute(Motor *x, Motor *y, Motor *z) = 0;
 	virtual std::string getname() = 0;
-};
-
-enum Difficulty {
-	EASY, NORMAL, HARD
 };
 
 class Beta {

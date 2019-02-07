@@ -10,7 +10,7 @@ void Beta::startup() {
 	try {
 		Logger::info("[BETA] Starting Beta thread.");
 		while (true) {
-			if (game != 0) game->tick();
+			if (game != 0) game->tick(); //The game tick can last as long as it wants so we don't need to worry about aborting the search algorithms and continuing later.
 		}
 	} catch (const std::exception& e) {
 		Logger::info(e.what());
@@ -18,6 +18,7 @@ void Beta::startup() {
 	}
 }
 
+//The motors have indexes, 0 = X, 1 = Y, 2 = Z, unknown will default to X
 Motor* Beta::getmotor(const int &c) {
 	if(c==1) return y;
 	if(c==2) return z;

@@ -48,9 +48,6 @@
     <ClCompile Include="src\main\cpp\Biker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\main\cpp\Captain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main\cpp\GPIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -105,9 +102,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\cpp\biker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\main\cpp\captain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\main\cpp\gpio.h">

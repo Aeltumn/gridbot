@@ -1,20 +1,10 @@
 #include "pch.h"
-#include <ctime>
-
 #define PORT 447
 
 bool connected = false;
 bool Logger::isConnected() { return connected; }
 
-#if defined(__linux__)
-//Linux
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-
 //Code Credit to https://jindongpu.wordpress.com/2012/02/06/javac-socket-communication/
-
 int sockfd; // socket file descriptor 
 
 void Logger::setup() {
@@ -66,7 +56,7 @@ void Logger::setup() {
 			rbytes = recv(sockfd, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
 			rbuff[rbytes] = 0;
 			info(rbuff);
-			Captain::handleCommand(rbuff);
+			handleCommand(rbuff);
 		}
 	} catch (const std::exception& e) {
 		info(e.what());
@@ -74,15 +64,25 @@ void Logger::setup() {
 	}
 }
 
-void Logger::error(const char* str) {
+// The various types of logs
+void Logger::info(const char* txt) { log(true, " [INFO] ", txt); }
+void Logger::error(const char* txt) { log(true, " [ERROR] ", txt); }
+void Logger::warning(const char* txt) { log(true, " [WARNING] ", txt); }
+void Logger::amend(const char* txt) { log(false, "", txt); }
+void Logger::newline() { log(false, "", ""); }
+ 
+// The function where we log, some types have a timestamp, some have a prefix.
+void Logger::log(bool time_, const char* prefix, const char* str) {
 	char s[512]; //max length: 512
 	s[0] = 0;
-	time_t rawtime;
-	struct tm * timeinfo;
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
-	strcat(s, " [ERROR] ");
+	if (time_) {
+		time_t rawtime;
+		struct tm * timeinfo;
+		time(&rawtime);
+		timeinfo = localtime(&rawtime);
+		strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
+	}
+	strcat(s, prefix);
 	strcat(s, str);
 	strcat(s, "\n");
 	strcat(s, "\0");
@@ -90,119 +90,80 @@ void Logger::error(const char* str) {
 	if(connected) send(sockfd, s, (int)strlen(s), 0);
 }
 
-void Logger::info(const char* str) {
-	char s[512]; //max length: 512
-	s[0] = 0;
-	time_t rawtime;
-	struct tm * timeinfo;
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", timeinfo);
-	strcat(s, " [INFO] ");
-	strcat(s, str);
-	strcat(s, "\n");
-	strcat(s, "\0");
-	std::cout << s;
-	if(connected) send(sockfd, s, (int)strlen(s), 0);
-}
-#else
-//Windows
-#include <winsock2.h>
-#pragma comment(lib, "Ws2_32.lib")
-
-SOCKET sock;
-SOCKADDR_IN addr;
-
-void Logger::setup() {
-	try {
-		//Start winsock
-		WSADATA wsaData;
-
-		info("[LOGGER] Initialising WSAData...");
-
-		//activate ws2_32.lib
-		int res = WSAStartup(MAKEWORD(2, 0), &wsaData);
-		if (res != 0) {
-			error("[LOGGER] Error with WSAStartup");
-			return;
+// We handle comamnds incoming from grinterface.dgoossens.nl here.
+void Logger::handleCommand(const char* txt) {
+	std::vector<std::string> args;
+	std::stringstream stream;
+	int i = 0;
+	char in;
+	while ((in = *(txt + i)) != 0) {
+		//Keep reading until we find a null terminator
+		if (in == ' ') {
+			std::string str = stream.str();
+			stream.str(std::string());
+			args.push_back(str);
+		} else {
+			stream << in;
 		}
+		i++;
+		if (i >= 512) break; // txt can't be larger than 512
+	}
+	args.push_back(stream.str());
 
-		info("[LOGGER] Starting logger setup...");
-
-		//Create Client Socket
-		sock = socket(AF_UNSPEC, SOCK_STREAM, IPPROTO_TCP); // generate file descriptor 
-		if (sock == INVALID_SOCKET) {
-			error("[LOGGER] Socket failed to start up!");
-			return;
+	if (args.size() == 0) return;
+	std::string command = args.at(0);
+	if (command.compare("execute") == 0 || command.compare("e") == 0) { // Executes the next move.
+		Beta::execute();
+	} else if (command.compare("magnet") == 0) {
+		if (args.size() >= 2) {
+			if (args.at(1).compare("on") == 0) {
+				GPIO::set(10, true);
+				Logger::info("[LOGGER] Turned on magnet.");
+			} else {
+				GPIO::set(10, false);
+				Logger::info("[LOGGER] Turned off magnet.");
+			}
+		} else {
+			Logger::error("[LOGGER] Invalid syntax! Use: magnet on|off");
 		}
-
-		addr.sin_port = PORT; // port number
-		addr.sin_family = AF_INET;
-		addr.sin_addr.S_un.S_un_b.s_b1 = 206;
-		addr.sin_addr.S_un.S_un_b.s_b2 = 189;
-		addr.sin_addr.S_un.S_un_b.s_b3 = 111;
-		addr.sin_addr.S_un.S_un_b.s_b4 = 28;
-
-		info("[LOGGER] Initialised socket connection target and descriptor, attempting to connect...");
-		char buf[256];
-		buf[0] = 0;
-		strcat_s(buf, "[LOGGER] Using port: ");
-		strcat_s(buf, std::to_string(PORT).c_str());
-		strcat_s(buf, ".");
-		info(buf);
-
-		if (connect(sock, (SOCKADDR*)(&addr), sizeof(addr)) == SOCKET_ERROR) {
-			error("[LOGGER] Error while trying to establish socket connection.");
-			return;
+	} else if (command.compare("tictactoe") == 0 || command.compare("t") == 0) {
+		if (args.size() >= 1) {
+			int i = std::stoi(args.at(1), nullptr, 10);
+			char buf[256];
+			buf[0] = 0;
+			strcat(buf, "[LOGGER] Registered opponent move of ");
+			strcat(buf, std::to_string(i).c_str());
+			strcat(buf, ".");
+			Logger::info(buf);
+			Beta::handleMove(i);
+		} else {
+			Logger::error("[LOGGER] Invalid syntax! Use: tictactoe int");
 		}
-
-		char rbuff[512];
-		rbuff[0] = 0;
-		int rbytes;
-
-		info("[LOGGER] Started logger system.");
-		connected = true;
-		//rbytes = read(sockfd, rbuff, sizeof(rbuff)); // read from socket and store the msg into buffer
-		while (true) {
-			//recv should block until something is received
-			rbytes = recv(sock, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
-			rbuff[rbytes] = 0;
-			info(rbuff);
-			Captain::handleCommand(rbuff);
+	} else if (command.compare("testmotors") == 0 || command.compare("m") == 0) {
+		if (args.size() >= 3) {
+			std::string axis = args.at(1);
+			int i = std::stoi(args.at(2), nullptr, 10);
+			char buf[256];
+			buf[0] = 0;
+			strcat(buf, "[LOGGER] Moving ");
+			strcat(buf, std::to_string(i).c_str());
+			strcat(buf, " centimetres.");
+			Logger::info(buf);
+			Beta::getmotor(axis.compare("x") == 0 ? 0 : axis.compare("y") == 0 ? 1 : 2)->queue(i);
+			Logger::info("[LOGGER] Moved target axis target distance.");
+		} else {
+			Logger::error("[LOGGER] Invalid syntax! Use: testmotors x|y|z int");
 		}
-	} catch (const std::exception& e) {
-		Logger::info(e.what());
-		return;
+	} else if (command.compare("help") == 0) {
+		Logger::info("[LOGGER] De volgende commands bestaan:");
+		Logger::amend("execute - Speelt de volgende beurt van het huidige spel.");
+		Logger::amend("testmotors x|y|z int - Beweeg de x, y of z as met int centimeter.");
+		Logger::amend("magnet on|off - Zet de magneet aan of uit.");
+		Logger::amend("tictactoe int - Registreer de zet van de tegenstander naar index int.");
+		Logger::newline();
+		Logger::info("[LOGGER] De volgende aliases bestaan:");
+		Logger::amend("m - testmotors");
+		Logger::amend("ttt - tictactoe");
+		Logger::amend("e - execute");
 	}
 }
-
-void Logger::error(const char* str) {
-	char s[512]; //max length: 512
-	s[0] = 0;
-	struct tm buf;
-	time_t t = time(NULL);
-	localtime_s(&buf, &t);
-	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", &buf);
-	strcat_s(s, " [ERROR] ");
-	strcat_s(s, str);
-	strcat_s(s, "\n");
-	strcat_s(s, "\0");
-	std::cout << s;
-	if(connected) send(sock, s, (int)strlen(s), 0);
-}
-
-void Logger::info(const char* str) {
-	char s[512]; //max length: 512
-	s[0] = 0;
-	struct tm buf;
-	time_t t = time(NULL);
-	localtime_s(&buf, &t);
-	strftime(s, sizeof(s), "%d-%m-%Y %H:%M:%S", &buf);
-	strcat_s(s, " [INFO] ");
-	strcat_s(s, str);
-	strcat_s(s, "\n");
-	strcat_s(s, "\0");
-	std::cout << s;
-	if(connected) send(sock, s, (int)strlen(s), 0);
-}
-#endif

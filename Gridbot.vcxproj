@@ -128,7 +128,6 @@
     </ClCompile>
     <ClCompile Include="src\main\cpp\Beta.cpp" />
     <ClCompile Include="src\main\cpp\Biker.cpp" />
-    <ClCompile Include="src\main\cpp\Captain.cpp" />
     <ClCompile Include="src\main\cpp\GPIO.cpp" />
     <ClCompile Include="src\main\cpp\gpio\Biker.cpp" />
     <ClCompile Include="src\main\cpp\gpio\GPIO.cpp">
@@ -157,7 +156,6 @@
     <ClInclude Include="src\main\cpp\action\beta.h" />
     <ClInclude Include="src\main\cpp\beta.h" />
     <ClInclude Include="src\main\cpp\biker.h" />
-    <ClInclude Include="src\main\cpp\captain.h" />
     <ClInclude Include="src\main\cpp\gpio.h" />
     <ClInclude Include="src\main\cpp\gpio\biker.h" />
     <ClInclude Include="src\main\cpp\gpio\gpio.h" />

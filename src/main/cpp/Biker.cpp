@@ -14,7 +14,7 @@ void Biker::setup() {
 				strcat(buf, std::to_string(qa.centimeters).c_str());
 				strcat(buf, " centimetres...");
 				Logger::info(buf);
-				qa.m->moveint(qa.centimeters);
+				qa.m->move(qa.centimeters, ID);
 				actions.pop();
 			}
 		}
