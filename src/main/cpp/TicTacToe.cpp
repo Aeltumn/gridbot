@@ -9,37 +9,32 @@
 
 static const double SQUARE_HALF_LENGTH = 1.37;
 
-TicTacToe::TicTacToe(bool first_, Difficulty diff) {
-	FIRST = first_; DIFFICULTY = diff;
-	COMPUTER = FIRST ? FIRST_PLAYER : SECOND_PLAYER;
-	HUMAN = FIRST ? SECOND_PLAYER : FIRST_PLAYER;
+TicTacToe::TicTacToe(bool first_) {
+	FIRST = first_;
+}
+Board TicTacToe::createBoard() { return Board(3, 3); }
+
+void TicTacToe::calculate() {
+	//Where we figure out our next move
+	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
+
 }
 
-//Updates the board and increased the turn counter.
-void TicTacToe::updateBoard(const int &move, const char &who) {
-	board[move / 3][move % 3] = who;
-	if (who == COMPUTER) {
-		computer_turn++;
-		suggestion = -1;
+bool TicTacToe::isTie(Board *board) {
+	//We determine if it's a tie by seeing if there's no moves to be made. (no winner, no moves, a tie)
+	for (int i = 0; i < board->getMaxIndex(); i++) {
+		if (board->atIndex(i) == Figure::EMPTY) return false;
 	}
-	if (who == HUMAN) { human_turn++; }
+	return true;
 }
-
-//Handles the incoming move, template for TicTacToe: int x: 0x16 - y: 0x16
-void TicTacToe::handleMove(const int &move) { updateBoard(move, HUMAN); }
-int TicTacToe::getIndex(const int &x_, const int &z_) {
-	return x_ * 3 + z_;
-}
-
-//The normal tick which tries to figure out what the next move should be.
-void TicTacToe::tick() {
-	
+int TicTacToe::getWinner(Board *board) {
+	//We determine the winner by absolute
 }
 
 //Executes the suggestion by sending cm-based commands to the motors.
 //It is assumed we are hovering over the bottom left corner of the bottom left square, x0, y0 and at z100%, magnet off
 //It is also assumed that there is a disc or object for it to move at x-1, y0
-void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
+int TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	x->queue(ENTRY_LENGTH);
 
 	//Move to pickup stone.
@@ -70,5 +65,7 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	x->queue(-SQUARE_HALF_LENGTH);
 	x->queue(-ENTRY_LENGTH);
 
-	updateBoard(suggestion, COMPUTER);
+	int sug = suggestion;
+	suggestion = -1;
+	return sug;
 }

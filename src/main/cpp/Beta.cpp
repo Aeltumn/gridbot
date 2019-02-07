@@ -1,6 +1,7 @@
 #include "pch.h"
 
-Game* Beta::game;
+Game* Beta::game = NULL;
+Board* Beta::board = NULL;
 bool Beta::isRunning;
 Motor* Beta::x;
 Motor* Beta::y;
@@ -10,7 +11,7 @@ void Beta::startup() {
 	try {
 		Logger::info("[BETA] Starting Beta thread.");
 		while (true) {
-			if (game != 0) game->tick(); //The game tick can last as long as it wants so we don't need to worry about aborting the search algorithms and continuing later.
+			if (game != 0) game->calculate(); //The game calculate can last as long as it wants so we don't need to worry about aborting the search algorithms and continuing later.
 		}
 	} catch (const std::exception& e) {
 		Logger::info(e.what());
@@ -27,20 +28,21 @@ Motor* Beta::getmotor(const int &c) {
 void Beta::setmotors(Motor *x_, Motor *y_, Motor *z_) { x = x_; y = y_; z = z_; }
 void Beta::execute() { 
 	if (game != 0) {
-		game->execute(x, y, z);
+		int move = game->execute(x, y, z);
+		board->set(move, Figure::AI);
 		Logger::info("[BETA] Executing game step.");
 	}
 }
 void Beta::handleMove(const int &move) {
 	if (game != 0) {
 		Logger::info("[BETA] Registered opponent move.");
-		game->handleMove(move);
+		board->set(move, Figure::HUMAN);
 	}
 }
 
-#if defined(__linux__)
 void Beta::runGame(Game* g) {
 	game = g;
+	board = &(g->createBoard());
 	char buf[256];
 	buf[0] = 0;
 	strcat(buf, "[BETA] Starting new '");
@@ -56,26 +58,6 @@ void Beta::shutdown() {
 	strcat(buf, "' game.");
 	Logger::info(buf);
 	isRunning = false;
-	delete game;
+	game = NULL;
+	board = NULL;
 }
-#else
-void Beta::runGame(Game* g) {
-	game = g;
-	char buf[256];
-	buf[0] = 0;
-	strcat_s(buf, "[BETA] Starting new '");
-	strcat_s(buf, game->getname().c_str());
-	strcat_s(buf, "' game.");
-	Logger::info(buf);
-}
-void Beta::shutdown() {
-	char buf[256];
-	buf[0] = 0;
-	strcat_s(buf, "[BETA] Shut down '");
-	strcat_s(buf, game->getname().c_str());
-	strcat_s(buf, "' game.");
-	Logger::info(buf);
-	isRunning = false;
-	delete game;
-}
-#endif
