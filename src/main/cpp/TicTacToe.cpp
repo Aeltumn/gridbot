@@ -14,10 +14,39 @@ TicTacToe::TicTacToe(bool first_) {
 }
 Board TicTacToe::createBoard() { return Board(3, 3); }
 
-void TicTacToe::calculate() {
+void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
+	suggestion = TicTacToe::calculateBestMove(board, 0, FIRST);
+	char buf[256];
+	buf[0] = 0;
+	strcat(buf, "[TICTACTOE] Determined next move to be index '");
+	strcat(buf, std::to_string(suggestion).c_str());
+	strcat(buf, "'.");
+	Logger::info(buf);
+}
 
+// Our recursive method to find the best outcome.
+int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
+	std::vector<Entry> cdf;
+	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
+	Figure winner = TicTacToe::getWinner(board);
+	if (TicTacToe::isTie(board)) return 0;
+	else if (winner == Figure::HUMAN) return 1;
+	else if (winner == Figure::AI) return -1;
+	else {
+		for (int s = 0; s < board->getMaxIndex(); s++) {
+			if (board->atIndex(s) != Figure::EMPTY) continue;
+			board->set(s, ai ? Figure::AI : Figure::HUMAN);
+			cdf.push_back(Entry(s, (-1 * TicTacToe::calculateBestMove(board, depth + 1, !ai))));
+			board->set(s, Figure::EMPTY);
+		}
+		Entry max = Entry(-2, -2);
+		for (unsigned int i = 0; i < cdf.size(); i++)
+			if (cdf[i].value > max.value) max = cdf[i];
+		if (depth == 0) return max.key;
+		else return max.value;
+	}
 }
 
 bool TicTacToe::isTie(Board *board) {
@@ -27,8 +56,30 @@ bool TicTacToe::isTie(Board *board) {
 	}
 	return true;
 }
-int TicTacToe::getWinner(Board *board) {
-	//We determine the winner by absolute
+Figure TicTacToe::getWinner(Board *board) {
+	//We determine the winner by absolute mad methods, we're going to assume two wins can't happen at the same time.
+	Figure ret = static_cast<Figure>(0);
+	//X-ways
+	testLine(board, &ret, 1, 4, 7);
+	testLine(board, &ret, 2, 5, 8);
+	testLine(board, &ret, 3, 6, 9);
+
+	//Y-ways
+	testLine(board, &ret, 1, 2, 3);
+	testLine(board, &ret, 4, 5, 6);
+	testLine(board, &ret, 7, 8, 9);
+
+	//Diagonal
+	testLine(board, &ret, 1, 5, 9);
+	testLine(board, &ret, 3, 5, 7);
+	return ret;
+}
+
+void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
+	Figure r = board->atIndex(i);
+	if (r != board->atIndex(j)) r = static_cast<Figure>(0);
+	if(r != board->atIndex(k)) r = static_cast<Figure>(0);
+	if (r != 0) *ret = r;
 }
 
 //Executes the suggestion by sending cm-based commands to the motors.

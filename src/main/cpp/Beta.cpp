@@ -11,7 +11,7 @@ void Beta::startup() {
 	try {
 		Logger::info("[BETA] Starting Beta thread.");
 		while (true) {
-			if (game != 0) game->calculate(); //The game calculate can last as long as it wants so we don't need to worry about aborting the search algorithms and continuing later.
+			if (game != 0) game->calculate(board); //The game calculate can last as long as it wants so we don't need to worry about aborting the search algorithms and continuing later.
 		}
 	} catch (const std::exception& e) {
 		Logger::info(e.what());

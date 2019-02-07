@@ -4,6 +4,7 @@
 #include "gpio.h"
 #include "biker.h"
 #include "logger.h"
+#include "tictactoe.h"
 
 #include <string>
 #include <string.h>

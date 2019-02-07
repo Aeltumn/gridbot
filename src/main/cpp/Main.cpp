@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "tictactoe.h"
 
 int main() {
 	/*
@@ -38,8 +37,6 @@ int main() {
 
 		x.setmimic(&xmirror); // We have two x motors where they mimic one another so they both drive fowards.
 		Beta::setmotors(&x, &y, &z);
-		Beta::runGame(new TicTacToe(true, EASY));
-
 		action.join(); //We need to join a thread when the main thread has nothing else to do.
 	} catch (const std::exception& e) {
 		Logger::info(e.what());
