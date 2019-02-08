@@ -35,6 +35,7 @@ class Game {
 public:
 	Game() {}
 	virtual Board* createBoard() = 0;
+	virtual void allow() = 0;
 	virtual void calculate(Board *board) = 0;
 	virtual int execute(Motor *x, Motor *y, Motor *z) = 0;
 	virtual std::string getname() = 0;

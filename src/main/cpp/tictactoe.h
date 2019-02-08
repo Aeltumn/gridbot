@@ -11,6 +11,7 @@ private:
 	bool FIRST;
 	int suggestion = -1; //1-9, -1 is undefined
 
+	void allow();
 	bool isTie(Board *board);
 	Figure getWinner(Board *board);
 	void testLine(Board *board, Figure *ret, int i, int j, int k);

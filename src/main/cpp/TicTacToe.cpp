@@ -14,6 +14,7 @@ TicTacToe::TicTacToe(bool first_) {
 }
 Board* TicTacToe::createBoard() { return new Board(3, 3); }
 
+void TicTacToe::allow() { suggestion = -1; }
 void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
@@ -115,8 +116,5 @@ int TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
 	//Move back to base?
 	x->queue(-SQUARE_HALF_LENGTH);
 	x->queue(-ENTRY_LENGTH);
-
-	int sug = suggestion;
-	suggestion = -1;
-	return sug;
+	return suggestion;
 }

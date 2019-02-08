@@ -37,6 +37,7 @@ void Beta::handleMove(const int &move) {
 	if (game != 0) {
 		Logger::info("[BETA] Registered opponent move.");
 		board->set(move, Figure::HUMAN);
+		game->allow(); //Allows thinking about the next step
 	}
 }
 
