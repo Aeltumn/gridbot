@@ -13,9 +13,9 @@
 
 void GPIO::initialise(const int &pin) {
 	//Export pin
-	std::ofstream estream("/sys/class/gpio/export");
-	estream << pin << std::endl;
-	estream.close();
+	std::ofstream estreamt("/sys/class/gpio/export");
+	estreamt << pin << std::endl;
+	estreamt.close();
 
 	//Set direction to 'out'
 	std::string s = std::string("/sys/class/gpio/gpio");
