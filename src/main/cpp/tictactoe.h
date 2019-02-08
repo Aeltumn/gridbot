@@ -13,7 +13,7 @@ private:
 
 	void allow();
 	bool isTie(Board *board);
-	Figure getWinner(Board *board);
+	bool isGameOver(Board *board);
 	void testLine(Board *board, Figure *ret, int i, int j, int k);
 	int calculateBestMove(Board *board, int depth, bool ai); //the bool ai is whether or not we are the one this move is for (max) or its for the human (min)
 
