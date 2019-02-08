@@ -86,7 +86,9 @@ void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
 //Executes the suggestion by sending cm-based commands to the motors.
 //It is assumed we are hovering over the bottom left corner of the bottom left square, x0, y0 and at z100%, magnet off
 //It is also assumed that there is a disc or object for it to move at x-1, y0
-int TicTacToe::execute(Motor *x, Motor *y, Motor *z) {
+int TicTacToe::execute(bool skip, Motor *x, Motor *y, Motor *z) {
+	if (skip) return suggestion;
+	
 	x->queue(ENTRY_LENGTH);
 
 	//Move to pickup stone.

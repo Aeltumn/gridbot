@@ -21,6 +21,6 @@ public:
 	TicTacToe(bool first_);
 	Board* createBoard();
 	void calculate(Board *board);
-	int execute(Motor *x, Motor *y, Motor *z);
+	int execute(bool skip, Motor *x, Motor *y, Motor *z);
 	std::string getname() { return std::string("Tic Tac Toe"); }
 };

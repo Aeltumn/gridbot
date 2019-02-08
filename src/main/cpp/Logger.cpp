@@ -113,7 +113,12 @@ bool Logger::handleCommand(const char* txt) {
 	if (args.size() == 0) return false;
 	std::string command = args.at(0);
 	if (command.compare("execute") == 0 || command.compare("e") == 0) { // Executes the next move.
-		Beta::execute();
+		if (args.size() >= 2) {
+			int i = std::stoi(args.at(1), nullptr, 10);
+			Beta::execute(i == 1 ? true : false);
+		} else {
+			Logger::error("[LOGGER] Invalid syntax! Use: execute int");
+		}
 	} else if (command.compare("magnet") == 0) {
 		if (args.size() >= 2) {
 			if (args.at(1).compare("on") == 0) {
@@ -140,7 +145,7 @@ bool Logger::handleCommand(const char* txt) {
 			Logger::error("[LOGGER] Invalid syntax! Use: tictactoe int");
 		}
 	} else if (command.compare("tictactoe") == 0 || command.compare("ttt") == 0) {
-		if (args.size() >= 1) {
+		if (args.size() >= 2) {
 			int i = std::stoi(args.at(1), nullptr, 10);
 			TicTacToe *t = new TicTacToe(i == 1 ? true : false);
 			if(i == 1) Logger::info("[LOGGER] Starting game of tic tac toe whilst starting.");
@@ -166,7 +171,7 @@ bool Logger::handleCommand(const char* txt) {
 		}
 	} else if (command.compare("help") == 0) {
 		Logger::info("[LOGGER] De volgende commands bestaan:");
-		Logger::amend("execute - Speelt de volgende beurt van het huidige spel.");
+		Logger::amend("execute int - Speelt de volgende beurt van het huidige spel, int is 1 voor skip.");
 		Logger::amend("testmotors x|y|z int - Beweeg de x, y of z as met int centimeter.");
 		Logger::amend("magnet on|off - Zet de magneet aan of uit.");
 		Logger::amend("handlemove int - Registreer de zet van de tegenstander naar index int.");
