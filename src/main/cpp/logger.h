@@ -16,5 +16,5 @@ class Logger {
 		static void warning(const char* txt);
 		static void newline();
 		static bool isConnected();
-		static void handleCommand(const char* txt);
+		static bool handleCommand(const char* txt);
 };

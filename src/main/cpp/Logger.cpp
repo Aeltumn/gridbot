@@ -56,7 +56,7 @@ void Logger::setup() {
 			rbytes = recv(sockfd, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
 			rbuff[rbytes] = 0;
 			info(rbuff);
-			handleCommand(rbuff);
+			if (handleCommand(rbuff)) exit(0);
 		}
 	} catch (const std::exception& e) {
 		info(e.what());
@@ -91,7 +91,7 @@ void Logger::log(bool time_, const char* prefix, const char* str) {
 }
 
 // We handle comamnds incoming from grinterface.dgoossens.nl here.
-void Logger::handleCommand(const char* txt) {
+bool Logger::handleCommand(const char* txt) {
 	std::vector<std::string> args;
 	std::stringstream stream;
 	int i = 0;
@@ -142,9 +142,10 @@ void Logger::handleCommand(const char* txt) {
 	} else if (command.compare("tictactoe") == 0 || command.compare("ttt") == 0) {
 		if (args.size() >= 1) {
 			int i = std::stoi(args.at(1), nullptr, 10);
+			TicTacToe *t = new TicTacToe(i == 1 ? true : false);
 			if(i == 1) Logger::info("[LOGGER] Starting game of tic tac toe whilst starting.");
 			else Logger::info("[LOGGER] Starting game of tic tac toe.");
-			Beta::runGame(new TicTacToe(i == 1 ? true : false));
+			Beta::runGame(t);
 		} else {
 			Logger::error("[LOGGER] Invalid syntax! Use: tictactoe int");
 		}
@@ -170,11 +171,15 @@ void Logger::handleCommand(const char* txt) {
 		Logger::amend("magnet on|off - Zet de magneet aan of uit.");
 		Logger::amend("handlemove int - Registreer de zet van de tegenstander naar index int.");
 		Logger::amend("tictactoe int - Start boter kaas en eieren, int is 1 voor first, anders 0.");
+		Logger::amend("restart - Herstart gridbot.");
 		Logger::newline();
 		Logger::info("[LOGGER] De volgende aliases bestaan:");
 		Logger::amend("m - testmotors");
 		Logger::amend("hm - handlemove");
 		Logger::amend("e - execute");
 		Logger::amend("ttt - tictactoe");
+	} else if (command.compare("restart") == 0) {
+		return true;
 	}
+	return false;
 }
