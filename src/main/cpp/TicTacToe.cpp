@@ -12,7 +12,7 @@ static const double SQUARE_HALF_LENGTH = 1.37;
 TicTacToe::TicTacToe(bool first_) {
 	FIRST = first_;
 }
-Board TicTacToe::createBoard() { return Board(3, 3); }
+Board* TicTacToe::createBoard() { return new Board(3, 3); }
 
 void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move

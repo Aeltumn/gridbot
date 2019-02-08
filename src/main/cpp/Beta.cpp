@@ -42,7 +42,7 @@ void Beta::handleMove(const int &move) {
 
 void Beta::runGame(Game* g) {
 	game = g;
-	board = &(g->createBoard());
+	board = g->createBoard();
 	char buf[256];
 	buf[0] = 0;
 	strcat(buf, "[BETA] Starting new '");
@@ -58,6 +58,8 @@ void Beta::shutdown() {
 	strcat(buf, "' game.");
 	Logger::info(buf);
 	isRunning = false;
+	delete game;
+	delete board;
 	game = NULL;
 	board = NULL;
 }

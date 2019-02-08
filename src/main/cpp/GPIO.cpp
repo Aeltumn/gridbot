@@ -13,13 +13,12 @@
 
 void GPIO::initialise(const int &pin) {
 	//Export pin
-	std::string s = "/sys/class/gpio/export"; //"/sys/class/gpio/unexport" for unexporting
-	std::ofstream estream(s.c_str());
+	std::ofstream estream("/sys/class/gpio/export");
 	estream << pin << std::endl;
 	estream.close();
 
 	//Set direction to 'out'
-	std::string s = "/sys/class/gpio/gpio";
+	std::string s = std::string("/sys/class/gpio/gpio");
 	s.append(std::to_string(pin));
 	s.append("/direction");
 	std::ofstream estream(s.c_str());
