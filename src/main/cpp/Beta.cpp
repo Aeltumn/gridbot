@@ -1,6 +1,6 @@
 #include "pch.h"
 
-Game* Beta::game = NULL;
+Game* Beta::game;
 Board* Beta::board = NULL;
 bool Beta::isRunning;
 Motor* Beta::x;

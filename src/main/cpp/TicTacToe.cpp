@@ -17,7 +17,7 @@ Board* TicTacToe::createBoard() { return new Board(3, 3); }
 void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
-	suggestion = TicTacToe::calculateBestMove(board, 0, FIRST);
+	suggestion = calculateBestMove(board, 0, FIRST);
 	char buf[256];
 	buf[0] = 0;
 	strcat(buf, "[TICTACTOE] Determined next move to be index '");
@@ -30,15 +30,15 @@ void TicTacToe::calculate(Board *board) {
 int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 	std::vector<Entry> cdf;
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
-	Figure winner = TicTacToe::getWinner(board);
-	if (TicTacToe::isTie(board)) return 0;
+	Figure winner = getWinner(board);
+	if (isTie(board)) return 0;
 	else if (winner == Figure::HUMAN) return 1;
 	else if (winner == Figure::AI) return -1;
 	else {
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
 			board->set(s, ai ? Figure::AI : Figure::HUMAN);
-			cdf.push_back(Entry(s, (-1 * TicTacToe::calculateBestMove(board, depth + 1, !ai))));
+			cdf.push_back(Entry(s, (-1 * calculateBestMove(board, depth + 1, !ai))));
 			board->set(s, Figure::EMPTY);
 		}
 		Entry max = Entry(-2, -2);
