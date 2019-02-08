@@ -110,7 +110,7 @@ bool Logger::handleCommand(const char* txt) {
 	}
 	args.push_back(stream.str());
 
-	if (args.size() == 0) return;
+	if (args.size() == 0) return false;
 	std::string command = args.at(0);
 	if (command.compare("execute") == 0 || command.compare("e") == 0) { // Executes the next move.
 		Beta::execute();
