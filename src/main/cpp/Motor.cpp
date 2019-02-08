@@ -12,10 +12,7 @@ void Motor::setmirror(Motor *mirr) { mirror = mirr; hasMirror = true; }
 //(in parallel the gpio instructions would fail and the motor wouldn't work)
 void Motor::queue(const long double &centimeters) { Biker::push(QueuedAction(centimeters, this)); }
 
-void Motor::move(const long double &centimeters, const long &i) {
-	if (i != ID) return; //The i should be the ID of who's asking for the move, only the Biker's ID which is in both biker.h and motor.h as a private field is allowed
-	moveint(centimeters);
-}
+void Motor::move(const long double &centimeters) { moveint(centimeters); }
 
 //moveint is move internal
 void Motor::moveint(const long double &centimeters) {

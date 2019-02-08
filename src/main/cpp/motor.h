@@ -12,7 +12,6 @@ private:
 	Motor *mirror; // Opposite direction
 	bool hasMimic = false, hasMirror = false; //storage booleans to see if we've set a mimic or mirror, checking if the point was zero was failing
 	int step = 0;
-	static const long ID = 156484; //The Biker's ID, the Motor will only accept movements from this ID.
 
 	void moveint(const long double &centimeters);
 	void moveone(const bool &reversed);
@@ -20,7 +19,7 @@ private:
 public:
 	Motor(const int &port1, const int &port2, const int &port3, const int &port4);
 	void queue(const long double &centimeters);
-	void move(const long double &centimeters, const long &ID);
+	void move(const long double &centimeters);
 	void setmimic(Motor *mimi);
 	void setmirror(Motor *mirror);
 };
