@@ -3,7 +3,7 @@
 #include <string>
 #include <string.h>
 
-enum Figure { EMPTY = 0, HUMAN = 1, AI = 2 };
+enum Figure { EMPTY = 0, PIECE = 1 };
 
 class Board {
 private:

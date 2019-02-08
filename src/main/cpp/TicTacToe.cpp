@@ -36,7 +36,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 	else {
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
-			board->set(s, ai ? Figure::AI : Figure::HUMAN);
+			board->set(s, Figure::PIECE);
 			cdf.push_back(Entry(s, (-1 * calculateBestMove(board, depth + 1, !ai))));
 			board->set(s, Figure::EMPTY);
 		}
@@ -71,7 +71,7 @@ bool TicTacToe::isGameOver(Board *board) {
 	//Diagonal
 	testLine(board, &ret, 1, 5, 9);
 	testLine(board, &ret, 3, 5, 7);
-	return !(ret == Figure::EMPTY);
+	return ret == Figure::PIECE;
 }
 
 void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
