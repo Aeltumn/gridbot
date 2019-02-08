@@ -56,7 +56,8 @@ void Logger::setup() {
 			rbytes = recv(sockfd, rbuff, sizeof(rbuff), 0); // similar to read(), but return -1 if socket closed
 			rbuff[rbytes] = 0;
 			info(rbuff);
-			if (handleCommand(rbuff)) abort();
+			if (handleCommand(rbuff)) std::abort();
+		}
 	} catch (const std::exception& e) {
 		info(e.what());
 		return;
