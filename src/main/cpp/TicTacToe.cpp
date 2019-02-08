@@ -33,8 +33,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	Figure winner = getWinner(board);
 	if (isTie(board)) return 0;
-	else if (winner == Figure::HUMAN) return 1;
-	else if (winner == Figure::AI) return -1;
+	else if (winner != Figure::EMPTY) return -1;
 	else {
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
