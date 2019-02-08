@@ -28,7 +28,7 @@ Motor* Beta::getmotor(const int &c) {
 void Beta::setmotors(Motor *x_, Motor *y_, Motor *z_) { x = x_; y = y_; z = z_; }
 void Beta::execute(bool skip) { 
 	if (game != 0) {
-		int move = game->execute(skip, x, y, z);
+		int move = game->execute(skip ? true : false, x, y, z);
 		board->set(move, Figure::AI);
 		Logger::info("[BETA] Executing game step.");
 	}
