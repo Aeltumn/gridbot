@@ -60,25 +60,25 @@ bool TicTacToe::isGameOver(Board *board) {
 	//We determine the winner by absolute mad methods, we're going to assume two wins can't happen at the same time.
 	Figure ret = static_cast<Figure>(0);
 	//X-ways
+	testLine(board, &ret, 0, 3, 6);
 	testLine(board, &ret, 1, 4, 7);
 	testLine(board, &ret, 2, 5, 8);
-	testLine(board, &ret, 3, 6, 9);
 
 	//Y-ways
-	testLine(board, &ret, 1, 2, 3);
-	testLine(board, &ret, 4, 5, 6);
-	testLine(board, &ret, 7, 8, 9);
+	testLine(board, &ret, 0, 1, 2);
+	testLine(board, &ret, 3, 4, 5);
+	testLine(board, &ret, 6, 7, 8);
 
 	//Diagonal
-	testLine(board, &ret, 1, 5, 9);
-	testLine(board, &ret, 3, 5, 7);
+	testLine(board, &ret, 0, 4, 8);
+	testLine(board, &ret, 2, 4, 6);
 	return (ret == Figure::PIECE);
 }
 
 void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
-	Figure r = board->atIndex(i-1);
-	if (r != board->atIndex(j-1)) r = static_cast<Figure>(0);
-	if(r != board->atIndex(k-1)) r = static_cast<Figure>(0);
+	Figure r = board->atIndex(i);
+	if (r != board->atIndex(j)) r = static_cast<Figure>(0);
+	if(r != board->atIndex(k)) r = static_cast<Figure>(0);
 	if (r != 0) *ret = r;
 }
 
