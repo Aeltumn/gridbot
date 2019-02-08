@@ -16,6 +16,8 @@ Board* TicTacToe::createBoard() { return new Board(3, 3); }
 
 void TicTacToe::allow() { suggestion = -1; }
 void TicTacToe::calculate(Board *board) {
+	if (board == NULL) return; //If the pointer isn't set yet, DONT
+
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
 	Logger::info("[TICTACTOE] Starting calculation...");
@@ -37,7 +39,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 	else {
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
-			board->set(s, Figure::PIECE);
+			board->set(s, ai ? Figure::AI : Figure::HUMAN);
 			cdf.push_back(Entry(s, (-1 * calculateBestMove(board, depth + 1, !ai))));
 			board->set(s, Figure::EMPTY);
 		}
@@ -72,13 +74,13 @@ bool TicTacToe::isGameOver(Board *board) {
 	//Diagonal
 	testLine(board, &ret, 0, 4, 8);
 	testLine(board, &ret, 2, 4, 6);
-	return (ret == Figure::PIECE);
+	return (ret == Figure::HUMAN || ret == Figure::AI);
 }
 
 void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
 	Figure r = board->atIndex(i);
 	if (r != board->atIndex(j)) r = static_cast<Figure>(0);
-	if(r != board->atIndex(k)) r = static_cast<Figure>(0);
+	if (r != board->atIndex(k)) r = static_cast<Figure>(0);
 	if (r != 0) *ret = r;
 }
 
