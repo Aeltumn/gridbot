@@ -33,7 +33,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 	std::vector<Entry> cdf;
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	if (isTie(board)) return 0;
-	//else if (isGameOver(board)) return -1;
+	else if (isGameOver(board)) return -1;
 	else {
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
@@ -76,9 +76,9 @@ bool TicTacToe::isGameOver(Board *board) {
 }
 
 void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
-	Figure r = board->atIndex(i);
-	if (r != board->atIndex(j)) r = static_cast<Figure>(0);
-	if(r != board->atIndex(k)) r = static_cast<Figure>(0);
+	Figure r = board->atIndex(i-1);
+	if (r != board->atIndex(j-1)) r = static_cast<Figure>(0);
+	if(r != board->atIndex(k-1)) r = static_cast<Figure>(0);
 	if (r != 0) *ret = r;
 }
 
