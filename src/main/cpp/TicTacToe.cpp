@@ -18,6 +18,7 @@ void TicTacToe::allow() { suggestion = -1; }
 void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
+	Logger::info("[TICTACTOE] Starting calculation...");
 	suggestion = calculateBestMove(board, 0, FIRST);
 	char buf[256];
 	buf[0] = 0;
@@ -32,7 +33,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 	std::vector<Entry> cdf;
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	if (isTie(board)) return 0;
-	else if (isGameOver(board)) return -1;
+	//else if (isGameOver(board)) return -1;
 	else {
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
