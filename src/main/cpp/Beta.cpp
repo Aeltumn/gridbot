@@ -29,14 +29,14 @@ void Beta::setmotors(Motor *x_, Motor *y_, Motor *z_) { x = x_; y = y_; z = z_; 
 void Beta::execute(bool skip) { 
 	if (game != 0) {
 		int move = game->execute(skip ? true : false, x, y, z);
-		board->set(move, Figure::AI);
+		board->set(move, Figure::PIECE);
 		Logger::info("[BETA] Executing game step.");
 	}
 }
 void Beta::handleMove(const int &move) {
 	if (game != 0) {
 		Logger::info("[BETA] Registered opponent move.");
-		board->set(move, Figure::HUMAN);
+		board->set(move, Figure::PIECE);
 		game->allow(); //Allows thinking about the next step
 	}
 }
