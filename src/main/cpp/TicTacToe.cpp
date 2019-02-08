@@ -71,7 +71,8 @@ bool TicTacToe::isGameOver(Board *board) {
 	//Diagonal
 	testLine(board, &ret, 1, 5, 9);
 	testLine(board, &ret, 3, 5, 7);
-	return ret == Figure::PIECE;
+	if (ret == Figure::PIECE) return true;
+	return false;
 }
 
 void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
