@@ -64,8 +64,8 @@ void Beta::shutdown() {
 	strcat(buf, "' game.");
 	Logger::info(buf);
 	isRunning = false;
-	delete game;
-	delete board;
+	delete &game;
+	delete &board;
 	game = NULL;
 	board = NULL;
 }
