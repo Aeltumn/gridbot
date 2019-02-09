@@ -22,9 +22,9 @@ public:
 	Figure at(const int &x, const int &y) { return static_cast<Figure>(*(board + getIndex(x, y))); }
 	Figure atIndex(const int &index) { return static_cast<Figure>(*(board + index)); }
 	int getMaxIndex() { return width * height; }
-	int getIndex(const int &x, const int &y) {return x + y * width; }
-	int getXFromIndex(const int &index) { return (index % width); }
-	int getYFromIndex(const int &index) { return (index / width); }
+	int getIndex(const int &x, const int &y) {return x * width + y; }
+	int getXFromIndex(const int &index) { return (index / width); }
+	int getYFromIndex(const int &index) { return (index % width); }
 	void destroy() {
 		delete[] board;
 		board = NULL;
