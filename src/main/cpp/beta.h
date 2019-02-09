@@ -37,7 +37,8 @@ public:
 	virtual Board* createBoard() = 0;
 	virtual void allow() = 0;
 	virtual void calculate(Board *board) = 0;
-	virtual int execute(bool skip, Motor *x, Motor *y, Motor *z) = 0;
+	virtual int getSuggestion() = 0;
+	virtual void execute(Motor *x, Motor *y, Motor *z) = 0;
 	virtual std::string getname() = 0;
 };
 
@@ -56,6 +57,6 @@ public:
 	static void runGame(Game* g);
 	static void setmotors(Motor *x_, Motor *y, Motor *z);
 	static Motor* getmotor(const int &c);
-	static void execute(bool skip);
+	static void execute();
 	static void handleMove(const int &move);
 };

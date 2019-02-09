@@ -52,6 +52,14 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 	}
 }
 
+int TicTacToe::getSuggestion() {
+	if (suggestion == -1) {
+		Logger::info("Waiting on calculation for next move...");
+	}
+	while (suggestion == -1) {}
+	return suggestion;
+}
+
 bool TicTacToe::isTie(Board *board) {
 	//We determine if it's a tie by seeing if there's no moves to be made. (no winner, no moves, a tie)
 	for (int i = 0; i < board->getMaxIndex(); i++) {
@@ -88,9 +96,7 @@ void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
 //Executes the suggestion by sending cm-based commands to the motors.
 //It is assumed we are hovering over the bottom left corner of the bottom left square, x0, y0 and at z100%, magnet off
 //It is also assumed that there is a disc or object for it to move at x-1, y0
-int TicTacToe::execute(bool skip, Motor *x, Motor *y, Motor *z) {
-	if (skip) return suggestion;
-	
+void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {	
 	x->queue(ENTRY_LENGTH);
 
 	//Move to pickup stone.
@@ -120,5 +126,4 @@ int TicTacToe::execute(bool skip, Motor *x, Motor *y, Motor *z) {
 	//Move back to base?
 	x->queue(-SQUARE_HALF_LENGTH);
 	x->queue(-ENTRY_LENGTH);
-	return suggestion;
 }

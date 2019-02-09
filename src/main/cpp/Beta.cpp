@@ -26,10 +26,9 @@ Motor* Beta::getmotor(const int &c) {
 	return x;
 }
 void Beta::setmotors(Motor *x_, Motor *y_, Motor *z_) { x = x_; y = y_; z = z_; }
-void Beta::execute(bool skip) { 
+void Beta::execute() { 
 	if (game != 0) {
-		int move = game->execute(skip ? true : false, x, y, z);
-		board->set(move, Figure::AI);
+		game->execute(x, y, z);
 		Logger::info("[BETA] Executing game step.");
 	}
 }
@@ -38,6 +37,7 @@ void Beta::handleMove(const int &move) {
 		Logger::info("[BETA] Registered opponent move.");
 		board->set(move, Figure::HUMAN);
 		game->allow(); //Allows thinking about the next step
+		board->set(game->getSuggestion(), Figure::AI);
 	}
 }
 
