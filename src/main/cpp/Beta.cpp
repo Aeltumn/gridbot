@@ -54,6 +54,7 @@ void Beta::runGame(Game* g) {
 	strcat(buf, "' game.");
 	Logger::info(buf);
 	game->initialise();
+	isRunning = true;
 }
 void Beta::shutdown() {
 	char buf[256];

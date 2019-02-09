@@ -26,6 +26,11 @@ void TicTacToe::calculate(Board *board) {
 	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
 	Logger::info("[TICTACTOE] Starting calculation...");
 	suggestion = calculateBestMove(board, 0, true);
+	if (suggestion == -1) {
+		Logger::info("[TICTACTOE] Game has ended in a draw.");
+		Beta::shutdown();
+		return;
+	}
 	char buf[256];
 	buf[0] = 0;
 	strcat(buf, "[TICTACTOE] Determined next move to be index '");
@@ -57,7 +62,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 
 int TicTacToe::getSuggestion() {
 	if (suggestion == -1) {
-		Logger::info("Waiting on calculation for next move...");
+		Logger::info("[TICTACTOE] Waiting on calculation for next move...");
 	}
 	while (suggestion == -1) {}
 	return suggestion;

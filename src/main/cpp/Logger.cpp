@@ -112,8 +112,10 @@ bool Logger::handleCommand(const char* txt) {
 
 	if (args.size() == 0) return false;
 	std::string command = args.at(0);
-	if (command.compare("execute") == 0 || command.compare("e") == 0) { // Executes the next move.
+	if (command.compare("execute") == 0) { // Executes the next move.
 		Beta::execute();
+	} else if (command.compare("victory") == 0) { // Ends the current game.
+		Beta::shutdown();
 	} else if (command.compare("magnet") == 0) {
 		if (args.size() >= 2) {
 			if (args.at(1).compare("on") == 0) {
@@ -172,12 +174,11 @@ bool Logger::handleCommand(const char* txt) {
 		Logger::amend("handlemove int - Registreer de zet van de tegenstander naar index int.");
 		Logger::amend("tictactoe int - Start boter kaas en eieren, int is 1 voor first, anders 0.");
 		Logger::amend("restart - Herstart gridbot.");
+		Logger::amend("victory - Eindig het huidige spel.");
 		Logger::newline();
 		Logger::info("[LOGGER] De volgende aliases bestaan:");
 		Logger::amend("m - testmotors");
 		Logger::amend("hm - handlemove");
-		Logger::amend("e - execute");
-		Logger::amend("ttt - tictactoe");
 	} else if (command.compare("restart") == 0) {
 		return true;
 	}
