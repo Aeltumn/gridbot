@@ -25,9 +25,15 @@ void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
 	Logger::info("[TICTACTOE] Starting calculation...");
-	suggestion = calculateBestMove(board, 0, true);
-	if (suggestion == -1) {
-		Logger::info("[TICTACTOE] Game has ended in a draw.");
+	if (!isTie(board) && !isGameOver(board)) {
+		suggestion = calculateBestMove(board, true, true);
+	} else {
+		Logger::info("[TICTACTOE] Game is a tie or has ended.");
+		Beta::shutdown();
+		return;
+	}
+	if (suggestion < 0 || suggestion > 8) {
+		Logger::info("[TICTACTOE] Invalid suggested move...");
 		Beta::shutdown();
 		return;
 	}
@@ -40,23 +46,40 @@ void TicTacToe::calculate(Board *board) {
 }
 
 // Our recursive method to find the best outcome.
-int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
+int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 	std::vector<Entry> cdf;
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	if (isTie(board)) return 0;
 	else if (isGameOver(board)) return -1;
 	else {
+		//Try all possible moves and grade them.
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
 			board->set(s, ai ? Figure::AI : Figure::HUMAN);
-			cdf.push_back(Entry(s, (-1 * calculateBestMove(board, depth + 1, !ai))));
+			cdf.push_back(Entry(s, (-1 * calculateBestMove(board, false, !ai)))); //We switch the value of the other player, min->max, max->min
 			board->set(s, Figure::EMPTY);
 		}
-		Entry max = Entry(-2, -2);
-		for (unsigned int i = 0; i < cdf.size(); i++)
-			if (cdf[i].value > max.value || (cdf[i].value == max.value && rand() % 2 == 0)) max = cdf[i];
-		if (depth == 0) return max.key;
-		else return max.value;
+
+		if (surface) {
+			Entry max = Entry(-2, -2);
+			std::vector<Entry> maxs = std::vector<Entry>();
+			for (unsigned int i = cdf.size()-1; i >= 0; --i) {
+				if (cdf[i].value > max.value) {
+					max = cdf[i];
+					maxs.clear();
+				}
+				if (cdf[i].value == max.value) maxs.push_back(cdf[i]);
+			}
+			return maxs.at(std::rand() % maxs.size()).key; //Pick random option which is still optimal.
+		} else {
+			//We're getting the best entry, the move which results in the best situations
+			int value = 0;
+			for (unsigned int i = 0; i < cdf.size(); i++) {
+				value += cdf[i].value;
+				if (cdf[i].value > 0) value += 1; //If this is a positive result, we will increase it slightly so risk-free
+			}
+			return value;
+		}
 	}
 }
 

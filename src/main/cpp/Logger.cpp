@@ -141,7 +141,7 @@ bool Logger::handleCommand(const char* txt) {
 		} else {
 			Logger::error("[LOGGER] Invalid syntax! Use: tictactoe int");
 		}
-	} else if (command.compare("tictactoe") == 0 || command.compare("ttt") == 0) {
+	} else if (command.compare("tictactoe") == 0) {
 		if (args.size() >= 2) {
 			int i = std::stoi(args.at(1), nullptr, 10);
 			TicTacToe *t = new TicTacToe(i == 1 ? true : false);
