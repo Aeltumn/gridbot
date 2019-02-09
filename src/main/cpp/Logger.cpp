@@ -113,12 +113,7 @@ bool Logger::handleCommand(const char* txt) {
 	if (args.size() == 0) return false;
 	std::string command = args.at(0);
 	if (command.compare("execute") == 0 || command.compare("e") == 0) { // Executes the next move.
-		if (args.size() >= 2) {
-			int i = std::stoi(args.at(1), nullptr, 10);
-			Beta::execute(i == 1 ? true : false);
-		} else {
-			Logger::error("[LOGGER] Invalid syntax! Use: execute int");
-		}
+		Beta::execute();
 	} else if (command.compare("magnet") == 0) {
 		if (args.size() >= 2) {
 			if (args.at(1).compare("on") == 0) {
@@ -171,7 +166,7 @@ bool Logger::handleCommand(const char* txt) {
 		}
 	} else if (command.compare("help") == 0) {
 		Logger::info("[LOGGER] De volgende commands bestaan:");
-		Logger::amend("execute int - Speelt de volgende beurt van het huidige spel, int is 1 voor skip.");
+		Logger::amend("execute - Speelt de volgende beurt van het huidige spel.");
 		Logger::amend("testmotors x|y|z int - Beweeg de x, y of z as met int centimeter.");
 		Logger::amend("magnet on|off - Zet de magneet aan of uit.");
 		Logger::amend("handlemove int - Registreer de zet van de tegenstander naar index int.");
