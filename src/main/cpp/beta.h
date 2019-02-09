@@ -35,6 +35,7 @@ class Game {
 public:
 	Game() {}
 	virtual Board* createBoard() = 0;
+	virtual void initialise() = 0;
 	virtual void allow() = 0;
 	virtual void calculate(Board *board) = 0;
 	virtual int getSuggestion() = 0;

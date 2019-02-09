@@ -19,6 +19,7 @@ private:
 
 public:
 	TicTacToe(bool first_);
+	void initialise();
 	Board* createBoard();
 	void calculate(Board *board);
 	int getSuggestion();

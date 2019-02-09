@@ -53,6 +53,7 @@ void Beta::runGame(Game* g) {
 	strcat(buf, game->getname().c_str());
 	strcat(buf, "' game.");
 	Logger::info(buf);
+	game->initialise();
 }
 void Beta::shutdown() {
 	char buf[256];
