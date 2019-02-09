@@ -22,7 +22,7 @@ void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
 	Logger::info("[TICTACTOE] Starting calculation...");
-	suggestion = calculateBestMove(board, 0, FIRST);
+	suggestion = calculateBestMove(board, 0, true);
 	char buf[256];
 	buf[0] = 0;
 	strcat(buf, "[TICTACTOE] Determined next move to be index '");
@@ -46,7 +46,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 		}
 		Entry max = Entry(-2, -2);
 		for (unsigned int i = 0; i < cdf.size(); i++)
-			if (cdf[i].value > max.value) max = cdf[i];
+			if (cdf[i].value >= max.value) max = cdf[i];
 		if (depth == 0) return max.key;
 		else return max.value;
 	}
