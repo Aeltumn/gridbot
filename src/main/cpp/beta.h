@@ -59,4 +59,5 @@ public:
 	static Motor* getmotor(const int &c);
 	static void execute();
 	static void handleMove(const int &move);
+	static void handleAIMove(const int &move);
 };

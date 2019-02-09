@@ -12,6 +12,7 @@ static const double SQUARE_HALF_LENGTH = 1.37;
 TicTacToe::TicTacToe(bool first_) {
 	FIRST = first_;
 	if (!FIRST) suggestion = -2;
+	else Beta::handleAIMove(getSuggestion());
 }
 Board* TicTacToe::createBoard() { return new Board(3, 3); }
 

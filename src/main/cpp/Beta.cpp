@@ -32,12 +32,15 @@ void Beta::execute() {
 		Logger::info("[BETA] Executing game step.");
 	}
 }
+void Beta::handleAIMove(const int &move) {
+	board->set(move, Figure::AI);
+}
 void Beta::handleMove(const int &move) {
 	if (game != 0) {
 		Logger::info("[BETA] Registered opponent move.");
 		board->set(move, Figure::HUMAN);
-		game->allow(); //Allows thinking about the next step
-		board->set(game->getSuggestion(), Figure::AI);
+		allow(); //Allow thinking about next step
+		handleAIMove(game->getSuggestion());
 	}
 }
 
