@@ -47,7 +47,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 		}
 		Entry max = Entry(-2, -2);
 		for (unsigned int i = 0; i < cdf.size(); i++)
-			if (cdf[i].value >= max.value) max = cdf[i];
+			if (cdf[i].value > max.value || (cdf[i].value == max.value && rand() % 2 == 0)) max = cdf[i];
 		if (depth == 0) return max.key;
 		else return max.value;
 	}

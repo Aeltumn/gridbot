@@ -10,6 +10,7 @@
 #include <string.h>
 #include <cmath>
 #include <thread>
+#include <cstdlib>
 #include <vector>
 #include <iostream> //Generic IO
 #include <sstream> //Stream IO
