@@ -52,39 +52,27 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
 			board->set(s, ai ? Figure::AI : Figure::HUMAN);
-			cdf.push_back(Entry(s, (-1 * calculateBestMove(board, false, !ai)))); //We switch the value of the other player, min->max, max->min
+			int score = (-1 * calculateBestMove(board, false, !ai));
+
+			cdf.push_back(Entry(s, score)); //We switch the value of the other player, min->max, max->min
 			board->set(s, Figure::EMPTY);
 		}
 
-		if (surface) {
-			Entry max = Entry(-2, -2);
-			std::vector<Entry> maxs = std::vector<Entry>();
-			for (int i = 0; i < cdf.size(); i++) {
-				if (cdf[i].value > max.value) {
-					max = cdf[i];
-					maxs.clear();
-				}
-				if (cdf[i].value == max.value) maxs.push_back(cdf[i]);
-			}
-			int r = std::rand() % maxs.size();
-			char buf[256];
-			buf[0] = 0;
-			strcat(buf, "[R-DEBUG] R was '");
-			strcat(buf, std::to_string(r).c_str());
-			strcat(buf, "' while max was '");
-			strcat(buf, std::to_string(maxs.size()).c_str());
-			strcat(buf, "'!");
-			Logger::error(buf);
-			return maxs.at(r).key; //Pick random option which is still optimal.
-		} else {
-			//We're getting the best entry, the move which results in the best situations
-			int value = 0;
-			for (unsigned int i = 0; i < cdf.size(); i++) {
-				value += cdf[i].value;
-				if (cdf[i].value > 0) value += 1; //If this is a positive result, we will increase it slightly so risk-free
-			}
-			return value;
-		}
+		Entry max = Entry(-2, -2);
+		for (unsigned int i = 0; i < cdf.size(); i++)
+			if (cdf[i].value > max.value || (cdf[i].value == max.value && std::rand() % 2 == 0)) max = cdf[i];
+		
+		char buf[256];
+		buf[0] = 0;
+		strcat(buf, "[TICTACTOE] Highest entry was '");
+		strcat(buf, std::to_string(max.key).c_str());
+		strcat(buf, ", ");
+		strcat(buf, std::to_string(max.value).c_str());
+		strcat(buf, surface ? "', surface ? yes" : "', surface ? no");
+		strcat(buf, ai ? "', ai ? yes." : "', ai ? no.");
+		Logger::info(buf);
+		if (surface) return max.key;
+		else return max.value;
 	}
 }
 
