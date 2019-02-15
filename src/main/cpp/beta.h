@@ -21,15 +21,32 @@ public:
 		*(board + index) = figure;
 	}
 	Figure at(const int &x, const int &y) { return static_cast<Figure>(*(board + getIndex(x, y))); }
-	Figure atIndex(const int &index) { return static_cast<Figure>(*(board + index)); }
+	Figure atIndex(const int &index) { 
+		checkValidIndex(index);
+		return static_cast<Figure>(*(board + index));
+	}
 	int getMaxIndex() { return width * height; }
 	double getHalfSquareLength() { return half_square; }
-	int getIndex(const int &x, const int &y) {return x * width + y; }
+	int getIndex(const int &x, const int &y) { 
+		int ret = x * width + y;
+		checkValidIndex(ret);
+		return ret;
+	}
 	int getXFromIndex(const int &index) { return (index / width); }
 	int getYFromIndex(const int &index) { return (index % width); }
 	void destroy() {
 		delete[] board;
 		board = NULL;
+	}
+	void checkValidIndex(const int &index) {
+		if (index >= getMaxIndex()) {
+			char buf[256];
+			buf[0] = 0;
+			strcat(buf, "[BOARD] Found invalid index of '");
+			strcat(buf, std::to_string(index).c_str());
+			strcat(buf, "' game.");
+			Logger::error(buf);
+		}
 	}
 };
 

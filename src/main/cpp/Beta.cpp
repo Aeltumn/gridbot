@@ -65,6 +65,7 @@ void Beta::shutdown() {
 	Logger::info(buf);
 	isRunning = false;
 	delete game;
+	board->destroy();
 	delete board;
 	game = NULL;
 	board = NULL;
