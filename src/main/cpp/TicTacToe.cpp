@@ -21,7 +21,12 @@ void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion isn't -1 we've already calculated our move
 	Logger::info("[TICTACTOE] Starting calculation...");
+	bool tie = isTie(board);
+	Logger::info("Tested isTie");
+	bool gameOver = isGameOver(board);
+	Logger::info("Tested isGameOver");
 	if (!isTie(board) && !isGameOver(board)) {
+		Logger::info("Calculating best move");
 		suggestion = calculateBestMove(board, true, true);
 	} else {
 		Logger::info("[TICTACTOE] Game is a tie or has ended.");
@@ -29,7 +34,7 @@ void TicTacToe::calculate(Board *board) {
 		return;
 	}
 	if (suggestion < 0 || suggestion > 8) {
-		Logger::info("[TICTACTOE] Invalid suggested move...");
+		Logger::error("[TICTACTOE] Invalid suggested move...");
 		Beta::shutdown();
 		return;
 	}
