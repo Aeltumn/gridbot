@@ -16,6 +16,9 @@ public:
 	Board(const int &width_, const int &height_, const double &half_square_) {
 		width = width_; height = height_; half_square = half_square_;
 		board = new int[width*height];
+		for (int i = 0; i < width*height; i++) {
+			set(i, Figure::EMPTY);
+		}
 	}
 	void set(const int &index, Figure figure) {
 		*(board + index) = figure;
