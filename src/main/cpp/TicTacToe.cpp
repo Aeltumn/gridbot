@@ -51,24 +51,30 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 	std::vector<Entry> cdf = std::vector<Entry>();
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	if (isTie(board)) return 0;
-	else if (isGameOver(board)) return ai ? 10 : -10;
+	else if (isGameOver(board)) return -10;
 	else {
 		//Try all possible moves and grade them.
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
 			board->set(s, ai ? Figure::AI : Figure::HUMAN);
-			cdf.push_back(Entry(s, calculateBestMove(board, false, !ai))); //We switch the value of the other player, min->max, max->min
+			int score = -1 * calculateBestMove(board, false, !ai));
+			cdf.push_back(Entry(s, score); //We switch the value of the other player, min->max, max->min
 			board->set(s, Figure::EMPTY);
+			if (surface) {
+				char buf[256];
+				buf[0] = 0;
+				strcat(buf, "[TICTACTOE] Move possibility s of '");
+				strcat(buf, std::to_string(s).c_str());
+				strcat(buf, "' has score '");
+				strcat(buf, std::to_string(score).c_str());
+				strcat(buf, "'...");
+				Logger::info(buf);
+			}
 		}
 
 		Entry max = Entry(-2, -2);
-		if (ai) {
-			for (int i = 0; i < cdf.size(); i++)
-				if (cdf.at(i).value >= max.value) max = cdf.at(i);
-		} else {
-			for (int i = 0; i < cdf.size(); i++)
-				if (cdf.at(i).value <= max.value) max = cdf.at(i);
-		}
+		for (int i = 0; i < cdf.size(); i++)
+			if (cdf.at(i).value >= max.value) max = cdf.at(i);
 		if (surface) return max.key;
 		else return max.value;
 	}
