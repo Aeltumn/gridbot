@@ -5,8 +5,8 @@
 #define SECOND_PLAYER 'O'
 
 #define LOWER_HEIGHT 25
-#define ENTRY_LENGTH 12
-#define ENTRY_WIDTH 6
+#define ENTRY_LENGTH 14.5
+#define ENTRY_WIDTH 7.5
 
 TicTacToe::TicTacToe(bool first_) {
 	FIRST = first_;
