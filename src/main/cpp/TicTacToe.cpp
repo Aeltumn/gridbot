@@ -63,11 +63,11 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 
 		Entry max = Entry(-2, -2);
 		if (ai) {
-			for (unsigned int i = 0; i < cdf.size(); i++)
-				if (cdf[i].value >= max.value) max = cdf[i];
+			for (int i = 0; i < cdf.size(); i++)
+				if (cdf.at(i).value >= max.value) max = cdf.at(i);
 		} else {
-			for (unsigned int i = 0; i < cdf.size(); i++)
-				if (cdf[i].value <= max.value) max = cdf[i];
+			for (int i = 0; i < cdf.size(); i++)
+				if (cdf.at(i).value <= max.value) max = cdf.at(1);
 		}
 		if (surface) return max.key;
 		else return max.value;
