@@ -48,7 +48,7 @@ void TicTacToe::calculate(Board *board) {
 
 // Our recursive method to find the best outcome.
 int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
-	std::vector<Entry> cdf (board->getMaxIndex());
+	std::vector<Entry> cdf = std::vector<Entry>();
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	if (isTie(board)) return 0;
 	else if (isGameOver(board)) return -10;
