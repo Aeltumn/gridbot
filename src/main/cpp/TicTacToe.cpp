@@ -51,7 +51,7 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 	std::vector<Entry> cdf = std::vector<Entry>();
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	if (isTie(board)) return 0;
-	else if (isGameOver(board)) return -10;
+	else if (isGameOver(board)) return ai ? 10 : -10;
 	else {
 		//Try all possible moves and grade them.
 		for (int s = 0; s < board->getMaxIndex(); s++) {
@@ -87,7 +87,7 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 
 		Entry max = Entry(-2, -200);
 		for (int i = 0; i < cdf.size(); i++)
-			if (cdf.at(i).value >= max.value) max = cdf.at(i);
+			if (cdf.at(i).value > max.value || (cdf.at(i).value == max.value && std::rand() % 2 == 1)) max = cdf.at(i);
 		if (surface) return max.key;
 		else return max.value;
 	}
@@ -110,7 +110,7 @@ bool TicTacToe::isTie(Board *board) {
 }
 bool TicTacToe::isGameOver(Board *board) {
 	//We determine the winner by absolute mad methods, we're going to assume two wins can't happen at the same time.
-	Figure ret = static_cast<Figure>(0);
+	int ret = 0;
 	//X-ways
 	ret = testLine(board, ret, 0, 3, 6);
 	ret = testLine(board, ret, 1, 4, 7);
@@ -124,13 +124,13 @@ bool TicTacToe::isGameOver(Board *board) {
 	//Diagonal
 	ret = testLine(board, ret, 0, 4, 8);
 	ret = testLine(board, ret, 2, 4, 6);
-	return (ret == Figure::HUMAN || ret == Figure::AI);
+	return (ret > 0);
 }
 
-Figure TicTacToe::testLine(Board *board, const Figure &ret, int i, int j, int k) {
-	Figure r = board->atIndex(i);
-	if (r != board->atIndex(j)) r = static_cast<Figure>(0);
-	if (r != board->atIndex(k)) r = static_cast<Figure>(0);
+int TicTacToe::testLine(Board *board, const int &ret, int i, int j, int k) {
+	int r = board->atIndex(i);
+	if (r != board->atIndex(j)) r = 0;
+	if (r != board->atIndex(k)) r = 0;
 	if (r != 0) return r;
 	else return ret;
 }
