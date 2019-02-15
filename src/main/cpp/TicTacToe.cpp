@@ -21,12 +21,7 @@ void TicTacToe::calculate(Board *board) {
 	//Where we figure out our next move
 	if (suggestion != -1) return; //If the suggestion isn't -1 we've already calculated our move
 	Logger::info("[TICTACTOE] Starting calculation...");
-	bool tie = isTie(board);
-	Logger::info("Tested isTie");
-	bool gameOver = isGameOver(board);
-	Logger::info("Tested isGameOver");
 	if (!isTie(board) && !isGameOver(board)) {
-		Logger::info("Calculating best move");
 		suggestion = calculateBestMove(board, true, true);
 	} else {
 		Logger::info("[TICTACTOE] Game is a tie or has ended.");
@@ -48,7 +43,7 @@ void TicTacToe::calculate(Board *board) {
 
 // Our recursive method to find the best outcome.
 int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
-	std::vector<Entry> cdf;
+	std::vector<Entry> cdf = std::vector<Entry>();
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	if (isTie(board)) return 0;
 	else if (isGameOver(board)) return -1;
@@ -64,14 +59,23 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 		if (surface) {
 			Entry max = Entry(-2, -2);
 			std::vector<Entry> maxs = std::vector<Entry>();
-			for (unsigned int i = cdf.size()-1; i >= 0; --i) {
+			for (int i = 0; i < cdf.size(); i++) {
 				if (cdf[i].value > max.value) {
 					max = cdf[i];
 					maxs.clear();
 				}
 				if (cdf[i].value == max.value) maxs.push_back(cdf[i]);
 			}
-			return maxs.at(std::rand() % maxs.size()).key; //Pick random option which is still optimal.
+			int r = std::rand() % maxs.size();
+			char buf[256];
+			buf[0] = 0;
+			strcat(buf, "[R-DEBUG] R was '");
+			strcat(buf, std::to_string(r).c_str());
+			strcat(buf, "' while max was '");
+			strcat(buf, std::to_string(maxs.size()).c_str());
+			strcat(buf, "'!");
+			Logger::error(buf);
+			return maxs.at(r).key; //Pick random option which is still optimal.
 		} else {
 			//We're getting the best entry, the move which results in the best situations
 			int value = 0;
