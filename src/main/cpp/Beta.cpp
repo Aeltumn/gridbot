@@ -1,6 +1,6 @@
 #include "pch.h"
 
-Game* Beta::game;
+Game* Beta::game = NULL;
 Board* Beta::board = NULL;
 bool Beta::isRunning;
 Motor* Beta::x;
@@ -11,7 +11,7 @@ void Beta::startup() {
 	try {
 		Logger::info("[BETA] Starting Beta thread.");
 		while (true) {
-			if (game != 0) game->calculate(board); //The game calculate can last as long as it wants so we don't need to worry about aborting the search algorithms and continuing later.
+			if (board != NULL && game != NULL) game->calculate(board); //The game calculate can last as long as it wants so we don't need to worry about aborting the search algorithms and continuing later.
 		}
 	} catch (const std::exception& e) {
 		Logger::info(e.what());
@@ -28,7 +28,7 @@ Motor* Beta::getmotor(const int &c) {
 void Beta::setmotors(Motor *x_, Motor *y_, Motor *z_) { x = x_; y = y_; z = z_; }
 void Beta::execute() { 
 	if (game != 0) {
-		game->execute(x, y, z);
+		game->execute(x, y, z, board);
 		Logger::info("[BETA] Executing game step.");
 	}
 }

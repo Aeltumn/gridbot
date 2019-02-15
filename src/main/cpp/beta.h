@@ -8,12 +8,13 @@ enum Figure { EMPTY = 0, HUMAN = 1, AI = 2 };
 class Board {
 private:
 	int width, height;
+	double half_square;
 	int *board = NULL; //2d array of integers
 	
 public:
 	//width = x, height = y
-	Board(const int &width_, const int &height_) {
-		width = width_; height = height_;
+	Board(const int &width_, const int &height_, const double &half_square_) {
+		width = width_; height = height_; half_square = half_square_;
 		board = new int[width*height];
 	}
 	void set(const int &index, Figure figure) {
@@ -22,6 +23,7 @@ public:
 	Figure at(const int &x, const int &y) { return static_cast<Figure>(*(board + getIndex(x, y))); }
 	Figure atIndex(const int &index) { return static_cast<Figure>(*(board + index)); }
 	int getMaxIndex() { return width * height; }
+	double getHalfSquareLength() { return half_square; }
 	int getIndex(const int &x, const int &y) {return x * width + y; }
 	int getXFromIndex(const int &index) { return (index / width); }
 	int getYFromIndex(const int &index) { return (index % width); }
@@ -39,7 +41,7 @@ public:
 	virtual void allow() = 0;
 	virtual void calculate(Board *board) = 0;
 	virtual int getSuggestion() = 0;
-	virtual void execute(Motor *x, Motor *y, Motor *z) = 0;
+	virtual void execute(Motor *x, Motor *y, Motor *z, Board *board) = 0;
 	virtual std::string getname() = 0;
 };
 

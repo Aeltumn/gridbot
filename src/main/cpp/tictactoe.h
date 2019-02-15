@@ -23,6 +23,6 @@ public:
 	Board* createBoard();
 	void calculate(Board *board);
 	int getSuggestion();
-	void execute(Motor *x, Motor *y, Motor *z);
+	void execute(Motor *x, Motor *y, Motor *z, Board *board);
 	std::string getname() { return std::string("Tic Tac Toe"); }
 };

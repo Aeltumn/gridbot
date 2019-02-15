@@ -7,8 +7,6 @@
 #define LOWER_HEIGHT 25
 #define ENTRY_LENGTH 20
 
-static const double SQUARE_HALF_LENGTH = 1.37;
-
 TicTacToe::TicTacToe(bool first_) {
 	FIRST = first_;
 	if (!FIRST) suggestion = -2;
@@ -16,14 +14,12 @@ TicTacToe::TicTacToe(bool first_) {
 void TicTacToe::initialise() {
 	if(FIRST) Beta::handleAIMove(getSuggestion());
 }
-Board* TicTacToe::createBoard() { return new Board(3, 3); }
+Board* TicTacToe::createBoard() { return new Board(3, 3, 3.25); }
 
 void TicTacToe::allow() { suggestion = -1; }
 void TicTacToe::calculate(Board *board) {
-	if (board == NULL) return; //If the pointer isn't set yet, DONT
-
 	//Where we figure out our next move
-	if (suggestion != -1) return; //If the suggestion is -1 we've already calculated our move
+	if (suggestion != -1) return; //If the suggestion isn't -1 we've already calculated our move
 	Logger::info("[TICTACTOE] Starting calculation...");
 	if (!isTie(board) && !isGameOver(board)) {
 		suggestion = calculateBestMove(board, true, true);
@@ -127,7 +123,8 @@ void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
 //Executes the suggestion by sending cm-based commands to the motors.
 //It is assumed we are hovering over the bottom left corner of the bottom left square, x0, y0 and at z100%, magnet off
 //It is also assumed that there is a disc or object for it to move at x-1, y0
-void TicTacToe::execute(Motor *x, Motor *y, Motor *z) {	
+void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
+	double SQUARE_HALF_LENGTH = board->getHalfSquareLength();
 	x->queue(ENTRY_LENGTH);
 
 	//Move to pickup stone.
