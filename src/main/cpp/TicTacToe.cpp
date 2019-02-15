@@ -57,7 +57,7 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != Figure::EMPTY) continue;
 			board->set(s, ai ? Figure::AI : Figure::HUMAN);
-			int score = -1 * calculateBestMove(board, false, !ai));
+			int score = -1 * calculateBestMove(board, false, !ai);
 			cdf.push_back(Entry(s, score)); //We switch the value of the other player, min->max, max->min
 			board->set(s, Figure::EMPTY);
 			if (surface) {
