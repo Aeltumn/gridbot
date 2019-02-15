@@ -1,11 +1,5 @@
 #pragma once
 
-#include "beta.h"
-#include "gpio.h"
-#include "biker.h"
-#include "logger.h"
-#include "tictactoe.h"
-
 #include <string>
 #include <string.h>
 #include <cmath>
@@ -17,3 +11,9 @@
 #include <fstream> //File IO
 #include <ctime>
 #include <chrono>
+
+#include "logger.h"
+#include "gpio.h"
+#include "biker.h"
+#include "beta.h"
+#include "tictactoe.h"
