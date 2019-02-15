@@ -22,7 +22,7 @@ void TicTacToe::calculate(Board *board) {
 	if (suggestion != -1) return; //If the suggestion isn't -1 we've already calculated our move
 	Logger::info("[TICTACTOE] Starting calculation...");
 	if (!isTie(board) && !isGameOver(board)) {
-		suggestion = calculateBestMove(board, true, true);
+		suggestion = calculateBestMove(board, 0, true);
 	} else {
 		Logger::info("[TICTACTOE] Game is a tie or has ended.");
 		Beta::shutdown();
@@ -47,16 +47,16 @@ void TicTacToe::calculate(Board *board) {
 }
 
 // Our recursive method to find the best outcome.
-int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
+int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 	std::vector<Entry> cdf = std::vector<Entry>();
 	//Firstly if the state of the game is tied or a win were at the end of our tree and we return back up.
 	if (isTie(board)) return 0;
-	else if (isGameOver(board)) return 10;
+	else if (isGameOver(board)) return -10 + depth;
 	else {
 		//Try all possible moves and grade them.
 		for (int s = 0; s < board->getMaxIndex(); s++) {
 			if (board->atIndex(s) != 0) {
-				if (surface) {
+				if (depth == 0) {
 					char buf[256];
 					buf[0] = 0;
 					strcat(buf, "[TICTACTOE] Move possibility s of '");
@@ -70,10 +70,10 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 				continue;
 			}
 			board->set(s, ai ? Figure::AI : Figure::HUMAN);
-			int score = (-1 * calculateBestMove(board, false, !ai));
+			int score = (-1 * calculateBestMove(board, depth + 1, !ai));
 			cdf.push_back(Entry(s, score)); //We switch the value of the other player, min->max, max->min
 			board->set(s, Figure::EMPTY);
-			if (surface) {
+			if (depth == 0) {
 				char buf[256];
 				buf[0] = 0;
 				strcat(buf, "[TICTACTOE] Move possibility s of '");
@@ -87,8 +87,8 @@ int TicTacToe::calculateBestMove(Board *board, bool surface, bool ai) {
 
 		Entry max = Entry(-2, -200);
 		for (int i = 0; i < cdf.size(); i++)
-			if (cdf.at(i).value > max.value || (cdf.at(i).value == max.value && std::rand() % 3 == 0)) max = cdf.at(i);
-		if (surface) return max.key;
+			if (cdf.at(i).value > max.value || (cdf.at(i).value == max.value && std::rand() & 1)) max = cdf.at(i);
+		if (depth == 0) return max.key;
 		else return max.value;
 	}
 }
