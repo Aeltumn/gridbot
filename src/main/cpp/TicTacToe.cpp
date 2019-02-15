@@ -98,26 +98,27 @@ bool TicTacToe::isGameOver(Board *board) {
 	//We determine the winner by absolute mad methods, we're going to assume two wins can't happen at the same time.
 	Figure ret = static_cast<Figure>(0);
 	//X-ways
-	testLine(board, &ret, 0, 3, 6);
-	testLine(board, &ret, 1, 4, 7);
-	testLine(board, &ret, 2, 5, 8);
+	ret = testLine(board, ret, 0, 3, 6);
+	ret = testLine(board, ret, 1, 4, 7);
+	ret = testLine(board, ret, 2, 5, 8);
 
 	//Y-ways
-	testLine(board, &ret, 0, 1, 2);
-	testLine(board, &ret, 3, 4, 5);
-	testLine(board, &ret, 6, 7, 8);
+	ret = testLine(board, ret, 0, 1, 2);
+	ret = testLine(board, ret, 3, 4, 5);
+	ret = testLine(board, ret, 6, 7, 8);
 
 	//Diagonal
-	testLine(board, &ret, 0, 4, 8);
-	testLine(board, &ret, 2, 4, 6);
+	ret = testLine(board, ret, 0, 4, 8);
+	ret = testLine(board, ret, 2, 4, 6);
 	return (ret == Figure::HUMAN || ret == Figure::AI);
 }
 
-void TicTacToe::testLine(Board *board, Figure *ret, int i, int j, int k) {
+Figure TicTacToe::testLine(Board *board, const Figure &ret, int i, int j, int k) {
 	Figure r = board->atIndex(i);
 	if (r != board->atIndex(j)) r = static_cast<Figure>(0);
 	if (r != board->atIndex(k)) r = static_cast<Figure>(0);
-	if (r != 0) *ret = r;
+	if (r != 0) return r;
+	else return ret;
 }
 
 //Executes the suggestion by sending cm-based commands to the motors.
