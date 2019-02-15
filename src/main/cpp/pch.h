@@ -11,6 +11,8 @@
 #include <fstream> //File IO
 #include <ctime>
 #include <chrono>
+#include <stdlib.h> //srand
+#include <time.h> //time
 
 #include "logger.h"
 #include "gpio.h"

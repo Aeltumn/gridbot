@@ -5,7 +5,8 @@
 #define SECOND_PLAYER 'O'
 
 #define LOWER_HEIGHT 25
-#define ENTRY_LENGTH 20
+#define ENTRY_LENGTH 12
+#define ENTRY_WIDTH 6
 
 TicTacToe::TicTacToe(bool first_) {
 	FIRST = first_;
@@ -14,7 +15,7 @@ TicTacToe::TicTacToe(bool first_) {
 void TicTacToe::initialise() {
 	if(FIRST) Beta::handleAIMove(getSuggestion());
 }
-Board* TicTacToe::createBoard() { return new Board(3, 3, 3.25); }
+Board* TicTacToe::createBoard() { return new Board(3, 3, 2.5); }
 
 void TicTacToe::allow() { suggestion = -1; }
 void TicTacToe::calculate(Board *board) {
@@ -85,9 +86,10 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 			}
 		}
 
+		srand(time(NULL));
 		Entry max = Entry(-2, -200);
 		for (int i = 0; i < cdf.size(); i++)
-			if (cdf.at(i).value > max.value || (cdf.at(i).value == max.value && std::rand() & 1)) max = cdf.at(i);
+			if (cdf.at(i).value > max.value || (cdf.at(i).value == max.value && rand() & 1)) max = cdf.at(i);
 		if (depth == 0) return max.key;
 		else return max.value;
 	}
@@ -141,21 +143,20 @@ int TicTacToe::testLine(Board *board, const int &ret, int i, int j, int k) {
 void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	double SQUARE_HALF_LENGTH = board->getHalfSquareLength();
 	x->queue(ENTRY_LENGTH);
+	y->queue(ENTRY_WIDTH);
 
 	//Move to pickup stone.
-	x->queue(-3*SQUARE_HALF_LENGTH);
+	x->queue(-2*SQUARE_HALF_LENGTH);
 	z->queue(-LOWER_HEIGHT);
 	//Enable magnet
 	GPIO::set(10, true);
 	z->queue(LOWER_HEIGHT);
 
+	x->queue(2*SQUARE_HALF_LENGTH);
 	//Move to square
-	x->queue(SQUARE_HALF_LENGTH*4); //We're at x0.5, y0.5 or above square 0,0
-	// The tic tac toe board is on x2 y2
-	
-	int moveX = suggestion / 3, moveZ = suggestion % 3;
-	x->queue(SQUARE_HALF_LENGTH*(2*(moveZ+2)));
-	y->queue(SQUARE_HALF_LENGTH*(2*(moveX+2)));
+	int moveX = board->getXFromIndex(suggestion), moveY = board->getYFromIndex(suggestion);
+	x->queue(SQUARE_HALF_LENGTH*(2*moveX));
+	y->queue(SQUARE_HALF_LENGTH*(2*moveY));
 
 	//Place here
 	z->queue(-LOWER_HEIGHT);
@@ -163,10 +164,10 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	z->queue(LOWER_HEIGHT);
 
 	//Move back
-	x->queue(-SQUARE_HALF_LENGTH*(2 * (moveZ + 2)));
-	y->queue(-SQUARE_HALF_LENGTH*(2 * (moveX + 2)));
+	x->queue(-SQUARE_HALF_LENGTH*(2*moveX));
+	y->queue(-SQUARE_HALF_LENGTH*(2*moveY));
 
 	//Move back to base?
-	x->queue(-SQUARE_HALF_LENGTH);
+	y->queue(-ENTRY_WIDTH);
 	x->queue(-ENTRY_LENGTH);
 }
