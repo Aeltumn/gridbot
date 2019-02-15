@@ -28,6 +28,8 @@ public:
 struct QueuedAction {
 	long double centimeters;
 	Motor *m;
+	bool magnet;
 
-	QueuedAction(const long double &centi, Motor *m_) { centimeters = centi; m = m_; }
+	QueuedAction(const long double &centi, Motor *m_) { centimeters = centi; m = m_; magnet = false; }
+	QueuedAction(const bool &magnet_) { magnet = magnet_; centimeters = 0; }
 };

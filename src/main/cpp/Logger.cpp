@@ -119,10 +119,10 @@ bool Logger::handleCommand(const char* txt) {
 	} else if (command.compare("magnet") == 0) {
 		if (args.size() >= 2) {
 			if (args.at(1).compare("on") == 0) {
-				GPIO::set(10, true);
+				Biker::push(QueuedAction(true));
 				Logger::info("[LOGGER] Turned on magnet.");
 			} else {
-				GPIO::set(10, false);
+				Biker::push(QueuedAction(false));
 				Logger::info("[LOGGER] Turned off magnet.");
 			}
 		} else {

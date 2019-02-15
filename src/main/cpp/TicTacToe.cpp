@@ -150,6 +150,7 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	z->queue(-LOWER_HEIGHT);
 	//Enable magnet
 	GPIO::set(10, true);
+	Biker::push(QueuedAction(true));
 	z->queue(LOWER_HEIGHT);
 
 	x->queue(2*SQUARE_HALF_LENGTH);
@@ -160,7 +161,7 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 
 	//Place here
 	z->queue(-LOWER_HEIGHT);
-	GPIO::set(10, false);
+	Biker::push(QueuedAction(false));
 	z->queue(LOWER_HEIGHT);
 
 	//Move back

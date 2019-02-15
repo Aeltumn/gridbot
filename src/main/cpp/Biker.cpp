@@ -8,6 +8,17 @@ void Biker::setup() {
 		while (true) {
 			if (!actions.empty()) {
 				QueuedAction qa = actions.front();
+				if (qa.centimeters == 0) {
+					char buf[256];
+					buf[0] = 0;
+					strcat(buf, "[BIKER] Executing action, setting magnet to ");
+					strcat(buf, std::to_string(qa.magnet).c_str());
+					strcat(buf, "...");
+					Logger::info(buf);
+					GPIO::set(10, qa.magnet);
+					actions.pop();
+					continue;
+				}
 				char buf[256];
 				buf[0] = 0;
 				strcat(buf, "[BIKER] Executing action, moving ");
