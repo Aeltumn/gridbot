@@ -86,10 +86,19 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 			}
 		}
 
-		srand(time(NULL));
 		Entry max = Entry(-2, -200);
-		for (int i = 0; i < cdf.size(); i++)
-			if (cdf.at(i).value > max.value || (cdf.at(i).value == max.value && (rand() % 9) == 0)) max = cdf.at(i);
+		std::vector<Entry> possibles = std::vector<Entry>();
+		for (int i = 0; i < cdf.size(); i++) {
+			if (cdf.at(i).value > max.value) {
+				max = cdf.at(i);
+				possibles.clear();
+			}
+			if (cdf.at(i).value == max.value) possibles.push_back(cdf.at(i));
+		}
+		srand(time(NULL));
+		for (int j = 0; j < possibles.size(); j++) {
+			if (rand() % possibles.size() == 0) max = possibles.at(j);
+		}
 		if (depth == 0) return max.key;
 		else return max.value;
 	}
