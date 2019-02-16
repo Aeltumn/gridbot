@@ -15,7 +15,7 @@ int main() {
 		while (!Logger::isConnected()) {} //Block until logger has connected, only after the logger is connected can we read the Logger::info outputs so it's important to get this connected asap
 
 		// From here on we can use the logger.
-		Logger::info("Starting up Gridbot v1.0 #70");
+		Logger::info("Starting up Gridbot v1.0 #71");
 
 		// We start the action and gpio threads next
 		std::thread action(Beta::startup);
