@@ -29,7 +29,8 @@ struct QueuedAction {
 	long double centimeters;
 	Motor *m;
 	bool magnet;
+	bool isMagnet = false;
 
-	QueuedAction(const long double &centi, Motor *m_) { centimeters = centi; m = m_; magnet = false; }
-	QueuedAction(const bool &magnet_) { magnet = magnet_; centimeters = 0; }
+	QueuedAction(const long double &centi, Motor *m_) { centimeters = centi; m = m_; isMagnet = false; }
+	QueuedAction(const bool &magnet_) { magnet = magnet_; isMagnet = true; }
 };

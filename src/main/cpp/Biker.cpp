@@ -8,7 +8,7 @@ void Biker::setup() {
 		while (true) {
 			if (!actions.empty()) {
 				QueuedAction qa = actions.front();
-				if (qa.centimeters == 0) {
+				if (qa.isMagnet) {
 					using namespace std::literals::chrono_literals;
 					char buf[256];
 					buf[0] = 0;
@@ -38,7 +38,7 @@ void Biker::setup() {
 }
 
 void Biker::push(QueuedAction qa) { 
-	if (qa.centimeters == 0) {
+	if (qa.isMagnet) {
 		char buf[256];
 		buf[0] = 0;
 		strcat(buf, "[BIKER] Queueing action, setting magnet to ");

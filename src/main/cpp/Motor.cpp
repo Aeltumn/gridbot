@@ -11,7 +11,6 @@ void Motor::setmirror(Motor *mirr) { mirror = mirr; hasMirror = true; }
 //The Biker helps with movement commands to the same motor so they are done in series rather than in parallel.
 //(in parallel the gpio instructions would fail and the motor wouldn't work)
 void Motor::queue(const long double &centimeters) { Biker::push(QueuedAction(centimeters, this)); }
-
 void Motor::move(const long double &centimeters) { moveint(centimeters); }
 
 //moveint is move internal
