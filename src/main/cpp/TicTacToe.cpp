@@ -141,6 +141,8 @@ int TicTacToe::testLine(Board *board, const int &ret, int i, int j, int k) {
 //It is assumed we are hovering over the bottom left corner of the bottom left square, x0, y0 and at z100%, magnet off
 //It is also assumed that there is a disc or object for it to move at x-1, y0
 void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
+	if (executing) return;
+	else executing = true;
 	double SQUARE_HALF_LENGTH = board->getHalfSquareLength();
 	x->queue(ENTRY_LENGTH);
 	y->queue(ENTRY_WIDTH);
@@ -160,8 +162,6 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	y->queue(SQUARE_HALF_LENGTH*(2*moveY));
 
 	//Place here
-	using namespace std::literals::chrono_literals;
-	std::this_thread::sleep_for(1000ms);
 	Biker::push(QueuedAction(false));
 
 	//Move back
@@ -171,4 +171,5 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	//Move back to base?
 	y->queue(-ENTRY_WIDTH);
 	x->queue(-ENTRY_LENGTH);
+	executing = false;
 }

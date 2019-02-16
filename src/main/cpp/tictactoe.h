@@ -10,6 +10,7 @@ class TicTacToe : public Game {
 private:
 	bool FIRST;
 	int suggestion = -1; //1-9, -1 is undefined
+	bool executing = false;
 
 	void allow();
 	bool isTie(Board *board);
