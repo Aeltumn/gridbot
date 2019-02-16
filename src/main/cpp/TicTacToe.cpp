@@ -160,9 +160,7 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	y->queue(SQUARE_HALF_LENGTH*(2*moveY));
 
 	//Place here
-	z->queue(-LOWER_HEIGHT);
 	Biker::push(QueuedAction(false));
-	z->queue(LOWER_HEIGHT);
 
 	//Move back
 	x->queue(-SQUARE_HALF_LENGTH*(2*moveX));
