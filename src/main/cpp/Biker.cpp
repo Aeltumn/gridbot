@@ -37,4 +37,21 @@ void Biker::setup() {
 	}
 }
 
-void Biker::push(QueuedAction qa) { actions.push(qa); }
+void Biker::push(QueuedAction qa) { 
+	if (qa.centimeters == 0) {
+		char buf[256];
+		buf[0] = 0;
+		strcat(buf, "[BIKER] Queueing action, setting magnet to ");
+		strcat(buf, std::to_string(qa.magnet).c_str());
+		strcat(buf, "...");
+		Logger::info(buf);
+	} else {
+		char buf[256];
+		buf[0] = 0;
+		strcat(buf, "[BIKER] Queueing action, moving ");
+		strcat(buf, std::to_string(qa.centimeters).c_str());
+		strcat(buf, " centimetres...");
+		Logger::info(buf);
+	}
+	actions.push(qa);
+}
