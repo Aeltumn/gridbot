@@ -89,7 +89,7 @@ int TicTacToe::calculateBestMove(Board *board, int depth, bool ai) {
 		srand(time(NULL));
 		Entry max = Entry(-2, -200);
 		for (int i = 0; i < cdf.size(); i++)
-			if (cdf.at(i).value > max.value || (cdf.at(i).value == max.value && rand() & 1)) max = cdf.at(i);
+			if (cdf.at(i).value > max.value || (cdf.at(i).value == max.value && (rand() % 9) == 0)) max = cdf.at(i);
 		if (depth == 0) return max.key;
 		else return max.value;
 	}
