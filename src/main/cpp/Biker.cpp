@@ -17,8 +17,8 @@ void Biker::setup() {
 					strcat(buf, "...");
 					Logger::info(buf);
 					GPIO::set(10, qa.magnet);
-					std::this_thread::sleep_for(1000ms);
 					actions.pop();
+					std::this_thread::sleep_for(1000ms);
 					continue;
 				}
 				char buf[256];
