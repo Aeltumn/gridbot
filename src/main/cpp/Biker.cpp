@@ -9,6 +9,7 @@ void Biker::setup() {
 			if (!actions.empty()) {
 				QueuedAction qa = actions.front();
 				if (qa.centimeters == 0) {
+					using namespace std::literals::chrono_literals;
 					char buf[256];
 					buf[0] = 0;
 					strcat(buf, "[BIKER] Executing action, setting magnet to ");
@@ -16,6 +17,7 @@ void Biker::setup() {
 					strcat(buf, "...");
 					Logger::info(buf);
 					GPIO::set(10, qa.magnet);
+					std::this_thread::sleep_for(1000ms);
 					actions.pop();
 					continue;
 				}

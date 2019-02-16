@@ -4,7 +4,7 @@
 #define FIRST_PLAYER 'X'
 #define SECOND_PLAYER 'O'
 
-#define LOWER_HEIGHT 25
+#define LOWER_HEIGHT 20
 #define ENTRY_LENGTH 14.5
 #define ENTRY_WIDTH 7.5
 
@@ -15,7 +15,7 @@ TicTacToe::TicTacToe(bool first_) {
 void TicTacToe::initialise() {
 	if(FIRST) Beta::handleAIMove(getSuggestion());
 }
-Board* TicTacToe::createBoard() { return new Board(3, 3, 2.5); }
+Board* TicTacToe::createBoard() { return new Board(3, 3, 2.75); }
 
 void TicTacToe::allow() { suggestion = -1; }
 void TicTacToe::calculate(Board *board) {
