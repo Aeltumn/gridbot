@@ -6,6 +6,7 @@ bool Beta::isRunning;
 Motor* Beta::x;
 Motor* Beta::y;
 Motor* Beta::z;
+std::stack<int> Beta::history;
 
 void Beta::startup() {
 	try {
@@ -35,9 +36,20 @@ void Beta::execute() {
 void Beta::handleAIMove(const int &move) {
 	board->set(move, Figure::AI);
 }
+void Beta::rollback() {
+	if (game != 0) {
+		Logger::info("[BETA] Rolling back last move.");
+		int lastMove = history.top();
+		history.pop();
+		board->set(lastMove, Figure::EMPTY);
+		game->allow(); //Allow thinking about next step
+		handleAIMove(game->getSuggestion());
+	}
+}
 void Beta::handleMove(const int &move) {
 	if (game != 0) {
 		Logger::info("[BETA] Registered opponent move.");
+		history.push(move);
 		board->set(move, Figure::HUMAN);
 		game->allow(); //Allow thinking about next step
 		handleAIMove(game->getSuggestion());

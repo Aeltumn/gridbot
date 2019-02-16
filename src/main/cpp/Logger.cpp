@@ -175,10 +175,12 @@ bool Logger::handleCommand(const char* txt) {
 		Logger::amend("tictactoe int - Start boter kaas en eieren, int is 1 voor first, anders 0.");
 		Logger::amend("restart - Herstart gridbot.");
 		Logger::amend("victory - Eindig het huidige spel.");
+		Logger::amend("rollback - Oeps sorry verkeerde, neem je vorige move terug.");
 		Logger::newline();
 		Logger::info("[LOGGER] De volgende aliases bestaan:");
 		Logger::amend("m - testmotors");
 		Logger::amend("hm - handlemove");
+		Logger::amend("rb - rollback");
 	} else if (command.compare("restart") == 0) {
 		return true;
 	}

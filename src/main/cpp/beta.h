@@ -73,6 +73,7 @@ private:
 	static Motor* x;
 	static Motor* y;
 	static Motor* z;
+	static std::stack<int> history;
 
 public:
 	static void startup();
@@ -81,6 +82,7 @@ public:
 	static void setmotors(Motor *x_, Motor *y, Motor *z);
 	static Motor* getmotor(const int &c);
 	static void execute();
+	static void rollback();
 	static void handleMove(const int &move);
 	static void handleAIMove(const int &move);
 };
