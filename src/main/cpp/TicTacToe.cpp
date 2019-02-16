@@ -160,6 +160,8 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	y->queue(SQUARE_HALF_LENGTH*(2*moveY));
 
 	//Place here
+	using namespace std::literals::chrono_literals;
+	std::this_thread::sleep_for(1000ms);
 	Biker::push(QueuedAction(false));
 
 	//Move back
