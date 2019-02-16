@@ -114,6 +114,8 @@ bool Logger::handleCommand(const char* txt) {
 	std::string command = args.at(0);
 	if (command.compare("execute") == 0) { // Executes the next move.
 		Beta::execute();
+	} else if (command.compare("rollback") == 0 || command.compare("rb") == 0) { // Rolls back previous move.
+		Beta::rollback();
 	} else if (command.compare("victory") == 0) { // Ends the current game.
 		Beta::shutdown();
 	} else if (command.compare("magnet") == 0) {
