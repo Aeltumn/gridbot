@@ -151,8 +151,8 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	if (executing) return;
 	else executing = true;
 	double SQUARE_HALF_LENGTH = board->getHalfSquareLength();
-	x->queue(ENTRY_LENGTH + -2 * SQUARE_HALF_LENGTH);
-	y->queue(ENTRY_WIDTH);
+	//x->queue(ENTRY_LENGTH + -2 * SQUARE_HALF_LENGTH);
+	//y->queue(ENTRY_WIDTH);
 
 	//Move to pickup stone.
 	z->queue(-LOWER_HEIGHT);
@@ -170,7 +170,7 @@ void TicTacToe::execute(Motor *x, Motor *y, Motor *z, Board *board) {
 	Biker::push(QueuedAction(false));
 
 	//Move back
-	x->queue(-SQUARE_HALF_LENGTH*(2*moveX) + -ENTRY_LENGTH);
-	y->queue(-SQUARE_HALF_LENGTH*(2*moveY) + -ENTRY_WIDTH);
+	x->queue(-2*SQUARE_HALF_LENGTH + -SQUARE_HALF_LENGTH * (2 * moveX)); //+ -ENTRY_LENGTH);
+	y->queue(-SQUARE_HALF_LENGTH * (2 * moveY)); //+ -ENTRY_WIDTH);
 	executing = false;
 }
